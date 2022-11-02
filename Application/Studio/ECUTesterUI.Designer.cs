@@ -1,13 +1,13 @@
 ﻿namespace DJetronicStudio
 {
-    partial class MainForm
+    partial class ECUTesterUI
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,21 +20,14 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.CustomSettingsApplyBtn = new System.Windows.Forms.Button();
-            this.StatusStrip = new System.Windows.Forms.StatusStrip();
-            this.ConnectionStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.EngineNameLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.BufferStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.StaticPage = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -54,6 +47,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.CoolantTempInput = new System.Windows.Forms.TextBox();
+            this.CustomSettingsApplyBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ApplyPresetBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -100,41 +94,17 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.ChartPage = new System.Windows.Forms.TabPage();
+            this.Chart = new DJetronicStudio.DJetChart();
             this.DebugOutputPage = new System.Windows.Forms.TabPage();
             this.EngineTestBtn = new System.Windows.Forms.Button();
             this.OutputBox = new System.Windows.Forms.TextBox();
             this.DocumentationPage = new System.Windows.Forms.TabPage();
-            this.TesterInfoBox = new System.Windows.Forms.TextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hardwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startRecordingDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopRecordingDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.ConnectBtn = new System.Windows.Forms.ToolStripButton();
-            this.DisconnectBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.RecordBtn = new System.Windows.Forms.ToolStripButton();
-            this.StopBtn = new System.Windows.Forms.ToolStripButton();
-            this.ExportCSVBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.CopyInfoBtn = new System.Windows.Forms.Button();
+            this.Gallery = new DJetronicStudio.Gallery();
             this.TesterInfoBoxPanel = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.PressureValue = new System.Windows.Forms.Label();
-            this.ExportCSVDialog = new System.Windows.Forms.SaveFileDialog();
-            this.TesterUI = new DJetronicStudio.ECUTesterUI();
-            this.Chart = new DJetronicStudio.DJetChart();
-            this.Gallery = new DJetronicStudio.Gallery();
-            this.StatusStrip.SuspendLayout();
+            this.CopyInfoBtn = new System.Windows.Forms.Button();
+            this.TesterInfoBox = new System.Windows.Forms.TextBox();
             this.Tabs.SuspendLayout();
             this.StaticPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -145,74 +115,23 @@
             this.ChartPage.SuspendLayout();
             this.DebugOutputPage.SuspendLayout();
             this.DocumentationPage.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.TesterInfoBoxPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CustomSettingsApplyBtn
-            // 
-            this.CustomSettingsApplyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CustomSettingsApplyBtn.Location = new System.Drawing.Point(870, 76);
-            this.CustomSettingsApplyBtn.Name = "CustomSettingsApplyBtn";
-            this.CustomSettingsApplyBtn.Size = new System.Drawing.Size(75, 23);
-            this.CustomSettingsApplyBtn.TabIndex = 1;
-            this.CustomSettingsApplyBtn.Text = "Apply";
-            this.CustomSettingsApplyBtn.UseVisualStyleBackColor = true;
-            this.CustomSettingsApplyBtn.Click += new System.EventHandler(this.CustomSettingsApplyBtn_Click);
-            // 
-            // StatusStrip
-            // 
-            this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ConnectionStatus,
-            this.EngineNameLabel,
-            this.BufferStatus});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 633);
-            this.StatusStrip.Name = "StatusStrip";
-            this.StatusStrip.Size = new System.Drawing.Size(979, 29);
-            this.StatusStrip.TabIndex = 3;
-            this.StatusStrip.Text = "StatusStrip";
-            // 
-            // ConnectionStatus
-            // 
-            this.ConnectionStatus.Image = global::DJetronicStudio.Properties.Resources.tester_24;
-            this.ConnectionStatus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.ConnectionStatus.Name = "ConnectionStatus";
-            this.ConnectionStatus.Size = new System.Drawing.Size(125, 24);
-            this.ConnectionStatus.Text = "ConnectionStatus";
-            // 
-            // EngineNameLabel
-            // 
-            this.EngineNameLabel.Image = global::DJetronicStudio.Properties.Resources.car_24;
-            this.EngineNameLabel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.EngineNameLabel.Name = "EngineNameLabel";
-            this.EngineNameLabel.Size = new System.Drawing.Size(127, 24);
-            this.EngineNameLabel.Text = "EngineNameLabel";
-            // 
-            // BufferStatus
-            // 
-            this.BufferStatus.Image = global::DJetronicStudio.Properties.Resources.database_24;
-            this.BufferStatus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.BufferStatus.Name = "BufferStatus";
-            this.BufferStatus.Size = new System.Drawing.Size(95, 24);
-            this.BufferStatus.Text = "BufferStatus";
-            // 
             // Tabs
             // 
-            this.Tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.Tabs.Controls.Add(this.StaticPage);
             this.Tabs.Controls.Add(this.DynamicPage);
             this.Tabs.Controls.Add(this.AutomatedTestPage);
             this.Tabs.Controls.Add(this.ChartPage);
             this.Tabs.Controls.Add(this.DebugOutputPage);
             this.Tabs.Controls.Add(this.DocumentationPage);
-            this.Tabs.Location = new System.Drawing.Point(4, 368);
+            this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Tabs.Location = new System.Drawing.Point(0, 38);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
-            this.Tabs.Size = new System.Drawing.Size(975, 265);
-            this.Tabs.TabIndex = 2;
+            this.Tabs.Size = new System.Drawing.Size(906, 464);
+            this.Tabs.TabIndex = 3;
             // 
             // StaticPage
             // 
@@ -221,7 +140,7 @@
             this.StaticPage.Location = new System.Drawing.Point(4, 22);
             this.StaticPage.Name = "StaticPage";
             this.StaticPage.Padding = new System.Windows.Forms.Padding(3);
-            this.StaticPage.Size = new System.Drawing.Size(967, 239);
+            this.StaticPage.Size = new System.Drawing.Size(898, 438);
             this.StaticPage.TabIndex = 0;
             this.StaticPage.Text = "Static";
             this.StaticPage.UseVisualStyleBackColor = true;
@@ -249,7 +168,7 @@
             this.groupBox2.Controls.Add(this.CustomSettingsApplyBtn);
             this.groupBox2.Location = new System.Drawing.Point(8, 64);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(951, 105);
+            this.groupBox2.Size = new System.Drawing.Size(882, 105);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Customize";
@@ -389,6 +308,16 @@
             this.CoolantTempInput.Size = new System.Drawing.Size(100, 20);
             this.CoolantTempInput.TabIndex = 2;
             // 
+            // CustomSettingsApplyBtn
+            // 
+            this.CustomSettingsApplyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CustomSettingsApplyBtn.Location = new System.Drawing.Point(801, 76);
+            this.CustomSettingsApplyBtn.Name = "CustomSettingsApplyBtn";
+            this.CustomSettingsApplyBtn.Size = new System.Drawing.Size(75, 23);
+            this.CustomSettingsApplyBtn.TabIndex = 1;
+            this.CustomSettingsApplyBtn.Text = "Apply";
+            this.CustomSettingsApplyBtn.UseVisualStyleBackColor = true;
+            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -398,7 +327,7 @@
             this.groupBox1.Controls.Add(this.PresetSelector);
             this.groupBox1.Location = new System.Drawing.Point(8, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(951, 52);
+            this.groupBox1.Size = new System.Drawing.Size(882, 52);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Presets";
@@ -406,13 +335,12 @@
             // ApplyPresetBtn
             // 
             this.ApplyPresetBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ApplyPresetBtn.Location = new System.Drawing.Point(870, 17);
+            this.ApplyPresetBtn.Location = new System.Drawing.Point(801, 17);
             this.ApplyPresetBtn.Name = "ApplyPresetBtn";
             this.ApplyPresetBtn.Size = new System.Drawing.Size(75, 23);
             this.ApplyPresetBtn.TabIndex = 2;
             this.ApplyPresetBtn.Text = "Apply";
             this.ApplyPresetBtn.UseVisualStyleBackColor = true;
-            this.ApplyPresetBtn.Click += new System.EventHandler(this.ApplyPresetBtn_Click);
             // 
             // label1
             // 
@@ -425,6 +353,8 @@
             // 
             // PresetSelector
             // 
+            this.PresetSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PresetSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PresetSelector.FormattingEnabled = true;
             this.PresetSelector.Items.AddRange(new object[] {
@@ -440,7 +370,7 @@
             "Hard Acceleration"});
             this.PresetSelector.Location = new System.Drawing.Point(121, 19);
             this.PresetSelector.Name = "PresetSelector";
-            this.PresetSelector.Size = new System.Drawing.Size(749, 21);
+            this.PresetSelector.Size = new System.Drawing.Size(674, 21);
             this.PresetSelector.TabIndex = 0;
             // 
             // DynamicPage
@@ -449,7 +379,7 @@
             this.DynamicPage.Location = new System.Drawing.Point(4, 22);
             this.DynamicPage.Name = "DynamicPage";
             this.DynamicPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DynamicPage.Size = new System.Drawing.Size(967, 239);
+            this.DynamicPage.Size = new System.Drawing.Size(971, 506);
             this.DynamicPage.TabIndex = 1;
             this.DynamicPage.Text = "Dynamic";
             this.DynamicPage.UseVisualStyleBackColor = true;
@@ -496,7 +426,7 @@
             this.groupBox3.Controls.Add(this.EndCoolantTempLabel2);
             this.groupBox3.Location = new System.Drawing.Point(8, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(951, 184);
+            this.groupBox3.Size = new System.Drawing.Size(955, 184);
             this.groupBox3.TabIndex = 55;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Linear";
@@ -505,7 +435,7 @@
             // 
             this.DynamicProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DynamicProgressBar.Enabled = false;
-            this.DynamicProgressBar.Location = new System.Drawing.Point(722, 157);
+            this.DynamicProgressBar.Location = new System.Drawing.Point(726, 157);
             this.DynamicProgressBar.Name = "DynamicProgressBar";
             this.DynamicProgressBar.Size = new System.Drawing.Size(142, 19);
             this.DynamicProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -546,13 +476,12 @@
             // DynamicStartStopBtn
             // 
             this.DynamicStartStopBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DynamicStartStopBtn.Location = new System.Drawing.Point(870, 155);
+            this.DynamicStartStopBtn.Location = new System.Drawing.Point(874, 155);
             this.DynamicStartStopBtn.Name = "DynamicStartStopBtn";
             this.DynamicStartStopBtn.Size = new System.Drawing.Size(75, 23);
             this.DynamicStartStopBtn.TabIndex = 26;
             this.DynamicStartStopBtn.Text = "Start";
             this.DynamicStartStopBtn.UseVisualStyleBackColor = true;
-            this.DynamicStartStopBtn.Click += new System.EventHandler(this.DynamicStartStopBtn_Click);
             // 
             // StartStarterInput
             // 
@@ -665,7 +594,6 @@
             this.StarterEnable.TabIndex = 48;
             this.StarterEnable.Text = "Starter Motor";
             this.StarterEnable.UseVisualStyleBackColor = true;
-            this.StarterEnable.CheckedChanged += new System.EventHandler(this.StarterEnable_CheckedChanged);
             // 
             // StartSpeedInput
             // 
@@ -692,7 +620,6 @@
             this.SpeedEnable.TabIndex = 26;
             this.SpeedEnable.Text = "Engine Speed";
             this.SpeedEnable.UseVisualStyleBackColor = true;
-            this.SpeedEnable.CheckedChanged += new System.EventHandler(this.SpeedEnable_CheckedChanged);
             // 
             // EndAirTempLabel1
             // 
@@ -746,7 +673,6 @@
             this.CoolantTempEnable.TabIndex = 40;
             this.CoolantTempEnable.Text = "Coolant Temperature";
             this.CoolantTempEnable.UseVisualStyleBackColor = true;
-            this.CoolantTempEnable.CheckedChanged += new System.EventHandler(this.CoolantTempEnable_CheckedChanged);
             // 
             // StartAirTempInput
             // 
@@ -771,7 +697,6 @@
             this.AirTempEnable.TabIndex = 33;
             this.AirTempEnable.Text = "Air Temperature";
             this.AirTempEnable.UseVisualStyleBackColor = true;
-            this.AirTempEnable.CheckedChanged += new System.EventHandler(this.AirTempEnable_CheckedChanged);
             // 
             // StartCoolantTempLabel1
             // 
@@ -823,7 +748,7 @@
             this.AutomatedTestPage.Location = new System.Drawing.Point(4, 22);
             this.AutomatedTestPage.Name = "AutomatedTestPage";
             this.AutomatedTestPage.Padding = new System.Windows.Forms.Padding(3);
-            this.AutomatedTestPage.Size = new System.Drawing.Size(967, 239);
+            this.AutomatedTestPage.Size = new System.Drawing.Size(971, 506);
             this.AutomatedTestPage.TabIndex = 2;
             this.AutomatedTestPage.Text = "Automated Testing";
             this.AutomatedTestPage.UseVisualStyleBackColor = true;
@@ -853,10 +778,19 @@
             this.ChartPage.Location = new System.Drawing.Point(4, 22);
             this.ChartPage.Name = "ChartPage";
             this.ChartPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ChartPage.Size = new System.Drawing.Size(967, 239);
+            this.ChartPage.Size = new System.Drawing.Size(971, 506);
             this.ChartPage.TabIndex = 5;
             this.ChartPage.Text = "Charting";
             this.ChartPage.UseVisualStyleBackColor = true;
+            // 
+            // Chart
+            // 
+            this.Chart.Buffer = null;
+            this.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Chart.Location = new System.Drawing.Point(3, 3);
+            this.Chart.Name = "Chart";
+            this.Chart.Size = new System.Drawing.Size(965, 500);
+            this.Chart.TabIndex = 0;
             // 
             // DebugOutputPage
             // 
@@ -865,7 +799,7 @@
             this.DebugOutputPage.Location = new System.Drawing.Point(4, 22);
             this.DebugOutputPage.Name = "DebugOutputPage";
             this.DebugOutputPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DebugOutputPage.Size = new System.Drawing.Size(967, 239);
+            this.DebugOutputPage.Size = new System.Drawing.Size(971, 506);
             this.DebugOutputPage.TabIndex = 3;
             this.DebugOutputPage.Text = "Tester Debug Output";
             this.DebugOutputPage.UseVisualStyleBackColor = true;
@@ -873,13 +807,12 @@
             // EngineTestBtn
             // 
             this.EngineTestBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.EngineTestBtn.Location = new System.Drawing.Point(8, 210);
+            this.EngineTestBtn.Location = new System.Drawing.Point(8, 477);
             this.EngineTestBtn.Name = "EngineTestBtn";
             this.EngineTestBtn.Size = new System.Drawing.Size(75, 23);
             this.EngineTestBtn.TabIndex = 1;
             this.EngineTestBtn.Text = "Debug Test";
             this.EngineTestBtn.UseVisualStyleBackColor = true;
-            this.EngineTestBtn.Click += new System.EventHandler(this.EngineTestBtn_Click);
             // 
             // OutputBox
             // 
@@ -890,7 +823,7 @@
             this.OutputBox.Multiline = true;
             this.OutputBox.Name = "OutputBox";
             this.OutputBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.OutputBox.Size = new System.Drawing.Size(961, 201);
+            this.OutputBox.Size = new System.Drawing.Size(965, 468);
             this.OutputBox.TabIndex = 0;
             // 
             // DocumentationPage
@@ -899,10 +832,65 @@
             this.DocumentationPage.Location = new System.Drawing.Point(4, 22);
             this.DocumentationPage.Name = "DocumentationPage";
             this.DocumentationPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DocumentationPage.Size = new System.Drawing.Size(967, 239);
+            this.DocumentationPage.Size = new System.Drawing.Size(971, 506);
             this.DocumentationPage.TabIndex = 4;
             this.DocumentationPage.Text = "Documentation";
             this.DocumentationPage.UseVisualStyleBackColor = true;
+            // 
+            // Gallery
+            // 
+            this.Gallery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Gallery.Location = new System.Drawing.Point(3, 3);
+            this.Gallery.Name = "Gallery";
+            this.Gallery.Size = new System.Drawing.Size(965, 500);
+            this.Gallery.TabIndex = 0;
+            // 
+            // TesterInfoBoxPanel
+            // 
+            this.TesterInfoBoxPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(81)))), ((int)(((byte)(0)))));
+            this.TesterInfoBoxPanel.Controls.Add(this.label13);
+            this.TesterInfoBoxPanel.Controls.Add(this.PressureValue);
+            this.TesterInfoBoxPanel.Controls.Add(this.CopyInfoBtn);
+            this.TesterInfoBoxPanel.Controls.Add(this.TesterInfoBox);
+            this.TesterInfoBoxPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TesterInfoBoxPanel.Location = new System.Drawing.Point(0, 0);
+            this.TesterInfoBoxPanel.Name = "TesterInfoBoxPanel";
+            this.TesterInfoBoxPanel.Padding = new System.Windows.Forms.Padding(5);
+            this.TesterInfoBoxPanel.Size = new System.Drawing.Size(906, 38);
+            this.TesterInfoBoxPanel.TabIndex = 10;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(873, 19);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(29, 13);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "inHg";
+            // 
+            // PressureValue
+            // 
+            this.PressureValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PressureValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PressureValue.ForeColor = System.Drawing.Color.White;
+            this.PressureValue.Location = new System.Drawing.Point(825, 2);
+            this.PressureValue.Name = "PressureValue";
+            this.PressureValue.Size = new System.Drawing.Size(54, 29);
+            this.PressureValue.TabIndex = 9;
+            this.PressureValue.Text = "15";
+            this.PressureValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // CopyInfoBtn
+            // 
+            this.CopyInfoBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CopyInfoBtn.Image = global::DJetronicStudio.Properties.Resources.clipboard_24;
+            this.CopyInfoBtn.Location = new System.Drawing.Point(794, 5);
+            this.CopyInfoBtn.Name = "CopyInfoBtn";
+            this.CopyInfoBtn.Size = new System.Drawing.Size(30, 30);
+            this.CopyInfoBtn.TabIndex = 8;
+            this.CopyInfoBtn.UseVisualStyleBackColor = true;
             // 
             // TesterInfoBox
             // 
@@ -916,289 +904,18 @@
             this.TesterInfoBox.Multiline = true;
             this.TesterInfoBox.Name = "TesterInfoBox";
             this.TesterInfoBox.ReadOnly = true;
-            this.TesterInfoBox.Size = new System.Drawing.Size(965, 28);
+            this.TesterInfoBox.Size = new System.Drawing.Size(896, 28);
             this.TesterInfoBox.TabIndex = 5;
             this.TesterInfoBox.Text = "This is a test\r\nLine 2";
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.hardwareToolStripMenuItem,
-            this.optionsToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(979, 24);
-            this.menuStrip1.TabIndex = 6;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportCSVToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "&File";
-            // 
-            // exportCSVToolStripMenuItem
-            // 
-            this.exportCSVToolStripMenuItem.Image = global::DJetronicStudio.Properties.Resources.csv_24;
-            this.exportCSVToolStripMenuItem.Name = "exportCSVToolStripMenuItem";
-            this.exportCSVToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.exportCSVToolStripMenuItem.Text = "&Export CSV...";
-            this.exportCSVToolStripMenuItem.Click += new System.EventHandler(this.exportCSVToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(138, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // hardwareToolStripMenuItem
-            // 
-            this.hardwareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.connectToolStripMenuItem,
-            this.disconnectToolStripMenuItem});
-            this.hardwareToolStripMenuItem.Name = "hardwareToolStripMenuItem";
-            this.hardwareToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.hardwareToolStripMenuItem.Text = "&System";
-            // 
-            // connectToolStripMenuItem
-            // 
-            this.connectToolStripMenuItem.Image = global::DJetronicStudio.Properties.Resources.connect;
-            this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.connectToolStripMenuItem.Text = "&Connect";
-            this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
-            // 
-            // disconnectToolStripMenuItem
-            // 
-            this.disconnectToolStripMenuItem.Image = global::DJetronicStudio.Properties.Resources.disconnect;
-            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.disconnectToolStripMenuItem.Text = "&Disconnect";
-            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startRecordingDataToolStripMenuItem,
-            this.stopRecordingDataToolStripMenuItem});
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.optionsToolStripMenuItem.Text = "&Options";
-            // 
-            // startRecordingDataToolStripMenuItem
-            // 
-            this.startRecordingDataToolStripMenuItem.Image = global::DJetronicStudio.Properties.Resources.record;
-            this.startRecordingDataToolStripMenuItem.Name = "startRecordingDataToolStripMenuItem";
-            this.startRecordingDataToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.startRecordingDataToolStripMenuItem.Text = "Start &Recording Data";
-            this.startRecordingDataToolStripMenuItem.Click += new System.EventHandler(this.startRecordingDataToolStripMenuItem_Click);
-            // 
-            // stopRecordingDataToolStripMenuItem
-            // 
-            this.stopRecordingDataToolStripMenuItem.Image = global::DJetronicStudio.Properties.Resources.stop;
-            this.stopRecordingDataToolStripMenuItem.Name = "stopRecordingDataToolStripMenuItem";
-            this.stopRecordingDataToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.stopRecordingDataToolStripMenuItem.Text = "&Stop Recording Data";
-            this.stopRecordingDataToolStripMenuItem.Click += new System.EventHandler(this.stopRecordingDataToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "&Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.aboutToolStripMenuItem.Text = "&About...";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ConnectBtn,
-            this.DisconnectBtn,
-            this.toolStripSeparator1,
-            this.RecordBtn,
-            this.StopBtn,
-            this.ExportCSVBtn});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(979, 39);
-            this.toolStrip1.TabIndex = 7;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // ConnectBtn
-            // 
-            this.ConnectBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ConnectBtn.Image = global::DJetronicStudio.Properties.Resources.connect;
-            this.ConnectBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ConnectBtn.Name = "ConnectBtn";
-            this.ConnectBtn.Size = new System.Drawing.Size(36, 36);
-            this.ConnectBtn.Text = "Connect to tester or simulator";
-            this.ConnectBtn.Click += new System.EventHandler(this.ConnectBtn_Click);
-            // 
-            // DisconnectBtn
-            // 
-            this.DisconnectBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DisconnectBtn.Image = global::DJetronicStudio.Properties.Resources.disconnect;
-            this.DisconnectBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DisconnectBtn.Name = "DisconnectBtn";
-            this.DisconnectBtn.Size = new System.Drawing.Size(36, 36);
-            this.DisconnectBtn.Text = "Disconnect from tester or simulator";
-            this.DisconnectBtn.Click += new System.EventHandler(this.DisconnectBtn_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
-            // 
-            // RecordBtn
-            // 
-            this.RecordBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.RecordBtn.Image = global::DJetronicStudio.Properties.Resources.record;
-            this.RecordBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.RecordBtn.Name = "RecordBtn";
-            this.RecordBtn.Size = new System.Drawing.Size(36, 36);
-            this.RecordBtn.Text = "Start recording data";
-            this.RecordBtn.Click += new System.EventHandler(this.RecordBtn_Click);
-            // 
-            // StopBtn
-            // 
-            this.StopBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.StopBtn.Image = global::DJetronicStudio.Properties.Resources.stop;
-            this.StopBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.StopBtn.Name = "StopBtn";
-            this.StopBtn.Size = new System.Drawing.Size(36, 36);
-            this.StopBtn.Text = "Stop recording data";
-            this.StopBtn.Click += new System.EventHandler(this.StopBtn_Click);
-            // 
-            // ExportCSVBtn
-            // 
-            this.ExportCSVBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ExportCSVBtn.Image = global::DJetronicStudio.Properties.Resources.csv_32;
-            this.ExportCSVBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ExportCSVBtn.Name = "ExportCSVBtn";
-            this.ExportCSVBtn.Size = new System.Drawing.Size(36, 36);
-            this.ExportCSVBtn.Text = "Export capture data as a CSV file";
-            this.ExportCSVBtn.Click += new System.EventHandler(this.ExportCSVBtn_Click);
-            // 
-            // CopyInfoBtn
-            // 
-            this.CopyInfoBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CopyInfoBtn.Image = global::DJetronicStudio.Properties.Resources.clipboard_24;
-            this.CopyInfoBtn.Location = new System.Drawing.Point(863, 5);
-            this.CopyInfoBtn.Name = "CopyInfoBtn";
-            this.CopyInfoBtn.Size = new System.Drawing.Size(30, 30);
-            this.CopyInfoBtn.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.CopyInfoBtn, "Copy to clipboard");
-            this.CopyInfoBtn.UseVisualStyleBackColor = true;
-            this.CopyInfoBtn.Click += new System.EventHandler(this.CopyInfoBtn_Click);
-            // 
-            // TesterInfoBoxPanel
-            // 
-            this.TesterInfoBoxPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TesterInfoBoxPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(81)))), ((int)(((byte)(0)))));
-            this.TesterInfoBoxPanel.Controls.Add(this.label13);
-            this.TesterInfoBoxPanel.Controls.Add(this.PressureValue);
-            this.TesterInfoBoxPanel.Controls.Add(this.CopyInfoBtn);
-            this.TesterInfoBoxPanel.Controls.Add(this.TesterInfoBox);
-            this.TesterInfoBoxPanel.Location = new System.Drawing.Point(4, 324);
-            this.TesterInfoBoxPanel.Name = "TesterInfoBoxPanel";
-            this.TesterInfoBoxPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.TesterInfoBoxPanel.Size = new System.Drawing.Size(975, 38);
-            this.TesterInfoBoxPanel.TabIndex = 9;
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(942, 19);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(29, 13);
-            this.label13.TabIndex = 10;
-            this.label13.Text = "inHg";
-            // 
-            // PressureValue
-            // 
-            this.PressureValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PressureValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PressureValue.ForeColor = System.Drawing.Color.White;
-            this.PressureValue.Location = new System.Drawing.Point(894, 2);
-            this.PressureValue.Name = "PressureValue";
-            this.PressureValue.Size = new System.Drawing.Size(54, 29);
-            this.PressureValue.TabIndex = 9;
-            this.PressureValue.Text = "15";
-            this.PressureValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // ExportCSVDialog
-            // 
-            this.ExportCSVDialog.DefaultExt = "csv";
-            this.ExportCSVDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
-            this.ExportCSVDialog.Title = "Export Data to CSV";
-            // 
-            // TesterUI
-            // 
-            this.TesterUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TesterUI.Location = new System.Drawing.Point(4, 66);
-            this.TesterUI.Name = "TesterUI";
-            this.TesterUI.Size = new System.Drawing.Size(970, 252);
-            this.TesterUI.TabIndex = 10;
-            // 
-            // Chart
-            // 
-            this.Chart.Buffer = null;
-            this.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Chart.Location = new System.Drawing.Point(3, 3);
-            this.Chart.Name = "Chart";
-            this.Chart.Size = new System.Drawing.Size(961, 233);
-            this.Chart.TabIndex = 0;
-            // 
-            // Gallery
-            // 
-            this.Gallery.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Gallery.Location = new System.Drawing.Point(3, 3);
-            this.Gallery.Name = "Gallery";
-            this.Gallery.Size = new System.Drawing.Size(961, 233);
-            this.Gallery.TabIndex = 0;
-            // 
-            // MainForm
+            // ECUTesterUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(979, 662);
-            this.Controls.Add(this.TesterUI);
             this.Controls.Add(this.Tabs);
             this.Controls.Add(this.TesterInfoBoxPanel);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.StatusStrip);
-            this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainForm";
-            this.Text = "D-Jetronic Studio";
-            this.StatusStrip.ResumeLayout(false);
-            this.StatusStrip.PerformLayout();
+            this.Name = "ECUTesterUI";
+            this.Size = new System.Drawing.Size(906, 502);
             this.Tabs.ResumeLayout(false);
             this.StaticPage.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -1213,122 +930,90 @@
             this.DebugOutputPage.ResumeLayout(false);
             this.DebugOutputPage.PerformLayout();
             this.DocumentationPage.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.TesterInfoBoxPanel.ResumeLayout(false);
             this.TesterInfoBoxPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button CustomSettingsApplyBtn;
-        private System.Windows.Forms.StatusStrip StatusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel ConnectionStatus;
-        private System.Windows.Forms.TextBox OutputBox;
-        private System.Windows.Forms.TextBox TesterInfoBox;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton ConnectBtn;
-        private System.Windows.Forms.ToolStripButton DisconnectBtn;
+
         private System.Windows.Forms.TabControl Tabs;
         private System.Windows.Forms.TabPage StaticPage;
-        private System.Windows.Forms.TabPage DynamicPage;
-        private System.Windows.Forms.Button CopyInfoBtn;
-        private System.Windows.Forms.TabPage AutomatedTestPage;
-        private System.Windows.Forms.ToolStripMenuItem hardwareToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton RecordBtn;
-        private System.Windows.Forms.ToolStripButton StopBtn;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startRecordingDataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopRecordingDataToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TabPage DebugOutputPage;
-        private System.Windows.Forms.Panel TesterInfoBoxPanel;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button ApplyPresetBtn;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox PresetSelector;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox CoolantTempInput;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox AirTempInput;
+        private System.Windows.Forms.CheckBox StarterMotorInput;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox EngineSpeedInput;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox DwellAngleInput;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox ThrottlePositionInput;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox EngineSpeedInput;
-        private System.Windows.Forms.Button EngineTestBtn;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label PressureValue;
-        private System.Windows.Forms.TabPage DocumentationPage;
-        private System.Windows.Forms.CheckBox StarterMotorInput;
-        private System.Windows.Forms.TabPage ChartPage;
-        private Gallery Gallery;
-        private System.Windows.Forms.Button DynamicStartStopBtn;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox DynamicTimePeriod;
-        private System.Windows.Forms.Label EndSpeedLabel2;
-        private System.Windows.Forms.Label EndSpeedLabel1;
-        private System.Windows.Forms.TextBox EndSpeedInput;
-        private System.Windows.Forms.Label StartSpeedLabel2;
-        private System.Windows.Forms.Label StartSpeedLabel1;
-        private System.Windows.Forms.TextBox StartSpeedInput;
-        private System.Windows.Forms.CheckBox SpeedEnable;
-        private System.Windows.Forms.CheckBox CoolantTempEnable;
-        private System.Windows.Forms.TextBox StartCoolantTempInput;
-        private System.Windows.Forms.Label StartCoolantTempLabel1;
-        private System.Windows.Forms.Label StartCoolantTempLabel2;
-        private System.Windows.Forms.Label EndCoolantTempLabel2;
-        private System.Windows.Forms.TextBox EndCoolantTempInput;
-        private System.Windows.Forms.Label EndCoolantTempLabel1;
-        private System.Windows.Forms.CheckBox AirTempEnable;
-        private System.Windows.Forms.TextBox StartAirTempInput;
-        private System.Windows.Forms.Label StartAirTempLabel1;
-        private System.Windows.Forms.Label StartAirTempLabel2;
-        private System.Windows.Forms.Label EndAirTempLabel2;
-        private System.Windows.Forms.TextBox EndAirTempInput;
-        private System.Windows.Forms.Label EndAirTempLabel1;
-        private System.Windows.Forms.TextBox StartStarterInput;
-        private System.Windows.Forms.Label StartStarterLabel1;
-        private System.Windows.Forms.Label StartStarterLabel2;
-        private System.Windows.Forms.Label EndStarterLabel2;
-        private System.Windows.Forms.TextBox EndStarterInput;
-        private System.Windows.Forms.Label EndStarterLabel1;
-        private System.Windows.Forms.CheckBox StarterEnable;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox AirTempInput;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox CoolantTempInput;
+        private System.Windows.Forms.Button CustomSettingsApplyBtn;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button ApplyPresetBtn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox PresetSelector;
+        private System.Windows.Forms.TabPage DynamicPage;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ProgressBar DynamicProgressBar;
         private System.Windows.Forms.TextBox DynamicResolutionInput;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ToolStripStatusLabel EngineNameLabel;
-        private System.Windows.Forms.ProgressBar DynamicProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel BufferStatus;
-        private System.Windows.Forms.ToolStripMenuItem exportCSVToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.SaveFileDialog ExportCSVDialog;
+        private System.Windows.Forms.TextBox DynamicTimePeriod;
+        private System.Windows.Forms.Button DynamicStartStopBtn;
+        private System.Windows.Forms.TextBox StartStarterInput;
+        private System.Windows.Forms.Label EndSpeedLabel1;
+        private System.Windows.Forms.Label StartStarterLabel1;
+        private System.Windows.Forms.TextBox EndSpeedInput;
+        private System.Windows.Forms.Label StartStarterLabel2;
+        private System.Windows.Forms.Label EndSpeedLabel2;
+        private System.Windows.Forms.Label EndStarterLabel2;
+        private System.Windows.Forms.Label StartSpeedLabel2;
+        private System.Windows.Forms.TextBox EndStarterInput;
+        private System.Windows.Forms.Label StartSpeedLabel1;
+        private System.Windows.Forms.Label EndStarterLabel1;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.CheckBox StarterEnable;
+        private System.Windows.Forms.TextBox StartSpeedInput;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox SpeedEnable;
+        private System.Windows.Forms.Label EndAirTempLabel1;
+        private System.Windows.Forms.TextBox EndAirTempInput;
+        private System.Windows.Forms.Label EndAirTempLabel2;
+        private System.Windows.Forms.Label StartAirTempLabel2;
+        private System.Windows.Forms.Label StartAirTempLabel1;
+        private System.Windows.Forms.CheckBox CoolantTempEnable;
+        private System.Windows.Forms.TextBox StartAirTempInput;
+        private System.Windows.Forms.TextBox StartCoolantTempInput;
+        private System.Windows.Forms.CheckBox AirTempEnable;
+        private System.Windows.Forms.Label StartCoolantTempLabel1;
+        private System.Windows.Forms.Label EndCoolantTempLabel1;
+        private System.Windows.Forms.Label StartCoolantTempLabel2;
+        private System.Windows.Forms.TextBox EndCoolantTempInput;
+        private System.Windows.Forms.Label EndCoolantTempLabel2;
+        private System.Windows.Forms.TabPage AutomatedTestPage;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage ChartPage;
         private DJetChart Chart;
-        private System.Windows.Forms.ToolStripButton ExportCSVBtn;
-        private ECUTesterUI TesterUI;
+        private System.Windows.Forms.TabPage DebugOutputPage;
+        private System.Windows.Forms.Button EngineTestBtn;
+        private System.Windows.Forms.TextBox OutputBox;
+        private System.Windows.Forms.TabPage DocumentationPage;
+        private Gallery Gallery;
+        private System.Windows.Forms.Panel TesterInfoBoxPanel;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label PressureValue;
+        private System.Windows.Forms.Button CopyInfoBtn;
+        private System.Windows.Forms.TextBox TesterInfoBox;
     }
 }
-

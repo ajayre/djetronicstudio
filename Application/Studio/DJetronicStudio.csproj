@@ -132,6 +132,12 @@
     </Compile>
     <Compile Include="DynamicSettings.cs" />
     <Compile Include="ECUTester.cs" />
+    <Compile Include="ECUTesterUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ECUTesterUI.Designer.cs">
+      <DependentUpon>ECUTesterUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gallery.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -167,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DJetChart.resx">
       <DependentUpon>DJetChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ECUTesterUI.resx">
+      <DependentUpon>ECUTesterUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Gallery.resx">
       <DependentUpon>Gallery.cs</DependentUpon>
