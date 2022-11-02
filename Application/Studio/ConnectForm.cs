@@ -14,13 +14,14 @@ namespace DJetronicStudio
     {
         public bool UseTester = false;
         public bool UseSimulation = false;
+        public bool UseTuneOMatic = false;
 
         public ConnectForm()
         {
             InitializeComponent();
 
-            SimulationBtn.Enabled = false;
-            SimulationBtn.BackColor = Color.Gray;
+            //SimulationBtn.Enabled = false;
+            //SimulationBtn.BackColor = Color.Gray;
         }
 
         private void TesterBtn_Click(object sender, EventArgs e)
@@ -34,6 +35,13 @@ namespace DJetronicStudio
         {
             DialogResult = DialogResult.OK;
             UseSimulation = true;
+            Close();
+        }
+
+        private void TuneOMaticBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            UseTuneOMatic = true;
             Close();
         }
     }

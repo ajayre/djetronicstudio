@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.CustomSettingsApplyBtn = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.ConnectionStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.EngineNameLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.BufferStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -133,7 +133,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.PressureValue = new System.Windows.Forms.Label();
             this.ExportCSVDialog = new System.Windows.Forms.SaveFileDialog();
-            this.statusStrip1.SuspendLayout();
+            this.StatusStrip.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.StaticPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -160,17 +160,17 @@
             this.CustomSettingsApplyBtn.UseVisualStyleBackColor = true;
             this.CustomSettingsApplyBtn.Click += new System.EventHandler(this.CustomSettingsApplyBtn_Click);
             // 
-            // statusStrip1
+            // StatusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ConnectionStatus,
             this.EngineNameLabel,
             this.BufferStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 633);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(979, 29);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "StatusStrip";
+            this.StatusStrip.Location = new System.Drawing.Point(0, 633);
+            this.StatusStrip.Name = "StatusStrip";
+            this.StatusStrip.Size = new System.Drawing.Size(979, 29);
+            this.StatusStrip.TabIndex = 3;
+            this.StatusStrip.Text = "StatusStrip";
             // 
             // ConnectionStatus
             // 
@@ -1177,14 +1177,14 @@
             this.Controls.Add(this.Tabs);
             this.Controls.Add(this.TesterInfoBoxPanel);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "D-Jetronic Studio";
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.StatusStrip.ResumeLayout(false);
+            this.StatusStrip.PerformLayout();
             this.Tabs.ResumeLayout(false);
             this.StaticPage.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -1212,7 +1212,7 @@
 
         #endregion
         private System.Windows.Forms.Button CustomSettingsApplyBtn;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip StatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel ConnectionStatus;
         private System.Windows.Forms.TextBox OutputBox;
         private System.Windows.Forms.TextBox TesterInfoBox;

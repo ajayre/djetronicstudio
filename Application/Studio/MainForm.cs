@@ -18,6 +18,7 @@ namespace DJetronicStudio
 
         private ECUTester Tester = new ECUTester();
         private Simulator Sim = new Simulator();
+        private TuneOMatic Tuner = new TuneOMatic();
 
         private DataBuffer Buffer = new DataBuffer();
 
@@ -30,7 +31,7 @@ namespace DJetronicStudio
         {
             get
             {
-                if (Tester.IsConnected || Sim.IsConnected)
+                if (Tester.IsConnected || Sim.IsConnected || Tuner.IsConnected)
                     return true;
                 else
                     return false;
@@ -52,11 +53,15 @@ namespace DJetronicStudio
             Sim.OnConnected += Sim_OnConnected;
             Sim.OnDisconnected += Sim_OnDisconnected;
 
+            Tuner.OnConnected += Tuner_OnConnected;
+            Tuner.OnDisconnected += Tuner_OnDisconnected;
+
             ConnectionStatus.Text = "";
             ConnectionStatus.Visible = false;
             TesterInfoBox.Text = "";
             EngineNameLabel.Text = "";
             EngineNameLabel.Visible = false;
+            BufferStatus.Visible = false;
 
 #if DEBUG
             Gallery.ImageFolder = Path.GetDirectoryName(Application.ExecutablePath) + @"\..\..\Documentation";
@@ -252,6 +257,7 @@ namespace DJetronicStudio
             ConnectionStatus.Visible = false;
             EngineNameLabel.Text = "";
             EngineNameLabel.Visible = false;
+            BufferStatus.Visible = false;
             UpdateUI();
         }
 
@@ -266,6 +272,7 @@ namespace DJetronicStudio
             ConnectionStatus.Text = string.Format("Connected to ECU tester V{0}.{1} on {2}", MajorVersion, MinorVersion, PortName);
             ConnectionStatus.Image = Properties.Resources.tester_24;
             ConnectionStatus.Visible = true;
+            BufferStatus.Visible = true;
             Tester.UsePreset_EngineOff();
             PresetSelector.SelectedIndex = PresetSelector.Items.IndexOf("Engine Off");
             UpdateUI();
@@ -281,6 +288,7 @@ namespace DJetronicStudio
             ConnectionStatus.Visible = false;
             EngineNameLabel.Text = "";
             EngineNameLabel.Visible = false;
+            BufferStatus.Visible = false;
             UpdateUI();
         }
 
@@ -290,9 +298,37 @@ namespace DJetronicStudio
         /// <param name="sender">Simulation object</param>
         private void Sim_OnConnected(object sender)
         {
-            ConnectionStatus.Text = string.Format("Connected to simulator");
+            ConnectionStatus.Text = string.Format("Connected to ECU simulator");
             ConnectionStatus.Image = Properties.Resources.simulation_24;
             ConnectionStatus.Visible = true;
+            BufferStatus.Visible = false;
+            UpdateUI();
+        }
+
+        /// <summary>
+        /// Called when tuneomatic is disconnected
+        /// </summary>
+        /// <param name="sender"></param>
+        private void Tuner_OnDisconnected(object sender)
+        {
+            ConnectionStatus.Text = "";
+            ConnectionStatus.Visible = false;
+            EngineNameLabel.Text = "";
+            EngineNameLabel.Visible = false;
+            BufferStatus.Visible = false;
+            UpdateUI();
+        }
+
+        /// <summary>
+        /// Called when tuneomatic is connected
+        /// </summary>
+        /// <param name="sender"></param>
+        private void Tuner_OnConnected(object sender)
+        {
+            ConnectionStatus.Text = string.Format("Connected to MPS Tune-o-Matic");
+            ConnectionStatus.Image = Properties.Resources.tuneomatic_24;
+            ConnectionStatus.Visible = true;
+            BufferStatus.Visible = false;
             UpdateUI();
         }
 
@@ -331,6 +367,10 @@ namespace DJetronicStudio
                     {
                         Sim.Connect();
                     }
+                    else if (CForm.UseTuneOMatic == true)
+                    {
+                        Tuner.Connect();
+                    }
                 }
                 catch (Exception Exc)
                 {
@@ -348,6 +388,7 @@ namespace DJetronicStudio
         {
             Tester.Disconnect();
             Sim.Disconnect();
+            Tuner.Disconnect();
             TesterInfoBox.Text = "";
             Recording = false;
             UpdateUI();
@@ -395,15 +436,35 @@ namespace DJetronicStudio
                 if (Tester.IsConnected)
                 {
                     TesterInfoBoxPanel.BackColor = TesterInfoBox.BackColor = Orange;
+                    StatusStrip.BackColor = Orange;
+                    ConnectionStatus.ForeColor = Color.Black;
+                    EngineNameLabel.ForeColor = Color.Black;
+                    BufferStatus.ForeColor = Color.Black;
                 }
                 else if (Sim.IsConnected)
                 {
+                    TesterInfoBoxPanel.BackColor = TesterInfoBox.BackColor = Color.Green;
+                    StatusStrip.BackColor = Color.Green;
+                    ConnectionStatus.ForeColor = Color.White;
+                    EngineNameLabel.ForeColor = Color.White;
+                    BufferStatus.ForeColor = Color.White;
+                }
+                else if (Tuner.IsConnected)
+                {
                     TesterInfoBoxPanel.BackColor = TesterInfoBox.BackColor = Color.CornflowerBlue;
+                    StatusStrip.BackColor = Color.CornflowerBlue;
+                    ConnectionStatus.ForeColor = Color.White;
+                    EngineNameLabel.ForeColor = Color.White;
+                    BufferStatus.ForeColor = Color.White;
                 }
             }
             else
             {
                 TesterInfoBoxPanel.BackColor = TesterInfoBox.BackColor = Color.LightGray;
+                StatusStrip.BackColor = SystemColors.Control;
+                ConnectionStatus.ForeColor = Color.Black;
+                EngineNameLabel.ForeColor = Color.Black;
+                BufferStatus.ForeColor = Color.Black;
             }
 
             startRecordingDataToolStripMenuItem.Enabled = !Recording && IsConnected;
