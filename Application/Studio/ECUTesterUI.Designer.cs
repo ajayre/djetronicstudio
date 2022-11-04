@@ -105,6 +105,7 @@
             this.PressureValue = new System.Windows.Forms.Label();
             this.CopyInfoBtn = new System.Windows.Forms.Button();
             this.TesterInfoBox = new System.Windows.Forms.TextBox();
+            this.ExportCSVDialog = new System.Windows.Forms.SaveFileDialog();
             this.Tabs.SuspendLayout();
             this.StaticPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -317,6 +318,7 @@
             this.CustomSettingsApplyBtn.TabIndex = 1;
             this.CustomSettingsApplyBtn.Text = "Apply";
             this.CustomSettingsApplyBtn.UseVisualStyleBackColor = true;
+            this.CustomSettingsApplyBtn.Click += new System.EventHandler(this.CustomSettingsApplyBtn_Click);
             // 
             // groupBox1
             // 
@@ -341,6 +343,7 @@
             this.ApplyPresetBtn.TabIndex = 2;
             this.ApplyPresetBtn.Text = "Apply";
             this.ApplyPresetBtn.UseVisualStyleBackColor = true;
+            this.ApplyPresetBtn.Click += new System.EventHandler(this.ApplyPresetBtn_Click);
             // 
             // label1
             // 
@@ -379,7 +382,7 @@
             this.DynamicPage.Location = new System.Drawing.Point(4, 22);
             this.DynamicPage.Name = "DynamicPage";
             this.DynamicPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DynamicPage.Size = new System.Drawing.Size(971, 506);
+            this.DynamicPage.Size = new System.Drawing.Size(898, 438);
             this.DynamicPage.TabIndex = 1;
             this.DynamicPage.Text = "Dynamic";
             this.DynamicPage.UseVisualStyleBackColor = true;
@@ -435,7 +438,7 @@
             // 
             this.DynamicProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DynamicProgressBar.Enabled = false;
-            this.DynamicProgressBar.Location = new System.Drawing.Point(726, 157);
+            this.DynamicProgressBar.Location = new System.Drawing.Point(661, 158);
             this.DynamicProgressBar.Name = "DynamicProgressBar";
             this.DynamicProgressBar.Size = new System.Drawing.Size(142, 19);
             this.DynamicProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -476,12 +479,13 @@
             // DynamicStartStopBtn
             // 
             this.DynamicStartStopBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DynamicStartStopBtn.Location = new System.Drawing.Point(874, 155);
+            this.DynamicStartStopBtn.Location = new System.Drawing.Point(809, 155);
             this.DynamicStartStopBtn.Name = "DynamicStartStopBtn";
             this.DynamicStartStopBtn.Size = new System.Drawing.Size(75, 23);
             this.DynamicStartStopBtn.TabIndex = 26;
             this.DynamicStartStopBtn.Text = "Start";
             this.DynamicStartStopBtn.UseVisualStyleBackColor = true;
+            this.DynamicStartStopBtn.Click += new System.EventHandler(this.DynamicStartStopBtn_Click);
             // 
             // StartStarterInput
             // 
@@ -594,6 +598,7 @@
             this.StarterEnable.TabIndex = 48;
             this.StarterEnable.Text = "Starter Motor";
             this.StarterEnable.UseVisualStyleBackColor = true;
+            this.StarterEnable.CheckedChanged += new System.EventHandler(this.StarterEnable_CheckedChanged);
             // 
             // StartSpeedInput
             // 
@@ -620,6 +625,7 @@
             this.SpeedEnable.TabIndex = 26;
             this.SpeedEnable.Text = "Engine Speed";
             this.SpeedEnable.UseVisualStyleBackColor = true;
+            this.SpeedEnable.CheckedChanged += new System.EventHandler(this.SpeedEnable_CheckedChanged);
             // 
             // EndAirTempLabel1
             // 
@@ -673,6 +679,7 @@
             this.CoolantTempEnable.TabIndex = 40;
             this.CoolantTempEnable.Text = "Coolant Temperature";
             this.CoolantTempEnable.UseVisualStyleBackColor = true;
+            this.CoolantTempEnable.CheckedChanged += new System.EventHandler(this.CoolantTempEnable_CheckedChanged);
             // 
             // StartAirTempInput
             // 
@@ -697,6 +704,7 @@
             this.AirTempEnable.TabIndex = 33;
             this.AirTempEnable.Text = "Air Temperature";
             this.AirTempEnable.UseVisualStyleBackColor = true;
+            this.AirTempEnable.CheckedChanged += new System.EventHandler(this.AirTempEnable_CheckedChanged);
             // 
             // StartCoolantTempLabel1
             // 
@@ -748,7 +756,7 @@
             this.AutomatedTestPage.Location = new System.Drawing.Point(4, 22);
             this.AutomatedTestPage.Name = "AutomatedTestPage";
             this.AutomatedTestPage.Padding = new System.Windows.Forms.Padding(3);
-            this.AutomatedTestPage.Size = new System.Drawing.Size(971, 506);
+            this.AutomatedTestPage.Size = new System.Drawing.Size(898, 438);
             this.AutomatedTestPage.TabIndex = 2;
             this.AutomatedTestPage.Text = "Automated Testing";
             this.AutomatedTestPage.UseVisualStyleBackColor = true;
@@ -778,7 +786,7 @@
             this.ChartPage.Location = new System.Drawing.Point(4, 22);
             this.ChartPage.Name = "ChartPage";
             this.ChartPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ChartPage.Size = new System.Drawing.Size(971, 506);
+            this.ChartPage.Size = new System.Drawing.Size(898, 438);
             this.ChartPage.TabIndex = 5;
             this.ChartPage.Text = "Charting";
             this.ChartPage.UseVisualStyleBackColor = true;
@@ -789,7 +797,7 @@
             this.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Chart.Location = new System.Drawing.Point(3, 3);
             this.Chart.Name = "Chart";
-            this.Chart.Size = new System.Drawing.Size(965, 500);
+            this.Chart.Size = new System.Drawing.Size(892, 432);
             this.Chart.TabIndex = 0;
             // 
             // DebugOutputPage
@@ -799,7 +807,7 @@
             this.DebugOutputPage.Location = new System.Drawing.Point(4, 22);
             this.DebugOutputPage.Name = "DebugOutputPage";
             this.DebugOutputPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DebugOutputPage.Size = new System.Drawing.Size(971, 506);
+            this.DebugOutputPage.Size = new System.Drawing.Size(898, 438);
             this.DebugOutputPage.TabIndex = 3;
             this.DebugOutputPage.Text = "Tester Debug Output";
             this.DebugOutputPage.UseVisualStyleBackColor = true;
@@ -807,12 +815,13 @@
             // EngineTestBtn
             // 
             this.EngineTestBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.EngineTestBtn.Location = new System.Drawing.Point(8, 477);
+            this.EngineTestBtn.Location = new System.Drawing.Point(6, 409);
             this.EngineTestBtn.Name = "EngineTestBtn";
             this.EngineTestBtn.Size = new System.Drawing.Size(75, 23);
             this.EngineTestBtn.TabIndex = 1;
             this.EngineTestBtn.Text = "Debug Test";
             this.EngineTestBtn.UseVisualStyleBackColor = true;
+            this.EngineTestBtn.Click += new System.EventHandler(this.EngineTestBtn_Click);
             // 
             // OutputBox
             // 
@@ -823,7 +832,7 @@
             this.OutputBox.Multiline = true;
             this.OutputBox.Name = "OutputBox";
             this.OutputBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.OutputBox.Size = new System.Drawing.Size(965, 468);
+            this.OutputBox.Size = new System.Drawing.Size(889, 400);
             this.OutputBox.TabIndex = 0;
             // 
             // DocumentationPage
@@ -832,7 +841,7 @@
             this.DocumentationPage.Location = new System.Drawing.Point(4, 22);
             this.DocumentationPage.Name = "DocumentationPage";
             this.DocumentationPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DocumentationPage.Size = new System.Drawing.Size(971, 506);
+            this.DocumentationPage.Size = new System.Drawing.Size(898, 438);
             this.DocumentationPage.TabIndex = 4;
             this.DocumentationPage.Text = "Documentation";
             this.DocumentationPage.UseVisualStyleBackColor = true;
@@ -842,7 +851,7 @@
             this.Gallery.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Gallery.Location = new System.Drawing.Point(3, 3);
             this.Gallery.Name = "Gallery";
-            this.Gallery.Size = new System.Drawing.Size(965, 500);
+            this.Gallery.Size = new System.Drawing.Size(892, 432);
             this.Gallery.TabIndex = 0;
             // 
             // TesterInfoBoxPanel
@@ -891,6 +900,7 @@
             this.CopyInfoBtn.Size = new System.Drawing.Size(30, 30);
             this.CopyInfoBtn.TabIndex = 8;
             this.CopyInfoBtn.UseVisualStyleBackColor = true;
+            this.CopyInfoBtn.Click += new System.EventHandler(this.CopyInfoBtn_Click);
             // 
             // TesterInfoBox
             // 
@@ -907,6 +917,12 @@
             this.TesterInfoBox.Size = new System.Drawing.Size(896, 28);
             this.TesterInfoBox.TabIndex = 5;
             this.TesterInfoBox.Text = "This is a test\r\nLine 2";
+            // 
+            // ExportCSVDialog
+            // 
+            this.ExportCSVDialog.DefaultExt = "csv";
+            this.ExportCSVDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+            this.ExportCSVDialog.Title = "Export Data to CSV";
             // 
             // ECUTesterUI
             // 
@@ -1015,5 +1031,6 @@
         private System.Windows.Forms.Label PressureValue;
         private System.Windows.Forms.Button CopyInfoBtn;
         private System.Windows.Forms.TextBox TesterInfoBox;
+        private System.Windows.Forms.SaveFileDialog ExportCSVDialog;
     }
 }
