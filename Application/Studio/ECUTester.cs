@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using Solid.Arduino.Firmata;
 using Solid.Arduino;
 
@@ -37,6 +38,9 @@ namespace DJetronicStudio
 
         private enum MessageIds
         {
+            RequestProduct = 0xF0,
+            CurrentProduct = 0xF1,
+
             RequestStatus = 0x01,
             EngineOff = 0x02,
             Cranking = 0x03,
@@ -67,7 +71,7 @@ namespace DJetronicStudio
             DynamicTestEnded = 0x1C
         }
 
-        public delegate void OnConnectedHandler(object sender, string PortName, int Baudrate, int MajorVersion, int MinorVersion);
+        public delegate void OnConnectedHandler(object sender, string PortName, int Baudrate, byte FirmwareMajorVersion, byte FirmwareMinorVersion);
         public event OnConnectedHandler OnConnected = null;
 
         public delegate void OnDisconnectedHandler(object sender);
@@ -88,6 +92,9 @@ namespace DJetronicStudio
         public delegate void OnDynamicTestStoppedHandler(object sender);
         public event OnDynamicTestStoppedHandler OnDynamicTestStopped = null;
 
+        public delegate void OnReceivedProductHandler(object sender, byte ProductUID, byte FirmwareMajorVersion, byte FirmwareMinorVersion);
+        public event OnReceivedProductHandler OnReceivedProduct = null;
+
         /// <summary>
         /// true if connected to the tester
         /// </summary>
@@ -102,8 +109,10 @@ namespace DJetronicStudio
         /// <summary>
         /// Finds and connects to the tester
         /// </summary>
+        /// <param name="ProductUID">The unique ID of the ECU tester</param>
         public void Connect
             (
+            byte ProductUID
             )
         {
             if (Connection != null && Connection.IsOpen)
@@ -111,33 +120,63 @@ namespace DJetronicStudio
                 return;
             }
 
+            Connection = EnhancedSerialConnection.Find();
+            if (Connection == null)
+            {
+                throw new Exception("No ECU tester found. Is it connected to the PC?");
+            }
+
+            Firmware firmware;
             try
             {
-                Connection = EnhancedSerialConnection.Find();
-                if (Connection == null)
-                {
-                    throw new Exception("No ECU tester found. Is it connected to the PC?");
-                }
-
                 Session = new ArduinoSession(Connection);
                 Session.MessageReceived += Session_MessageReceived;
 
-                var firmware = Session.GetFirmware();
+                firmware = Session.GetFirmware();
 
                 _DynamicTestRunning = false;
-
-                if (OnConnected != null)
-                {
-                    OnConnected(this, Connection.PortName, Connection.BaudRate, firmware.MajorVersion, firmware.MinorVersion);
-                }
-
-                RequestEngineName();
-                RequestStatus();
             }
             catch
             {
                 throw new Exception("Unable to connect to ECU tester. Please try again");
             }
+
+            bool ProductCheckCompleted = false;
+            bool ProductCheckFailed = false;
+            byte FirmwareMajorVersion = 0;
+            byte FirmwareMinorVersion = 0;
+            OnReceivedProduct += (sender, pid, major, minor) =>
+            {
+                if (pid != ProductUID)
+                {
+                    ProductCheckFailed = true;
+                }
+                else
+                {
+                    FirmwareMajorVersion = major;
+                    FirmwareMinorVersion = minor;
+                }
+
+                ProductCheckCompleted = true;
+            };
+            RequestProduct();
+            while (!ProductCheckCompleted)
+            {
+                Thread.Sleep(50);
+            }
+            if (ProductCheckFailed)
+            {
+                Disconnect();
+                throw new Exception("Unrecognized hardware. Is the ECU tester connected to the PC?");
+            }
+
+            if (OnConnected != null)
+            {
+                OnConnected(this, Connection.PortName, Connection.BaudRate, FirmwareMajorVersion, FirmwareMinorVersion);
+            }
+
+            RequestEngineName();
+            RequestStatus();
         }
 
         /// <summary>
@@ -189,6 +228,17 @@ namespace DJetronicStudio
             )
         {
             byte[] Buffer = new byte[3] { SysExStart, (byte)MessageIds.RequestEngineName, SysExEnd };
+            Connection.Write(Buffer, 0, 3);
+        }
+
+        /// <summary>
+        /// Tells the tester to send the product UID
+        /// </summary>
+        private void RequestProduct
+            (
+            )
+        {
+            byte[] Buffer = new byte[3] { SysExStart, (byte)MessageIds.RequestProduct, SysExEnd };
             Connection.Write(Buffer, 0, 3);
         }
 
@@ -433,7 +483,14 @@ namespace DJetronicStudio
             {
                 byte[] Buffer = eventArgs.Value.Value as byte[];
 
-                if (Buffer[0] == (byte)MessageIds.CurrentStatus)
+                if ((Buffer[0] == (byte)MessageIds.CurrentProduct) && (Buffer.Length == 4))
+                {
+                    if (OnReceivedProduct != null)
+                    {
+                        OnReceivedProduct(this, Buffer[1], Buffer[2], Buffer[3]);
+                    }
+                }
+                else if (Buffer[0] == (byte)MessageIds.CurrentStatus)
                 {
                     if (Buffer.Length == 25)
                     {

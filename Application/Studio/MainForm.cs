@@ -17,6 +17,9 @@ namespace DJetronicStudio
         private Simulator Sim = new Simulator();
         private TuneOMatic Tuner = new TuneOMatic();
 
+        private const byte PRODUCT_UID_ECUTESTER = 0x01;
+        private const byte PRODUCT_UID_TUNEOMATIC = 0x02;
+
         private Color Orange = Color.FromArgb(202, 81, 0);
         private List<ToolStripItem> UIToolStripItems = new List<ToolStripItem>();
 
@@ -225,9 +228,9 @@ namespace DJetronicStudio
         /// <param name="sender">Tester object</param>
         /// <param name="PortName">Name of COM port</param>
         /// <param name="Baudrate">Connection speed in bps</param>
-        private void Tester_OnConnected(object sender, string PortName, int Baudrate, int MajorVersion, int MinorVersion)
+        private void Tester_OnConnected(object sender, string PortName, int Baudrate, byte FirmwareMajorVersion, byte FirmwareMinorVersion)
         {
-            ConnectionStatus.Text = string.Format("Connected to ECU tester V{0}.{1} on {2}", MajorVersion, MinorVersion, PortName);
+            ConnectionStatus.Text = string.Format("Connected to ECU tester V{0}.{1} on {2}", FirmwareMajorVersion, FirmwareMinorVersion, PortName);
             ConnectionStatus.Image = Properties.Resources.tester_24;
             ConnectionStatus.Visible = true;
 
@@ -278,12 +281,14 @@ namespace DJetronicStudio
         }
 
         /// <summary>
-        /// Called when tuneomatic is connected
+        /// Called when connected to the tune-o-matic
         /// </summary>
-        /// <param name="sender"></param>
-        private void Tuner_OnConnected(object sender)
+        /// <param name="sender">Tune-o-matic object</param>
+        /// <param name="PortName">Name of COM port</param>
+        /// <param name="Baudrate">Connection speed in bps</param>
+        private void Tuner_OnConnected(object sender, string PortName, int Baudrate, byte FirmwareMajorVersion, byte FirmwareMinorVersion)
         {
-            ConnectionStatus.Text = string.Format("Connected to MPS Tune-o-Matic");
+            ConnectionStatus.Text = string.Format("Connected to MPS Tune-o-Matic V{0}.{1} on {2}", FirmwareMajorVersion, FirmwareMinorVersion, PortName);
             ConnectionStatus.Image = Properties.Resources.tuneomatic_24;
             ConnectionStatus.Visible = true;
 
@@ -318,7 +323,7 @@ namespace DJetronicStudio
                 {
                     if (CForm.UseTester == true)
                     {
-                        Tester.Connect();
+                        Tester.Connect(PRODUCT_UID_ECUTESTER);
                     }
                     else if (CForm.UseSimulation == true)
                     {
@@ -326,7 +331,7 @@ namespace DJetronicStudio
                     }
                     else if (CForm.UseTuneOMatic == true)
                     {
-                        Tuner.Connect();
+                        Tuner.Connect(PRODUCT_UID_TUNEOMATIC);
                     }
                 }
                 catch (Exception Exc)
