@@ -20,6 +20,12 @@ namespace DJetronicStudio
         public delegate void OnReceivedProductHandler(object sender, byte ProductUID, byte FirmwareMajorVersion, byte FirmwareMinorVersion);
         public event OnReceivedProductHandler OnReceivedProduct = null;
 
+        public delegate void OnReceivedPulseWidthHandler(object sender, UInt16 PulseWidth);
+        public event OnReceivedPulseWidthHandler OnReceivedPulseWidth = null;
+
+        public delegate void OnReceivedPressureHandler(object sender, double Pressure);
+        public event OnReceivedPressureHandler OnReceivedPressure = null;
+
         private bool Connected = false;
         private ArduinoSession Session = null;
         private ISerialConnection Connection = null;
@@ -31,6 +37,13 @@ namespace DJetronicStudio
         {
             RequestProduct = 0xF0,
             CurrentProduct = 0xF1,
+
+            RequestPulseWidth = 0x02,
+            CurrentPulseWidth = 0x03,
+            RequestPressure = 0x04,
+            CurrentPressure = 0x05,
+            StartContinuousMeasurement = 0x06,
+            StopContinuousMeasurement = 0x07
         }
 
         /// <summary>
@@ -136,13 +149,57 @@ namespace DJetronicStudio
         }
 
         /// <summary>
-        /// Tells the tester to send the product details
+        /// Tells the tune-o-matic to send the product details
         /// </summary>
         private void RequestProduct
             (
             )
         {
             byte[] Buffer = new byte[3] { SysExStart, (byte)MessageIds.RequestProduct, SysExEnd };
+            Connection.Write(Buffer, 0, 3);
+        }
+
+        /// <summary>
+        /// Tells the tune-o-matic to send the current atmospheric pressure
+        /// </summary>
+        public void RequestPressure
+            (
+            )
+        {
+            byte[] Buffer = new byte[3] { SysExStart, (byte)MessageIds.RequestPressure, SysExEnd };
+            Connection.Write(Buffer, 0, 3);
+        }
+
+        /// <summary>
+        /// Tells the tune-o-matic to send the current pulse width
+        /// </summary>
+        public void RequestPulseWidth
+            (
+            )
+        {
+            byte[] Buffer = new byte[3] { SysExStart, (byte)MessageIds.RequestPulseWidth, SysExEnd };
+            Connection.Write(Buffer, 0, 3);
+        }
+
+        /// <summary>
+        /// Tells the tune-o-matic to continually send the pulse width
+        /// </summary>
+        public void RequestStartContinuousMeasurement
+            (
+            )
+        {
+            byte[] Buffer = new byte[3] { SysExStart, (byte)MessageIds.StartContinuousMeasurement, SysExEnd };
+            Connection.Write(Buffer, 0, 3);
+        }
+
+        /// <summary>
+        /// Tells the tune-o-matic to continually send the pulse width
+        /// </summary>
+        public void RequestStopContinuousMeasurement
+            (
+            )
+        {
+            byte[] Buffer = new byte[3] { SysExStart, (byte)MessageIds.StopContinuousMeasurement, SysExEnd };
             Connection.Write(Buffer, 0, 3);
         }
 
@@ -166,6 +223,24 @@ namespace DJetronicStudio
                     if (OnReceivedProduct != null)
                     {
                         OnReceivedProduct(this, Buffer[1], Buffer[2], Buffer[3]);
+                    }
+                }
+                else if ((Buffer[0] == (byte)MessageIds.CurrentPressure) && (Buffer.Length == 5))
+                {
+                    double Pressure = BitConverter.ToSingle(Buffer, 1);
+                    
+                    if (OnReceivedPressure != null)
+                    {
+                        OnReceivedPressure(this, Pressure);
+                    }
+                }
+                else if ((Buffer[0] == (byte)MessageIds.CurrentPulseWidth) && (Buffer.Length == 3))
+                {
+                    UInt16 PulseWidth = (UInt16)BitConverter.ToInt16(Buffer, 1);
+
+                    if (OnReceivedPulseWidth != null)
+                    {
+                        OnReceivedPulseWidth(this, PulseWidth);
                     }
                 }
             }
