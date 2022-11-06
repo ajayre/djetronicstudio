@@ -32,10 +32,15 @@ namespace DJetronicStudio
         private float __ValueMin;
         private float __ValueMax;
         private string __Unit;
-        private float __ThresholdWarning;
-        private float __ThresholdAlarm;
-        private float __ThresholdWarningPercent;
-        private float __ThresholdAlarmPercent;
+        private float __ThresholdWarning1;
+        private float __ThresholdNormal;
+        private float __ThresholdWarning2;
+        private float __ThresholdOutOfRange;
+
+        private float __ThresholdWarning1Percent;
+        private float __ThresholdNormalPercent;
+        private float __ThresholdWarning2Percent;
+        private float __ThresholdOutOfRangePercent;
 
         private float __StartAngle;
         private float __SweepAngle;
@@ -46,18 +51,32 @@ namespace DJetronicStudio
         private Font __Font_Unit;
 
         // Public Properties
-        [Category("Threshold Settings"), Description("Alarm threshold value in percent (%).")]
-        public float ThresholdAlarm
+        [Category("Threshold Settings"), Description("Warning threshold 1 value in percent (%).")]
+        public float ThresholdWarning1
         {
-            get { return __ThresholdAlarmPercent; }
-            set { __ThresholdAlarmPercent = value; this.Invalidate(); }
+            get { return __ThresholdWarning1Percent; }
+            set { __ThresholdWarning1Percent = value; this.Invalidate(); }
         }
 
-        [Category("Threshold Settings"), Description("Warning threshold value in percent (%).")]
-        public float ThresholdWarning
+        [Category("Threshold Settings"), Description("OK threshold value in percent (%).")]
+        public float ThresholdNormal
         {
-            get { return __ThresholdWarningPercent; }
-            set { __ThresholdWarningPercent = value; this.Invalidate(); }
+            get { return __ThresholdNormalPercent; }
+            set { __ThresholdNormalPercent = value; this.Invalidate(); }
+        }
+
+        [Category("Threshold Settings"), Description("Warning threshold 2 value in percent (%).")]
+        public float ThresholdWarning2
+        {
+            get { return __ThresholdWarning2Percent; }
+            set { __ThresholdWarning2Percent = value; this.Invalidate(); }
+        }
+
+        [Category("Threshold Settings"), Description("Alarm threshold value in percent (%).")]
+        public float ThresholdOutOfRange
+        {
+            get { return __ThresholdOutOfRangePercent; }
+            set { __ThresholdOutOfRangePercent = value; this.Invalidate(); }
         }
 
         [Category("Value Settings"), Description("Value.")]
@@ -209,8 +228,10 @@ namespace DJetronicStudio
             __PositionX = this.Size.Width / 2 - __Width / 2;
             __PositionY = this.Size.Height / 2 - __Height / 2;
 
-            __ThresholdWarningPercent = 70.0F;
-            __ThresholdAlarmPercent = 90.0F;
+            __ThresholdWarning1Percent = 40.0F;
+            __ThresholdNormalPercent = 49.5F;
+            __ThresholdWarning2Percent = 50.5F;
+            __ThresholdOutOfRangePercent = 60.0F;
 
             __Font_Value = new Font("Calibri", 22);
             __Font_Unit = new Font("Calibri", 14, FontStyle.Bold);
@@ -238,8 +259,10 @@ namespace DJetronicStudio
             __PositionX = (this.Size.Width / 2) - (__Width / 2);
             __PositionY = (this.Size.Height / 2) - (__Height / 2);
 
-            __ThresholdAlarm = __ThresholdAlarmPercent * __SweepAngle / 100.0F;
-            __ThresholdWarning = __ThresholdWarningPercent * __SweepAngle / 100.0F;
+            float __ThresholdWarning1Start = __ThresholdWarning1Percent * __SweepAngle / 100.0F;
+            float __ThresholdNormalStart = __ThresholdNormalPercent * __SweepAngle / 100.0F;
+            float __ThresholdWarning2Start = __ThresholdWarning2Percent * __SweepAngle / 100.0F;
+            float __ThresholdOutOfRangeStart = __ThresholdOutOfRangePercent * __SweepAngle / 100.0F;
 
             if (__Value < this.__ValueMin)
             {
@@ -254,8 +277,14 @@ namespace DJetronicStudio
 
             // Decisions for fill color with thresholds
             Color tFill = this.__Fill;
-            if (Map(__Value, this.__ValueMin, this.__ValueMax, 0, __SweepAngle) > (__ThresholdAlarm)) tFill = this.__Alarm;
-            else if (Map(__Value, this.__ValueMin, this.__ValueMax, 0, __SweepAngle) > (__ThresholdWarning)) tFill = this.__Warning;
+
+            float MapValue = Map(__Value, this.__ValueMin, this.__ValueMax, 0, __SweepAngle);
+
+            if (MapValue < __ThresholdWarning1Start) tFill = this.__Alarm;
+            else if ((MapValue >= __ThresholdWarning1Start) && (MapValue < __ThresholdNormalStart)) tFill = this.__Warning;
+            else if ((MapValue >= __ThresholdNormalStart) && (MapValue <= __ThresholdWarning2Start)) tFill = this.__Fill;
+            else if ((MapValue > __ThresholdWarning2Start) && (MapValue <= __ThresholdOutOfRangeStart)) tFill = this.__Warning;
+            else tFill = this.__Alarm;
 
             // some settings about bitmap
             e.Graphics.Clear(this.BackColor);
@@ -266,14 +295,22 @@ namespace DJetronicStudio
             // Draw Arc operations
             Pen penArcBase = new Pen(this.__Base, this.__StrokeWeight);
             e.Graphics.DrawArc(penArcBase, this.__PositionX, this.__PositionY, this.__Width, this.__Height, __StartAngle, __SweepAngle);
+
             Pen penArcFill = new Pen(tFill, this.__StrokeWeight);
             e.Graphics.DrawArc(penArcFill, this.__PositionX, this.__PositionY, this.__Width, this.__Height, __StartAngle, Map(__Value, this.__ValueMin, this.__ValueMax, 0, __SweepAngle));
-            Pen penArcUpperLimit = new Pen(this.__Alarm, this.__InnerStrokeWeight);
-            e.Graphics.DrawArc(penArcUpperLimit, this.__PositionX + __StrokeWeight / 2 + __InnerStrokeWeight, this.__PositionY + __StrokeWeight / 2 + __InnerStrokeWeight, this.__Width - __StrokeWeight - __InnerStrokeWeight * 2, this.__Height - __StrokeWeight - __InnerStrokeWeight * 2, __StartAngle + __ThresholdAlarm, __SweepAngle - __ThresholdAlarm);
-            Pen penArcMidLimit = new Pen(this.__Warning, this.__InnerStrokeWeight);
-            e.Graphics.DrawArc(penArcMidLimit, this.__PositionX + __StrokeWeight / 2 + __InnerStrokeWeight, this.__PositionY + __StrokeWeight / 2 + __InnerStrokeWeight, this.__Width - __StrokeWeight - __InnerStrokeWeight * 2, this.__Height - __StrokeWeight - __InnerStrokeWeight * 2, __StartAngle + __ThresholdWarning, __ThresholdAlarm - __ThresholdWarning);
-            Pen penArcLowLimit = new Pen(this.__Normal, this.__InnerStrokeWeight);
-            e.Graphics.DrawArc(penArcLowLimit, this.__PositionX + __StrokeWeight / 2 + __InnerStrokeWeight, this.__PositionY + __StrokeWeight / 2 + __InnerStrokeWeight, this.__Width - __StrokeWeight - __InnerStrokeWeight * 2, this.__Height - __StrokeWeight - __InnerStrokeWeight * 2, __StartAngle, __ThresholdWarning);
+
+            Pen penArcOutOfRangeLimit = new Pen(this.__Alarm, this.__InnerStrokeWeight);
+            e.Graphics.DrawArc(penArcOutOfRangeLimit, this.__PositionX + __StrokeWeight / 2 + __InnerStrokeWeight, this.__PositionY + __StrokeWeight / 2 + __InnerStrokeWeight, this.__Width - __StrokeWeight - __InnerStrokeWeight * 2, this.__Height - __StrokeWeight - __InnerStrokeWeight * 2, __StartAngle, __ThresholdWarning1Start);
+
+            Pen penArcLowLimit = new Pen(this.__Warning, this.__InnerStrokeWeight);
+            e.Graphics.DrawArc(penArcLowLimit, this.__PositionX + __StrokeWeight / 2 + __InnerStrokeWeight, this.__PositionY + __StrokeWeight / 2 + __InnerStrokeWeight, this.__Width - __StrokeWeight - __InnerStrokeWeight * 2, this.__Height - __StrokeWeight - __InnerStrokeWeight * 2, __StartAngle + __ThresholdWarning1Start, __ThresholdNormalStart - __ThresholdWarning1Start);
+
+            Pen penArcOKLimit = new Pen(this.__Normal, this.__InnerStrokeWeight);
+            e.Graphics.DrawArc(penArcOKLimit, this.__PositionX + __StrokeWeight / 2 + __InnerStrokeWeight, this.__PositionY + __StrokeWeight / 2 + __InnerStrokeWeight, this.__Width - __StrokeWeight - __InnerStrokeWeight * 2, this.__Height - __StrokeWeight - __InnerStrokeWeight * 2, __StartAngle + __ThresholdNormalStart, __ThresholdWarning2Start - __ThresholdNormalStart);
+
+            e.Graphics.DrawArc(penArcLowLimit, this.__PositionX + __StrokeWeight / 2 + __InnerStrokeWeight, this.__PositionY + __StrokeWeight / 2 + __InnerStrokeWeight, this.__Width - __StrokeWeight - __InnerStrokeWeight * 2, this.__Height - __StrokeWeight - __InnerStrokeWeight * 2, __StartAngle + __ThresholdWarning2Start, __ThresholdOutOfRangeStart - __ThresholdWarning2Start);
+
+            e.Graphics.DrawArc(penArcOutOfRangeLimit, this.__PositionX + __StrokeWeight / 2 + __InnerStrokeWeight, this.__PositionY + __StrokeWeight / 2 + __InnerStrokeWeight, this.__Width - __StrokeWeight - __InnerStrokeWeight * 2, this.__Height - __StrokeWeight - __InnerStrokeWeight * 2, __StartAngle + __ThresholdOutOfRangeStart, __SweepAngle - __ThresholdOutOfRangeStart);
 
             // Draw String operations
             StringFormat sf = new StringFormat();
@@ -286,7 +323,7 @@ namespace DJetronicStudio
             }
             else
             {
-                e.Graphics.DrawString(__Value.ToString(), __Font_Value, Brushes.Black, this.__PositionX + this.__Width / 2, this.__PositionY + this.__Height / 2, sf);
+                e.Graphics.DrawString(__Value.ToString("N3"), __Font_Value, Brushes.Black, this.__PositionX + this.__Width / 2, this.__PositionY + this.__Height / 2, sf);
             }
 
             e.Graphics.DrawString(__Unit, __Font_Unit, Brushes.Gray, this.__PositionX + this.__Width / 2, this.__PositionY + this.__Height / 2 + this.__Height / 5, sf);

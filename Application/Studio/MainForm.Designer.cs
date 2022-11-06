@@ -45,11 +45,9 @@
             this.DisconnectBtn = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.UIPanel = new System.Windows.Forms.Panel();
-            this.tunerGauge1 = new DJetronicStudio.TunerGauge();
             this.StatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
-            this.UIPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // StatusStrip
@@ -171,39 +169,11 @@
             // UIPanel
             // 
             this.UIPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.UIPanel.Controls.Add(this.tunerGauge1);
             this.UIPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UIPanel.Location = new System.Drawing.Point(0, 63);
             this.UIPanel.Name = "UIPanel";
             this.UIPanel.Size = new System.Drawing.Size(902, 462);
             this.UIPanel.TabIndex = 8;
-            // 
-            // tunerGauge1
-            // 
-            this.tunerGauge1.AlarmColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(94)))), ((int)(((byte)(46)))));
-            this.tunerGauge1.BackColor = System.Drawing.SystemColors.Control;
-            this.tunerGauge1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
-            this.tunerGauge1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(223)))), ((int)(((byte)(180)))));
-            this.tunerGauge1.GaugeHeight = 150F;
-            this.tunerGauge1.GaugeWidth = 150F;
-            this.tunerGauge1.InnerStrokeWeight = 4F;
-            this.tunerGauge1.Location = new System.Drawing.Point(200, 61);
-            this.tunerGauge1.Name = "tunerGauge1";
-            this.tunerGauge1.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(223)))), ((int)(((byte)(180)))));
-            this.tunerGauge1.Size = new System.Drawing.Size(400, 200);
-            this.tunerGauge1.StartAngle = 150F;
-            this.tunerGauge1.StrokeWeight = 20F;
-            this.tunerGauge1.SweepAngle = 240F;
-            this.tunerGauge1.TabIndex = 0;
-            this.tunerGauge1.ThresholdAlarm = 90F;
-            this.tunerGauge1.ThresholdWarning = 70F;
-            this.tunerGauge1.Value = 70F;
-            this.tunerGauge1.ValueFont = new System.Drawing.Font("Calibri", 22F);
-            this.tunerGauge1.ValueMax = 100F;
-            this.tunerGauge1.ValueMin = 0F;
-            this.tunerGauge1.ValueUnit = "ms";
-            this.tunerGauge1.ValueUnitFont = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
-            this.tunerGauge1.WarningColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(156)))), ((int)(((byte)(71)))));
             // 
             // MainForm
             // 
@@ -224,7 +194,6 @@
             this.menuStrip1.PerformLayout();
             this.MainToolStrip.ResumeLayout(false);
             this.MainToolStrip.PerformLayout();
-            this.UIPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,7 +215,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel UIPanel;
         private System.Windows.Forms.ToolStripStatusLabel ConnectionStatus;
-        private TunerGauge tunerGauge1;
     }
 }
 

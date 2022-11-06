@@ -54,10 +54,10 @@
             this.wizardNavigation1 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner1 = new DJetronicStudio.WizardBanner();
             this.TunePage4 = new System.Windows.Forms.TabPage();
+            this.Gauge = new DJetronicStudio.TunerGauge();
             this.wizardText4 = new DJetronicStudio.WizardText();
             this.wizardNavigation2 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner2 = new DJetronicStudio.WizardBanner();
-            this.tunerGauge1 = new DJetronicStudio.TunerGauge();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -347,7 +347,7 @@
             // TunePage4
             // 
             this.TunePage4.BackColor = System.Drawing.SystemColors.Control;
-            this.TunePage4.Controls.Add(this.tunerGauge1);
+            this.TunePage4.Controls.Add(this.Gauge);
             this.TunePage4.Controls.Add(this.wizardText4);
             this.TunePage4.Controls.Add(this.wizardNavigation2);
             this.TunePage4.Controls.Add(this.wizardBanner2);
@@ -358,10 +358,40 @@
             this.TunePage4.TabIndex = 4;
             this.TunePage4.Text = "TunePage4";
             // 
+            // Gauge
+            // 
+            this.Gauge.AlarmColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(94)))), ((int)(((byte)(46)))));
+            this.Gauge.BackColor = System.Drawing.SystemColors.Control;
+            this.Gauge.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
+            this.Gauge.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Gauge.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(223)))), ((int)(((byte)(180)))));
+            this.Gauge.GaugeHeight = 150F;
+            this.Gauge.GaugeWidth = 150F;
+            this.Gauge.InnerStrokeWeight = 4F;
+            this.Gauge.Location = new System.Drawing.Point(3, 158);
+            this.Gauge.Name = "Gauge";
+            this.Gauge.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(223)))), ((int)(((byte)(180)))));
+            this.Gauge.Size = new System.Drawing.Size(886, 215);
+            this.Gauge.StartAngle = 150F;
+            this.Gauge.StrokeWeight = 20F;
+            this.Gauge.SweepAngle = 240F;
+            this.Gauge.TabIndex = 3;
+            this.Gauge.ThresholdNormal = 49.5F;
+            this.Gauge.ThresholdOutOfRange = 60F;
+            this.Gauge.ThresholdWarning1 = 40F;
+            this.Gauge.ThresholdWarning2 = 50.5F;
+            this.Gauge.Value = 10F;
+            this.Gauge.ValueFont = new System.Drawing.Font("Calibri", 22F);
+            this.Gauge.ValueMax = 15F;
+            this.Gauge.ValueMin = 5F;
+            this.Gauge.ValueUnit = "ms";
+            this.Gauge.ValueUnitFont = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
+            this.Gauge.WarningColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(156)))), ((int)(((byte)(71)))));
+            // 
             // wizardText4
             // 
             this.wizardText4.Body = "Turn the adjustment screw of the front of the MPS clockwise or counter-clockwise " +
-    "to get the arrow on the scale below to turn green. When done click on Finish.";
+    "to get the gauge below to turn green. When done click on Finish.";
             this.wizardText4.Dock = System.Windows.Forms.DockStyle.Top;
             this.wizardText4.Location = new System.Drawing.Point(3, 71);
             this.wizardText4.Name = "wizardText4";
@@ -391,34 +421,6 @@
             this.wizardBanner2.Size = new System.Drawing.Size(886, 68);
             this.wizardBanner2.TabIndex = 0;
             this.wizardBanner2.Title = "Tune MPS Step 4";
-            // 
-            // tunerGauge1
-            // 
-            this.tunerGauge1.AlarmColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(94)))), ((int)(((byte)(46)))));
-            this.tunerGauge1.BackColor = System.Drawing.SystemColors.Control;
-            this.tunerGauge1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
-            this.tunerGauge1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tunerGauge1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(223)))), ((int)(((byte)(180)))));
-            this.tunerGauge1.GaugeHeight = 150F;
-            this.tunerGauge1.GaugeWidth = 150F;
-            this.tunerGauge1.InnerStrokeWeight = 4F;
-            this.tunerGauge1.Location = new System.Drawing.Point(3, 158);
-            this.tunerGauge1.Name = "tunerGauge1";
-            this.tunerGauge1.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(223)))), ((int)(((byte)(180)))));
-            this.tunerGauge1.Size = new System.Drawing.Size(886, 215);
-            this.tunerGauge1.StartAngle = 150F;
-            this.tunerGauge1.StrokeWeight = 20F;
-            this.tunerGauge1.SweepAngle = 240F;
-            this.tunerGauge1.TabIndex = 3;
-            this.tunerGauge1.ThresholdAlarm = 90F;
-            this.tunerGauge1.ThresholdWarning = 70F;
-            this.tunerGauge1.Value = 0F;
-            this.tunerGauge1.ValueFont = new System.Drawing.Font("Calibri", 22F);
-            this.tunerGauge1.ValueMax = 100F;
-            this.tunerGauge1.ValueMin = 0F;
-            this.tunerGauge1.ValueUnit = "°C";
-            this.tunerGauge1.ValueUnitFont = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
-            this.tunerGauge1.WarningColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(156)))), ((int)(((byte)(71)))));
             // 
             // TuneOMaticUI
             // 
@@ -477,6 +479,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private TunerGauge tunerGauge1;
+        private TunerGauge Gauge;
     }
 }

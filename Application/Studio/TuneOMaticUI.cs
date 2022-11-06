@@ -51,6 +51,11 @@ namespace DJetronicStudio
             UpdateUI();
         }
 
+        /// <summary>
+        /// Called when user clicks on the previous button in the wizard
+        /// Goes back a page
+        /// </summary>
+        /// <param name="sender"></param>
         private void Nav_OnPrevious(object sender)
         {
             if (Tabs.SelectedTab == TunePage2)
@@ -63,10 +68,16 @@ namespace DJetronicStudio
             }
             else if (Tabs.SelectedTab == TunePage4)
             {
+                Tuner.RequestStopContinuousMeasurement();
                 ShowPage(TunePage3);
             }
         }
 
+        /// <summary>
+        /// Called when user clicks on the next button in the wizard
+        /// Validates and moves to the next page
+        /// </summary>
+        /// <param name="sender"></param>
         private void Nav_OnNext(object sender)
         {
             if (Tabs.SelectedTab == TunePage1)
@@ -80,9 +91,11 @@ namespace DJetronicStudio
             else if (Tabs.SelectedTab == TunePage3)
             {
                 ShowPage(TunePage4);
+                Tuner.RequestStartContinuousMeasurement();
             }
             else if (Tabs.SelectedTab == TunePage4)
             {
+                Tuner.RequestStopContinuousMeasurement();
                 ShowPage(DbPage);
                 if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);
             }
@@ -95,6 +108,7 @@ namespace DJetronicStudio
         /// <param name="sender"></param>
         private void Nav_OnCancel(object sender)
         {
+            Tuner.RequestStopContinuousMeasurement();
             ShowPage(DbPage);
             if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);
         }
@@ -161,6 +175,12 @@ namespace DJetronicStudio
             if (Recording)
             {
                 RecordingBuffer.Add(new Tuple<double, double, UInt16>((DateTime.Now - RecordingStartTime).TotalMilliseconds, LastPressure, PulseWidth));
+            }
+
+            // if on tuning page then show pulse width on gauge
+            if (Tabs.SelectedTab == TunePage4)
+            {
+                Gauge.Value = (float)(PulseWidth / 1000.0);
             }
         }
 
