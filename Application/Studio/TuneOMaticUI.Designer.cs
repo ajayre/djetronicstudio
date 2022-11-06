@@ -38,14 +38,33 @@
             this.Tabs = new DJetronicStudio.TablessControl();
             this.DbPage = new System.Windows.Forms.TabPage();
             this.TunePage1 = new System.Windows.Forms.TabPage();
-            this.TunePage1Banner = new DJetronicStudio.WizardBanner();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.wizardText1 = new DJetronicStudio.WizardText();
             this.TunePage1Nav = new DJetronicStudio.WizardNavigation();
+            this.TunePage1Banner = new DJetronicStudio.WizardBanner();
             this.TunePage2 = new System.Windows.Forms.TabPage();
-            this.TunePage2Banner = new DJetronicStudio.WizardBanner();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.wizardText2 = new DJetronicStudio.WizardText();
             this.TunePage2Nav = new DJetronicStudio.WizardNavigation();
+            this.TunePage2Banner = new DJetronicStudio.WizardBanner();
+            this.TunePage3 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.wizardText3 = new DJetronicStudio.WizardText();
+            this.wizardNavigation1 = new DJetronicStudio.WizardNavigation();
+            this.wizardBanner1 = new DJetronicStudio.WizardBanner();
+            this.TunePage4 = new System.Windows.Forms.TabPage();
+            this.wizardText4 = new DJetronicStudio.WizardText();
+            this.wizardNavigation2 = new DJetronicStudio.WizardNavigation();
+            this.wizardBanner2 = new DJetronicStudio.WizardBanner();
+            this.tunerGauge1 = new DJetronicStudio.TunerGauge();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.TunePage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.TunePage3.SuspendLayout();
+            this.TunePage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExportCSVDialog
@@ -120,6 +139,8 @@
             this.Tabs.Controls.Add(this.DbPage);
             this.Tabs.Controls.Add(this.TunePage1);
             this.Tabs.Controls.Add(this.TunePage2);
+            this.Tabs.Controls.Add(this.TunePage3);
+            this.Tabs.Controls.Add(this.TunePage4);
             this.Tabs.Location = new System.Drawing.Point(3, 61);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
@@ -139,6 +160,8 @@
             // TunePage1
             // 
             this.TunePage1.BackColor = System.Drawing.SystemColors.Control;
+            this.TunePage1.Controls.Add(this.pictureBox1);
+            this.TunePage1.Controls.Add(this.wizardText1);
             this.TunePage1.Controls.Add(this.TunePage1Nav);
             this.TunePage1.Controls.Add(this.TunePage1Banner);
             this.TunePage1.Location = new System.Drawing.Point(4, 22);
@@ -148,6 +171,42 @@
             this.TunePage1.TabIndex = 1;
             this.TunePage1.Text = "TunePage1";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox1.Image = global::DJetronicStudio.Properties.Resources.Tune_o_Matic_V1_0_MPS_Connector;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 155);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(886, 130);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // wizardText1
+            // 
+            this.wizardText1.Body = "Plug the MPS into the Tune-o-Matic using the four pin screw terminal block. Match" +
+    " up the pin numbers embossed on the MPS with the pin numbers for the Tune-o-Mati" +
+    "c. When done click on Next.";
+            this.wizardText1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText1.Location = new System.Drawing.Point(3, 71);
+            this.wizardText1.Name = "wizardText1";
+            this.wizardText1.Size = new System.Drawing.Size(886, 84);
+            this.wizardText1.TabIndex = 2;
+            this.wizardText1.Title = "Connect MPS";
+            // 
+            // TunePage1Nav
+            // 
+            this.TunePage1Nav.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TunePage1Nav.FirstPage = true;
+            this.TunePage1Nav.LastPage = false;
+            this.TunePage1Nav.Location = new System.Drawing.Point(3, 373);
+            this.TunePage1Nav.Name = "TunePage1Nav";
+            this.TunePage1Nav.Size = new System.Drawing.Size(886, 36);
+            this.TunePage1Nav.TabIndex = 1;
+            this.TunePage1Nav.OnCancel += new DJetronicStudio.WizardNavigation.OnCancelHandler(this.Nav_OnCancel);
+            this.TunePage1Nav.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
+            this.TunePage1Nav.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
+            // 
             // TunePage1Banner
             // 
             this.TunePage1Banner.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -156,18 +215,13 @@
             this.TunePage1Banner.Name = "TunePage1Banner";
             this.TunePage1Banner.Size = new System.Drawing.Size(886, 68);
             this.TunePage1Banner.TabIndex = 0;
-            // 
-            // TunePage1Nav
-            // 
-            this.TunePage1Nav.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TunePage1Nav.Location = new System.Drawing.Point(3, 373);
-            this.TunePage1Nav.Name = "TunePage1Nav";
-            this.TunePage1Nav.Size = new System.Drawing.Size(886, 36);
-            this.TunePage1Nav.TabIndex = 1;
+            this.TunePage1Banner.Title = "Tune MPS Step 1";
             // 
             // TunePage2
             // 
             this.TunePage2.BackColor = System.Drawing.SystemColors.Control;
+            this.TunePage2.Controls.Add(this.pictureBox2);
+            this.TunePage2.Controls.Add(this.wizardText2);
             this.TunePage2.Controls.Add(this.TunePage2Nav);
             this.TunePage2.Controls.Add(this.TunePage2Banner);
             this.TunePage2.Location = new System.Drawing.Point(4, 22);
@@ -177,6 +231,41 @@
             this.TunePage2.TabIndex = 2;
             this.TunePage2.Text = "TunePage2";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox2.Image = global::DJetronicStudio.Properties.Resources.MPS_Vacuum_Port;
+            this.pictureBox2.Location = new System.Drawing.Point(3, 145);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(886, 130);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // wizardText2
+            // 
+            this.wizardText2.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the " +
+    "vacuum to 5 in Hg. When done click on Next.";
+            this.wizardText2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText2.Location = new System.Drawing.Point(3, 71);
+            this.wizardText2.Name = "wizardText2";
+            this.wizardText2.Size = new System.Drawing.Size(886, 74);
+            this.wizardText2.TabIndex = 2;
+            this.wizardText2.Title = "Connect MityVac to MPS";
+            // 
+            // TunePage2Nav
+            // 
+            this.TunePage2Nav.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TunePage2Nav.FirstPage = false;
+            this.TunePage2Nav.LastPage = false;
+            this.TunePage2Nav.Location = new System.Drawing.Point(3, 373);
+            this.TunePage2Nav.Name = "TunePage2Nav";
+            this.TunePage2Nav.Size = new System.Drawing.Size(886, 36);
+            this.TunePage2Nav.TabIndex = 1;
+            this.TunePage2Nav.OnCancel += new DJetronicStudio.WizardNavigation.OnCancelHandler(this.Nav_OnCancel);
+            this.TunePage2Nav.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
+            this.TunePage2Nav.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
+            // 
             // TunePage2Banner
             // 
             this.TunePage2Banner.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -185,15 +274,151 @@
             this.TunePage2Banner.Name = "TunePage2Banner";
             this.TunePage2Banner.Size = new System.Drawing.Size(886, 68);
             this.TunePage2Banner.TabIndex = 0;
+            this.TunePage2Banner.Title = "Tune MPS Step 2";
             // 
-            // TunePage2Nav
+            // TunePage3
             // 
-            this.TunePage2Nav.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TunePage2Nav.FirstPage = false;
-            this.TunePage2Nav.Location = new System.Drawing.Point(3, 373);
-            this.TunePage2Nav.Name = "TunePage2Nav";
-            this.TunePage2Nav.Size = new System.Drawing.Size(886, 36);
-            this.TunePage2Nav.TabIndex = 1;
+            this.TunePage3.BackColor = System.Drawing.SystemColors.Control;
+            this.TunePage3.Controls.Add(this.label1);
+            this.TunePage3.Controls.Add(this.comboBox1);
+            this.TunePage3.Controls.Add(this.wizardText3);
+            this.TunePage3.Controls.Add(this.wizardNavigation1);
+            this.TunePage3.Controls.Add(this.wizardBanner1);
+            this.TunePage3.Location = new System.Drawing.Point(4, 22);
+            this.TunePage3.Name = "TunePage3";
+            this.TunePage3.Padding = new System.Windows.Forms.Padding(3);
+            this.TunePage3.Size = new System.Drawing.Size(892, 412);
+            this.TunePage3.TabIndex = 3;
+            this.TunePage3.Text = "TunePage3";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(199, 153);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Reference:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(265, 150);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(436, 21);
+            this.comboBox1.TabIndex = 3;
+            // 
+            // wizardText3
+            // 
+            this.wizardText3.Body = "Choose an MPS from the database to use as a reference. When done click on Next.";
+            this.wizardText3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText3.Location = new System.Drawing.Point(3, 71);
+            this.wizardText3.Name = "wizardText3";
+            this.wizardText3.Size = new System.Drawing.Size(886, 73);
+            this.wizardText3.TabIndex = 2;
+            this.wizardText3.Title = "Choose Reference";
+            // 
+            // wizardNavigation1
+            // 
+            this.wizardNavigation1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.wizardNavigation1.FirstPage = false;
+            this.wizardNavigation1.LastPage = false;
+            this.wizardNavigation1.Location = new System.Drawing.Point(3, 373);
+            this.wizardNavigation1.Name = "wizardNavigation1";
+            this.wizardNavigation1.Size = new System.Drawing.Size(886, 36);
+            this.wizardNavigation1.TabIndex = 1;
+            this.wizardNavigation1.OnCancel += new DJetronicStudio.WizardNavigation.OnCancelHandler(this.Nav_OnCancel);
+            this.wizardNavigation1.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
+            this.wizardNavigation1.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
+            // 
+            // wizardBanner1
+            // 
+            this.wizardBanner1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.wizardBanner1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner1.Location = new System.Drawing.Point(3, 3);
+            this.wizardBanner1.Name = "wizardBanner1";
+            this.wizardBanner1.Size = new System.Drawing.Size(886, 68);
+            this.wizardBanner1.TabIndex = 0;
+            this.wizardBanner1.Title = "Tune MPS Step 3";
+            // 
+            // TunePage4
+            // 
+            this.TunePage4.BackColor = System.Drawing.SystemColors.Control;
+            this.TunePage4.Controls.Add(this.tunerGauge1);
+            this.TunePage4.Controls.Add(this.wizardText4);
+            this.TunePage4.Controls.Add(this.wizardNavigation2);
+            this.TunePage4.Controls.Add(this.wizardBanner2);
+            this.TunePage4.Location = new System.Drawing.Point(4, 22);
+            this.TunePage4.Name = "TunePage4";
+            this.TunePage4.Padding = new System.Windows.Forms.Padding(3);
+            this.TunePage4.Size = new System.Drawing.Size(892, 412);
+            this.TunePage4.TabIndex = 4;
+            this.TunePage4.Text = "TunePage4";
+            // 
+            // wizardText4
+            // 
+            this.wizardText4.Body = "Turn the adjustment screw of the front of the MPS clockwise or counter-clockwise " +
+    "to get the arrow on the scale below to turn green. When done click on Finish.";
+            this.wizardText4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText4.Location = new System.Drawing.Point(3, 71);
+            this.wizardText4.Name = "wizardText4";
+            this.wizardText4.Size = new System.Drawing.Size(886, 87);
+            this.wizardText4.TabIndex = 2;
+            this.wizardText4.Title = "Perform Tuning";
+            // 
+            // wizardNavigation2
+            // 
+            this.wizardNavigation2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.wizardNavigation2.FirstPage = false;
+            this.wizardNavigation2.LastPage = true;
+            this.wizardNavigation2.Location = new System.Drawing.Point(3, 373);
+            this.wizardNavigation2.Name = "wizardNavigation2";
+            this.wizardNavigation2.Size = new System.Drawing.Size(886, 36);
+            this.wizardNavigation2.TabIndex = 1;
+            this.wizardNavigation2.OnCancel += new DJetronicStudio.WizardNavigation.OnCancelHandler(this.Nav_OnCancel);
+            this.wizardNavigation2.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
+            this.wizardNavigation2.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
+            // 
+            // wizardBanner2
+            // 
+            this.wizardBanner2.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.wizardBanner2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner2.Location = new System.Drawing.Point(3, 3);
+            this.wizardBanner2.Name = "wizardBanner2";
+            this.wizardBanner2.Size = new System.Drawing.Size(886, 68);
+            this.wizardBanner2.TabIndex = 0;
+            this.wizardBanner2.Title = "Tune MPS Step 4";
+            // 
+            // tunerGauge1
+            // 
+            this.tunerGauge1.AlarmColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(94)))), ((int)(((byte)(46)))));
+            this.tunerGauge1.BackColor = System.Drawing.SystemColors.Control;
+            this.tunerGauge1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
+            this.tunerGauge1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tunerGauge1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(223)))), ((int)(((byte)(180)))));
+            this.tunerGauge1.GaugeHeight = 150F;
+            this.tunerGauge1.GaugeWidth = 150F;
+            this.tunerGauge1.InnerStrokeWeight = 4F;
+            this.tunerGauge1.Location = new System.Drawing.Point(3, 158);
+            this.tunerGauge1.Name = "tunerGauge1";
+            this.tunerGauge1.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(223)))), ((int)(((byte)(180)))));
+            this.tunerGauge1.Size = new System.Drawing.Size(886, 215);
+            this.tunerGauge1.StartAngle = 150F;
+            this.tunerGauge1.StrokeWeight = 20F;
+            this.tunerGauge1.SweepAngle = 240F;
+            this.tunerGauge1.TabIndex = 3;
+            this.tunerGauge1.ThresholdAlarm = 90F;
+            this.tunerGauge1.ThresholdWarning = 70F;
+            this.tunerGauge1.Value = 0F;
+            this.tunerGauge1.ValueFont = new System.Drawing.Font("Calibri", 22F);
+            this.tunerGauge1.ValueMax = 100F;
+            this.tunerGauge1.ValueMin = 0F;
+            this.tunerGauge1.ValueUnit = "°C";
+            this.tunerGauge1.ValueUnitFont = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
+            this.tunerGauge1.WarningColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(156)))), ((int)(((byte)(71)))));
             // 
             // TuneOMaticUI
             // 
@@ -211,7 +436,12 @@
             this.Size = new System.Drawing.Size(906, 502);
             this.Tabs.ResumeLayout(false);
             this.TunePage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.TunePage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.TunePage3.ResumeLayout(false);
+            this.TunePage3.PerformLayout();
+            this.TunePage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +463,20 @@
         private System.Windows.Forms.TabPage TunePage2;
         private WizardNavigation TunePage2Nav;
         private WizardBanner TunePage2Banner;
+        private WizardText wizardText1;
+        private WizardText wizardText2;
+        private System.Windows.Forms.TabPage TunePage3;
+        private WizardText wizardText3;
+        private WizardNavigation wizardNavigation1;
+        private WizardBanner wizardBanner1;
+        private System.Windows.Forms.TabPage TunePage4;
+        private WizardText wizardText4;
+        private WizardNavigation wizardNavigation2;
+        private WizardBanner wizardBanner2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private TunerGauge tunerGauge1;
     }
 }

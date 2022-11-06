@@ -26,7 +26,6 @@ namespace DJetronicStudio
         public delegate void OnReceivedPressureHandler(object sender, double Pressure);
         public event OnReceivedPressureHandler OnReceivedPressure = null;
 
-        private bool Connected = false;
         private ArduinoSession Session = null;
         private ISerialConnection Connection = null;
 

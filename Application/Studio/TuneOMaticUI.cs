@@ -46,17 +46,6 @@ namespace DJetronicStudio
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
             Recording = false;
 
-            TunePage1Banner.Title = "Tune MPS Step 1";
-            TunePage1Nav.OnCancel += Nav_OnCancel;
-            TunePage1Nav.OnNext += Nav_OnNext;
-            TunePage1Nav.FirstPage = true;
-
-            TunePage2Banner.Title = "Tune MPS Step 2";
-            TunePage2Nav.OnCancel += Nav_OnCancel;
-            TunePage2Nav.OnNext += Nav_OnNext;
-            TunePage2Nav.OnPrevious += Nav_OnPrevious;
-            TunePage2Nav.LastPage = true;
-
             ShowInitialSettings();
 
             UpdateUI();
@@ -68,6 +57,14 @@ namespace DJetronicStudio
             {
                 ShowPage(TunePage1);
             }
+            else if (Tabs.SelectedTab == TunePage3)
+            {
+                ShowPage(TunePage2);
+            }
+            else if (Tabs.SelectedTab == TunePage4)
+            {
+                ShowPage(TunePage3);
+            }
         }
 
         private void Nav_OnNext(object sender)
@@ -77,6 +74,14 @@ namespace DJetronicStudio
                 ShowPage(TunePage2);
             }
             else if (Tabs.SelectedTab == TunePage2)
+            {
+                ShowPage(TunePage3);
+            }
+            else if (Tabs.SelectedTab == TunePage3)
+            {
+                ShowPage(TunePage4);
+            }
+            else if (Tabs.SelectedTab == TunePage4)
             {
                 ShowPage(DbPage);
                 if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);

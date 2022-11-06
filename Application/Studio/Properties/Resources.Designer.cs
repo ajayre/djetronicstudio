@@ -403,6 +403,16 @@ namespace DJetronicStudio.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MPS_Vacuum_Port {
+            get {
+                object obj = ResourceManager.GetObject("MPS_Vacuum_Port", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap record {
             get {
                 object obj = ResourceManager.GetObject("record", resourceCulture);
@@ -526,6 +536,16 @@ namespace DJetronicStudio.Properties {
         internal static System.Drawing.Bitmap tester_72 {
             get {
                 object obj = ResourceManager.GetObject("tester_72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tune_o_Matic_V1_0_MPS_Connector {
+            get {
+                object obj = ResourceManager.GetObject("Tune_o_Matic_V1_0_MPS_Connector", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

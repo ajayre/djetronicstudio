@@ -180,6 +180,12 @@
     <Compile Include="StatusLabel.cs" />
     <Compile Include="ToolbarButton.cs" />
     <Compile Include="TuneOMatic.cs" />
+    <Compile Include="TunerGauge.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TunerGauge.Designer.cs">
+      <DependentUpon>TunerGauge.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardBanner.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -191,6 +197,12 @@
     </Compile>
     <Compile Include="WizardNavigation.Designer.cs">
       <DependentUpon>WizardNavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WizardText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardText.Designer.cs">
+      <DependentUpon>WizardText.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -227,11 +239,17 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="TunerGauge.resx">
+      <DependentUpon>TunerGauge.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WizardBanner.resx">
       <DependentUpon>WizardBanner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardNavigation.resx">
       <DependentUpon>WizardNavigation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WizardText.resx">
+      <DependentUpon>WizardText.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -253,6 +271,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\MPS-Vacuum-Port.png" />
+    <None Include="Graphics\Tune-o-Matic-V1.0-MPS-Connector.png" />
     <None Include="Graphics\database_add_72.png" />
     <None Include="Graphics\database_add_64.png" />
     <None Include="Graphics\database_add_48.png" />
