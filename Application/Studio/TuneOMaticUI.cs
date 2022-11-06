@@ -24,6 +24,8 @@ namespace DJetronicStudio
         private DateTime RecordingStartTime;
         private List<Tuple<double, double, UInt16>> RecordingBuffer = new List<Tuple<double, double, UInt16>>();
         private double LastPressure;
+        private ToolbarButton TuneMPSButton;
+        private ToolbarButton AddMPSButton;
 
         public TuneOMaticUI
             (
@@ -34,13 +36,106 @@ namespace DJetronicStudio
 
             InitializeComponent();
 
+            TuneMPSButton = new ToolbarButton("Tune MPS", Properties.Resources.tuneomatic_32, TuneMPS, true);
+            ToolbarButtons.Add(TuneMPSButton);
+
+            AddMPSButton = new ToolbarButton("Add MPS to database", Properties.Resources.database_add_32, AddMPS, true);
+            ToolbarButtons.Add(AddMPSButton);
+
             Tuner.OnReceivedPressure += Tuner_OnReceivedPressure;
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
             Recording = false;
 
+            TunePage1Banner.Title = "Tune MPS Step 1";
+            TunePage1Nav.OnCancel += Nav_OnCancel;
+            TunePage1Nav.OnNext += Nav_OnNext;
+            TunePage1Nav.FirstPage = true;
+
+            TunePage2Banner.Title = "Tune MPS Step 2";
+            TunePage2Nav.OnCancel += Nav_OnCancel;
+            TunePage2Nav.OnNext += Nav_OnNext;
+            TunePage2Nav.OnPrevious += Nav_OnPrevious;
+            TunePage2Nav.LastPage = true;
+
             ShowInitialSettings();
 
             UpdateUI();
+        }
+
+        private void Nav_OnPrevious(object sender)
+        {
+            if (Tabs.SelectedTab == TunePage2)
+            {
+                ShowPage(TunePage1);
+            }
+        }
+
+        private void Nav_OnNext(object sender)
+        {
+            if (Tabs.SelectedTab == TunePage1)
+            {
+                ShowPage(TunePage2);
+            }
+            else if (Tabs.SelectedTab == TunePage2)
+            {
+                ShowPage(DbPage);
+                if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);
+            }
+        }
+
+        /// <summary>
+        /// Called when user cancels in a wizard
+        /// Goes back to the database page
+        /// </summary>
+        /// <param name="sender"></param>
+        private void Nav_OnCancel(object sender)
+        {
+            ShowPage(DbPage);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);
+        }
+
+        /// <summary>
+        /// Called when user clicks on button to tune an MPS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void TuneMPS
+            (
+            object sender,
+            EventArgs e
+            )
+        {
+            ShowPage(TunePage1);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, false);
+        }
+
+        /// <summary>
+        /// Shows a page
+        /// </summary>
+        /// <param name="Page">Page to show</param>
+        private void ShowPage
+            (
+            TabPage Page
+            )
+        {
+            Tabs.SelectedTab = Page;
+
+            if (Page == TunePage1)
+            {
+            }
+        }
+
+        /// <summary>
+        /// Called when user clicks on button to add an MPS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void AddMPS
+            (
+            object sender,
+            EventArgs e
+            )
+        {
         }
 
         /// <summary>

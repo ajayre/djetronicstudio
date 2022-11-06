@@ -133,6 +133,9 @@
     <Compile Include="DynamicSettings.cs" />
     <Compile Include="ECUTester.cs" />
     <Compile Include="IUI.cs" />
+    <Compile Include="TablessControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TuneOMaticUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -177,6 +180,18 @@
     <Compile Include="StatusLabel.cs" />
     <Compile Include="ToolbarButton.cs" />
     <Compile Include="TuneOMatic.cs" />
+    <Compile Include="WizardBanner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardBanner.Designer.cs">
+      <DependentUpon>WizardBanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WizardNavigation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardNavigation.Designer.cs">
+      <DependentUpon>WizardNavigation.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -212,6 +227,12 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="WizardBanner.resx">
+      <DependentUpon>WizardBanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WizardNavigation.resx">
+      <DependentUpon>WizardNavigation.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -232,6 +253,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\database_add_72.png" />
+    <None Include="Graphics\database_add_64.png" />
+    <None Include="Graphics\database_add_48.png" />
+    <None Include="Graphics\database_add_32.png" />
+    <None Include="Graphics\database_add_24.png" />
+    <None Include="Graphics\database_72.png" />
     <None Include="Graphics\tuneomatic_72.png" />
     <None Include="Graphics\tuneomatic_64.png" />
     <None Include="Graphics\tuneomatic_48.png" />
