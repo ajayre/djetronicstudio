@@ -280,4 +280,34 @@
   <data name="Tune_o_Matic_V1_0_MPS_Connector" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\Tune-o-Matic-V1.0-MPS-Connector.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="export_mps_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\export_mps_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="export_mps_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\export_mps_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="export_mps_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\export_mps_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="export_mps_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\export_mps_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="export_mps_72" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\export_mps_72.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="import_mps_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\import_mps_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="import_mps_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\import_mps_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="import_mps_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\import_mps_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="import_mps_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\import_mps_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="import_mps_72" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\import_mps_72.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

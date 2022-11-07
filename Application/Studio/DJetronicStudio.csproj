@@ -272,6 +272,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\import_mps_72.png" />
+    <None Include="Graphics\import_mps_64.png" />
+    <None Include="Graphics\import_mps_48.png" />
+    <None Include="Graphics\import_mps_32.png" />
+    <None Include="Graphics\import_mps_24.png" />
+    <None Include="Graphics\export_mps_72.png" />
+    <None Include="Graphics\export_mps_64.png" />
+    <None Include="Graphics\export_mps_48.png" />
+    <None Include="Graphics\export_mps_32.png" />
+    <None Include="Graphics\export_mps_24.png" />
     <None Include="Graphics\MPS-Vacuum-Port.png" />
     <None Include="Graphics\Tune-o-Matic-V1.0-MPS-Connector.png" />
     <None Include="Graphics\database_add_72.png" />

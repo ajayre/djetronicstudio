@@ -58,6 +58,7 @@
             this.wizardText4 = new DJetronicStudio.WizardText();
             this.wizardNavigation2 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner2 = new DJetronicStudio.WizardBanner();
+            this.ImportMPSProfileDialog = new System.Windows.Forms.OpenFileDialog();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -422,6 +423,12 @@
             this.wizardBanner2.TabIndex = 0;
             this.wizardBanner2.Title = "Tune MPS Step 4";
             // 
+            // ImportMPSProfileDialog
+            // 
+            this.ImportMPSProfileDialog.DefaultExt = "mps";
+            this.ImportMPSProfileDialog.Filter = "MPS Profiles (*.mps)|*.mps|All Files (*.*)|*.*";
+            this.ImportMPSProfileDialog.Title = "Import MPS Profile";
+            // 
             // TuneOMaticUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -480,5 +487,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private TunerGauge Gauge;
+        private System.Windows.Forms.OpenFileDialog ImportMPSProfileDialog;
     }
 }

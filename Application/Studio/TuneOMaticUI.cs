@@ -26,6 +26,7 @@ namespace DJetronicStudio
         private double LastPressure;
         private ToolbarButton TuneMPSButton;
         private ToolbarButton AddMPSButton;
+        private ToolbarButton ImportMPSProfileButton;
 
         public TuneOMaticUI
             (
@@ -41,6 +42,8 @@ namespace DJetronicStudio
 
             AddMPSButton = new ToolbarButton("Add MPS to database", Properties.Resources.database_add_32, AddMPS, true);
             ToolbarButtons.Add(AddMPSButton);
+
+            ImportMPSProfileButton = new ToolbarButton("Import MPS profile", Properties.Resources.import_mps_32, ImportMPSProfile, true);
 
             Tuner.OnReceivedPressure += Tuner_OnReceivedPressure;
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
@@ -155,6 +158,24 @@ namespace DJetronicStudio
             EventArgs e
             )
         {
+        }
+
+        /// <summary>
+        /// Called when user clicks on button to import an MPS profile
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void ImportMPSProfile
+            (
+            object sender,
+            EventArgs e
+            )
+        {
+            if (ImportMPSProfileDialog.ShowDialog() == DialogResult.OK)
+            {
+                MPSProfile NewProfile = MPSProfile.ReadFromFile(ImportMPSProfileDialog.FileName);
+                Tuner.Database.Add(NewProfile);
+            }
         }
 
         /// <summary>

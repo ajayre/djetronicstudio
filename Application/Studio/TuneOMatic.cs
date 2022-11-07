@@ -26,9 +26,10 @@ namespace DJetronicStudio
         public delegate void OnReceivedPressureHandler(object sender, double Pressure);
         public event OnReceivedPressureHandler OnReceivedPressure = null;
 
+        public MPSDatabase Database = null;
+
         private ArduinoSession Session = null;
         private ISerialConnection Connection = null;
-        private MPSDatabase Database = null;
 
         private const byte SysExStart = 0xF0;
         private const byte SysExEnd = 0xF7;

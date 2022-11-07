@@ -98,5 +98,17 @@ namespace DJetronicStudio
                 }
             }
         }
+
+        /// <summary>
+        /// Adds a new profile
+        /// </summary>
+        /// <param name="Profile">Profile to add</param>
+        public void Add
+            (
+            MPSProfile Profile
+            )
+        {
+            Profiles.Add(Profile);
+        }
     }
 }

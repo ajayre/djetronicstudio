@@ -383,6 +383,56 @@ namespace DJetronicStudio.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap export_mps_24 {
+            get {
+                object obj = ResourceManager.GetObject("export_mps_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap export_mps_32 {
+            get {
+                object obj = ResourceManager.GetObject("export_mps_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap export_mps_48 {
+            get {
+                object obj = ResourceManager.GetObject("export_mps_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap export_mps_64 {
+            get {
+                object obj = ResourceManager.GetObject("export_mps_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap export_mps_72 {
+            get {
+                object obj = ResourceManager.GetObject("export_mps_72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap exportimage_24 {
             get {
                 object obj = ResourceManager.GetObject("exportimage_24", resourceCulture);
@@ -396,6 +446,56 @@ namespace DJetronicStudio.Properties {
         internal static System.Drawing.Bitmap exportimage_32 {
             get {
                 object obj = ResourceManager.GetObject("exportimage_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import_mps_24 {
+            get {
+                object obj = ResourceManager.GetObject("import_mps_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import_mps_32 {
+            get {
+                object obj = ResourceManager.GetObject("import_mps_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import_mps_48 {
+            get {
+                object obj = ResourceManager.GetObject("import_mps_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import_mps_64 {
+            get {
+                object obj = ResourceManager.GetObject("import_mps_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import_mps_72 {
+            get {
+                object obj = ResourceManager.GetObject("import_mps_72", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
