@@ -443,5 +443,16 @@ namespace DJetronicStudio
         {
             Disconnect();
         }
+
+        /// <summary>
+        /// Called when form is closing
+        /// Make sure we cleanly disconnect
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Disconnect();
+        }
     }
 }

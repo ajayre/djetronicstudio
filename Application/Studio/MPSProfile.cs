@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
+using System.IO;
 
 namespace DJetronicStudio
 {
     public class MPSProfile
     {
+        private const int MAX_VACUUM = 15;
+
         public enum CalibrationTypes { Factory, Inductance, WidebandO2, TuneOMatic };
 
         public CalibrationTypes CalibrationType;
@@ -16,10 +22,11 @@ namespace DJetronicStudio
         public double AtmosphericPressure;
         public DateTime CreationDate;
         public double[] PulseWidths;
+        public bool UserProfile;
 
         public MPSProfile
             (
-            ) : this("Untitled", "", CalibrationTypes.TuneOMatic, DateTime.Now, 0)
+            ) : this("Untitled", "", CalibrationTypes.TuneOMatic, DateTime.Now, 0, true)
         {
         }
 
@@ -29,7 +36,8 @@ namespace DJetronicStudio
             string Description,
             CalibrationTypes CalibrationType,
             DateTime CreationDate,
-            double AtmosphericPressure
+            double AtmosphericPressure,
+            bool UserProfile
             )
         {
             this.Name = Name;
@@ -37,8 +45,14 @@ namespace DJetronicStudio
             this.CalibrationType = CalibrationType;
             this.AtmosphericPressure = AtmosphericPressure;
             this.CreationDate = CreationDate;
+            this.UserProfile = UserProfile;
 
-            PulseWidths = new double[16];
+            PulseWidths = new double[MAX_VACUUM + 1];
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} [{1},{2}]", Name, UserProfile ? "User" : "Internal", CalibrationType);
         }
 
         /// <summary>
@@ -50,7 +64,34 @@ namespace DJetronicStudio
             string FileName
             )
         {
-            // fixme - to do
+            using (XmlTextWriter Writer = new XmlTextWriter(FileName, Encoding.UTF8))
+            {
+                // formatting to use
+                Writer.Formatting = Formatting.Indented;
+                Writer.Indentation = 2;
+
+                Writer.WriteStartDocument();
+                Writer.WriteStartElement("MPS");
+
+                new XElement("Name", Name).WriteTo(Writer);
+                new XElement("Description", Description).WriteTo(Writer);
+                new XElement("CalibrationType", CalibrationType).WriteTo(Writer);
+                new XElement("AtmosphericPressure", AtmosphericPressure).WriteTo(Writer);
+                new XElement("CreationDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")).WriteTo(Writer);
+
+                XElement PulseWidthsEle = new XElement("PulseWidths");
+                for (int Vac = 0; Vac <= MAX_VACUUM; Vac++)
+                {
+                    XElement VacEle = new XElement(string.Format("Vacuum_{0}", Vac), PulseWidths[Vac]);
+                    PulseWidthsEle.Add(VacEle);
+                }
+
+                PulseWidthsEle.WriteTo(Writer);
+
+                Writer.WriteEndElement();
+                Writer.WriteEndDocument();
+                Writer.Close();
+            }
         }
 
         /// <summary>
@@ -65,7 +106,36 @@ namespace DJetronicStudio
         {
             MPSProfile Profile = new MPSProfile();
 
-            // fixme - to do
+            string Xml = File.ReadAllText(FileName, Encoding.UTF8);
+
+            using (StringReader StrReader = new StringReader(Xml))
+            {
+                using (XmlReader Reader = new XmlTextReader(StrReader))
+                {
+                    XElement Root = XElement.Load(Reader);
+
+                    Profile.Name = Root.Element("Name").Value.Trim();
+                    Profile.Description = Root.Element("Description").Value.Trim();
+                    Profile.AtmosphericPressure = (double)Root.Element("AtmosphericPressure");
+                    Profile.CalibrationType = (CalibrationTypes)Enum.Parse(typeof(CalibrationTypes), Root.Element("CalibrationType").Value.Trim());
+                    Profile.CreationDate = DateTime.Parse(Root.Element("CreationDate").Value.Trim());
+
+                    Regex VacName = new Regex("^Vacuum_([0-9]+)$", RegexOptions.IgnoreCase);
+
+                    foreach (XElement Element in Root.Element("PulseWidths").Nodes().OfType<XElement>())
+                    {
+                        Match VacMatch = VacName.Match(Element.Name.ToString());
+                        if (VacMatch.Success)
+                        {
+                            int Vacuum = int.Parse(VacMatch.Groups[1].Value.Trim());
+                            if ((Vacuum >= 0) && (Vacuum <= MAX_VACUUM))
+                            {
+                                Profile.PulseWidths[Vacuum] = double.Parse(Element.Value.Trim());
+                            }
+                        }
+                    }
+                }
+            }
 
             return Profile;
         }

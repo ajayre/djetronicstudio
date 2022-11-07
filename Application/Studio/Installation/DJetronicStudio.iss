@@ -37,6 +37,8 @@ Source: "..\DLLs\*.*"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\DLLs\x64\*.*"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\license.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Documentation\*.png"; DestDir: "{app}\Documentation"; Flags: ignoreversion
+; mps database
+Source: "..\MPS Database\*.mps"; DestDir: "{app}\MPS Database"; Excludes: ".svn"; Flags: ignoreversion
 ; gac
 ;Source: "..\DLLs\Microsoft.Office.Interop.Word.dll"; DestDir: "{app}"; StrongAssemblyName: "Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, ProcessorArchitecture=MSIL"; Flags: "gacinstall sharedfile uninsnosharedfileprompt"
 ; third party licenses

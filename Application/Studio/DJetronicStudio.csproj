@@ -133,6 +133,7 @@
     <Compile Include="DynamicSettings.cs" />
     <Compile Include="ECUTester.cs" />
     <Compile Include="IUI.cs" />
+    <Compile Include="MPSDatabase.cs" />
     <Compile Include="TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -28,6 +28,7 @@ namespace DJetronicStudio
 
         private ArduinoSession Session = null;
         private ISerialConnection Connection = null;
+        private MPSDatabase Database = null;
 
         private const byte SysExStart = 0xF0;
         private const byte SysExEnd = 0xF7;
@@ -122,6 +123,8 @@ namespace DJetronicStudio
             {
                 OnConnected(this, Connection.PortName, Connection.BaudRate, FirmwareMajorVersion, FirmwareMinorVersion);
             }
+
+            Database = new MPSDatabase();
         }
 
         /// <summary>
@@ -135,6 +138,8 @@ namespace DJetronicStudio
             {
                 return;
             }
+
+            Database.SaveUserProfiles();
 
             Session.MessageReceived -= Session_MessageReceived;
             Connection.Close();

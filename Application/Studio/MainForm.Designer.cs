@@ -188,6 +188,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "D-Jetronic Studio";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.StatusStrip.ResumeLayout(false);
             this.StatusStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
