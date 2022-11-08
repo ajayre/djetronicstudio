@@ -30,6 +30,9 @@ namespace DJetronicStudio
         private ToolbarButton AddMPSButton;
         private ToolbarButton ImportMPSProfileButton;
         private int CurrentMPSDatabaseLayoutMaxColumns;
+        private MPSDatabase Database = null;
+        private MPSProfile TuningReference = null;
+        private int TuningVacuumSetting = 5;
 
         public TuneOMaticUI
             (
@@ -52,6 +55,10 @@ namespace DJetronicStudio
             Tuner.OnReceivedPressure += Tuner_OnReceivedPressure;
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
             Recording = false;
+
+            Database = new MPSDatabase();
+
+            TunePage2WizardText.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the vacuum to " + TuningVacuumSetting.ToString() + " in Hg. When done click on Next.";
 
             ShowInitialSettings();
 
@@ -98,6 +105,8 @@ namespace DJetronicStudio
             else if (Tabs.SelectedTab == TunePage3)
             {
                 ShowPage(TunePage4);
+                TuningReference = ReferenceSelector.SelectedItem as MPSProfile;
+                ConfigureTuningGauge(TuningReference, TuningVacuumSetting);
                 Tuner.RequestStartContinuousMeasurement();
             }
             else if (Tabs.SelectedTab == TunePage4)
@@ -131,8 +140,34 @@ namespace DJetronicStudio
             EventArgs e
             )
         {
-            ShowPage(TunePage1);
-            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, false);
+            TuningReference = null;
+            StartTuning();
+        }
+
+        private volatile int x = 1;
+
+        /// <summary>
+        /// Configures the tuning gauge for a specified reference
+        /// </summary>
+        /// <param name="Reference">Reference MPS to use</param>
+        /// <param name="VacuumSetting">The vacuum setting that the tuning will be performed at</param>
+        private void ConfigureTuningGauge
+            (
+            MPSProfile Reference,
+            int VacuumSetting
+            )
+        {
+            // this construct came from here:
+            // https://stackoverflow.com/questions/1362204/how-to-remove-a-lambda-event-handler
+            TuneOMatic.OnReceivedPressureHandler Handler = null;
+            Handler = (sender, pressure) =>
+            {
+                // fixme - to do - configure gauge based on reference, vacuum setting and current pressure
+
+                Tuner.OnReceivedPressure -= Handler;
+            };
+            Tuner.OnReceivedPressure += Handler;
+            Tuner.RequestPressure();
         }
 
         // from: https://stackoverflow.com/questions/76993/how-to-double-buffer-net-controls-on-a-form
@@ -188,7 +223,7 @@ namespace DJetronicStudio
             MPSProfileUI ProfileUI = new MPSProfileUI();
             CurrentMPSDatabaseLayoutMaxColumns = DbPage.Width / (ProfileUI.Width + MPS_DATABASE_LAYOUT_PADDING);
 
-            foreach (MPSProfile Profile in Tuner.Database.GetProfiles())
+            foreach (MPSProfile Profile in Database.GetProfiles())
             {
                 ProfileUI = new MPSProfileUI();
                 ProfileUI.Profile = Profile;
@@ -228,8 +263,30 @@ namespace DJetronicStudio
                     break;
 
                 case MPSProfileUI.ButtonTypes.TuneUsing:
-                    // fixme - to do
+                    TuningReference = Profile;
+                    StartTuning();
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Starts the MPS tuning
+        /// </summary>
+        private void StartTuning
+            (
+            )
+        {
+            ShowPage(TunePage1);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, false);
+
+            List<MPSProfile> References = new List<MPSProfile>();
+            foreach (MPSProfile Profile in Database.GetProfiles()) References.Add(Profile);
+
+            ReferenceSelector.DataSource = References;
+
+            if (TuningReference != null)
+            {
+                ReferenceSelector.SelectedItem = TuningReference;
             }
         }
 
@@ -261,7 +318,7 @@ namespace DJetronicStudio
                 Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (Result == DialogResult.Yes)
             {
-                Tuner.Database.Remove(Profile);
+                Database.Remove(Profile);
                 ShowDatabase();
             }
         }
@@ -333,7 +390,7 @@ namespace DJetronicStudio
             if (ImportMPSProfileDialog.ShowDialog() == DialogResult.OK)
             {
                 MPSProfile NewProfile = MPSProfile.ReadFromFile(ImportMPSProfileDialog.FileName);
-                Tuner.Database.Add(NewProfile);
+                Database.Add(NewProfile);
                 ShowDatabase();
             }
         }

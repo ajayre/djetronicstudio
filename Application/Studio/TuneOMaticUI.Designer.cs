@@ -36,6 +36,7 @@
             this.StartContBtn = new System.Windows.Forms.Button();
             this.StopContBtn = new System.Windows.Forms.Button();
             this.ImportMPSProfileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.ExportMPSProfileDialog = new System.Windows.Forms.SaveFileDialog();
             this.Tabs = new DJetronicStudio.TablessControl();
             this.DbPage = new System.Windows.Forms.TabPage();
             this.TunePage1 = new System.Windows.Forms.TabPage();
@@ -45,12 +46,12 @@
             this.TunePage1Banner = new DJetronicStudio.WizardBanner();
             this.TunePage2 = new System.Windows.Forms.TabPage();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.wizardText2 = new DJetronicStudio.WizardText();
+            this.TunePage2WizardText = new DJetronicStudio.WizardText();
             this.TunePage2Nav = new DJetronicStudio.WizardNavigation();
             this.TunePage2Banner = new DJetronicStudio.WizardBanner();
             this.TunePage3 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ReferenceSelector = new System.Windows.Forms.ComboBox();
             this.wizardText3 = new DJetronicStudio.WizardText();
             this.wizardNavigation1 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner1 = new DJetronicStudio.WizardBanner();
@@ -59,7 +60,6 @@
             this.wizardText4 = new DJetronicStudio.WizardText();
             this.wizardNavigation2 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner2 = new DJetronicStudio.WizardBanner();
-            this.ExportMPSProfileDialog = new System.Windows.Forms.SaveFileDialog();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -138,6 +138,12 @@
             this.ImportMPSProfileDialog.DefaultExt = "mps";
             this.ImportMPSProfileDialog.Filter = "MPS Profiles (*.mps)|*.mps|All Files (*.*)|*.*";
             this.ImportMPSProfileDialog.Title = "Import MPS Profile";
+            // 
+            // ExportMPSProfileDialog
+            // 
+            this.ExportMPSProfileDialog.DefaultExt = "mps";
+            this.ExportMPSProfileDialog.Filter = "MPS Profiles (*.mps)|*.mps|All Files (*.*)|*.*";
+            this.ExportMPSProfileDialog.Title = "Export MPS Profile";
             // 
             // Tabs
             // 
@@ -231,7 +237,7 @@
             // 
             this.TunePage2.BackColor = System.Drawing.SystemColors.Control;
             this.TunePage2.Controls.Add(this.pictureBox2);
-            this.TunePage2.Controls.Add(this.wizardText2);
+            this.TunePage2.Controls.Add(this.TunePage2WizardText);
             this.TunePage2.Controls.Add(this.TunePage2Nav);
             this.TunePage2.Controls.Add(this.TunePage2Banner);
             this.TunePage2.Location = new System.Drawing.Point(4, 22);
@@ -252,16 +258,16 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // wizardText2
+            // TunePage2WizardText
             // 
-            this.wizardText2.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the " +
+            this.TunePage2WizardText.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the " +
     "vacuum to 5 in Hg. When done click on Next.";
-            this.wizardText2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.wizardText2.Location = new System.Drawing.Point(3, 71);
-            this.wizardText2.Name = "wizardText2";
-            this.wizardText2.Size = new System.Drawing.Size(886, 74);
-            this.wizardText2.TabIndex = 2;
-            this.wizardText2.Title = "Connect MityVac to MPS";
+            this.TunePage2WizardText.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TunePage2WizardText.Location = new System.Drawing.Point(3, 71);
+            this.TunePage2WizardText.Name = "TunePage2WizardText";
+            this.TunePage2WizardText.Size = new System.Drawing.Size(886, 74);
+            this.TunePage2WizardText.TabIndex = 2;
+            this.TunePage2WizardText.Title = "Connect MityVac to MPS";
             // 
             // TunePage2Nav
             // 
@@ -290,7 +296,7 @@
             // 
             this.TunePage3.BackColor = System.Drawing.SystemColors.Control;
             this.TunePage3.Controls.Add(this.label1);
-            this.TunePage3.Controls.Add(this.comboBox1);
+            this.TunePage3.Controls.Add(this.ReferenceSelector);
             this.TunePage3.Controls.Add(this.wizardText3);
             this.TunePage3.Controls.Add(this.wizardNavigation1);
             this.TunePage3.Controls.Add(this.wizardBanner1);
@@ -311,15 +317,15 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Reference:";
             // 
-            // comboBox1
+            // ReferenceSelector
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(265, 150);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(436, 21);
-            this.comboBox1.TabIndex = 3;
+            this.ReferenceSelector.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ReferenceSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ReferenceSelector.FormattingEnabled = true;
+            this.ReferenceSelector.Location = new System.Drawing.Point(265, 150);
+            this.ReferenceSelector.Name = "ReferenceSelector";
+            this.ReferenceSelector.Size = new System.Drawing.Size(436, 21);
+            this.ReferenceSelector.TabIndex = 3;
             // 
             // wizardText3
             // 
@@ -432,12 +438,6 @@
             this.wizardBanner2.TabIndex = 0;
             this.wizardBanner2.Title = "Tune MPS Step 4";
             // 
-            // ExportMPSProfileDialog
-            // 
-            this.ExportMPSProfileDialog.DefaultExt = "mps";
-            this.ExportMPSProfileDialog.Filter = "MPS Profiles (*.mps)|*.mps|All Files (*.*)|*.*";
-            this.ExportMPSProfileDialog.Title = "Export MPS Profile";
-            // 
             // TuneOMaticUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -482,7 +482,7 @@
         private WizardNavigation TunePage2Nav;
         private WizardBanner TunePage2Banner;
         private WizardText wizardText1;
-        private WizardText wizardText2;
+        private WizardText TunePage2WizardText;
         private System.Windows.Forms.TabPage TunePage3;
         private WizardText wizardText3;
         private WizardNavigation wizardNavigation1;
@@ -494,7 +494,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ReferenceSelector;
         private TunerGauge Gauge;
         private System.Windows.Forms.OpenFileDialog ImportMPSProfileDialog;
         private System.Windows.Forms.SaveFileDialog ExportMPSProfileDialog;

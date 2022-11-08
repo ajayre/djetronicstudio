@@ -38,6 +38,8 @@ namespace DJetronicStudio
 
                 RenameBtn.Enabled = _Profile.UserProfile;
                 DeleteBtn.Enabled = _Profile.UserProfile;
+
+                ToolTips.SetToolTip(Picture, _Profile.Description);
             }
         }
 

@@ -125,7 +125,9 @@ namespace DJetronicStudio
         {
             Profiles.Add(Profile);
 
-            Profile.FileName = UserFolder + Path.DirectorySeparatorChar + Profile.Name + ".mps";
+            string Name = Guid.NewGuid().ToString();
+
+            Profile.FileName = UserFolder + Path.DirectorySeparatorChar + Name + ".mps";
             Profile.WriteToFile(Profile.FileName);
         }
 

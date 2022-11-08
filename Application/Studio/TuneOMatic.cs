@@ -26,8 +26,6 @@ namespace DJetronicStudio
         public delegate void OnReceivedPressureHandler(object sender, double Pressure);
         public event OnReceivedPressureHandler OnReceivedPressure = null;
 
-        public MPSDatabase Database = null;
-
         private ArduinoSession Session = null;
         private ISerialConnection Connection = null;
 
@@ -120,8 +118,6 @@ namespace DJetronicStudio
                 throw new Exception("Unrecognized hardware. Is the MPS Tune-o-Matic connected to the PC?");
             }
 
-            Database = new MPSDatabase();
-
             if (OnConnected != null)
             {
                 OnConnected(this, Connection.PortName, Connection.BaudRate, FirmwareMajorVersion, FirmwareMinorVersion);
@@ -140,8 +136,7 @@ namespace DJetronicStudio
                 return;
             }
 
-            Database.SaveUserProfiles();
-
+            RequestStopContinuousMeasurement();
             Session.MessageReceived -= Session_MessageReceived;
             Connection.Close();
             Connection = null;

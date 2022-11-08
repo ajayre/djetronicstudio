@@ -36,9 +36,9 @@
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.TuneUsingBtn = new System.Windows.Forms.Button();
             this.RenameBtn = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Picture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.CalibrationIcon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
             this.SuspendLayout();
             // 
             // MPSNamelabel
@@ -85,7 +85,7 @@
             // TuneUsingBtn
             // 
             this.TuneUsingBtn.Image = global::DJetronicStudio.Properties.Resources.tuneomatic_24;
-            this.TuneUsingBtn.Location = new System.Drawing.Point(33, 147);
+            this.TuneUsingBtn.Location = new System.Drawing.Point(-1, 147);
             this.TuneUsingBtn.Name = "TuneUsingBtn";
             this.TuneUsingBtn.Size = new System.Drawing.Size(28, 28);
             this.TuneUsingBtn.TabIndex = 2;
@@ -96,7 +96,7 @@
             // RenameBtn
             // 
             this.RenameBtn.Image = global::DJetronicStudio.Properties.Resources.edit_24;
-            this.RenameBtn.Location = new System.Drawing.Point(-1, 147);
+            this.RenameBtn.Location = new System.Drawing.Point(33, 147);
             this.RenameBtn.Name = "RenameBtn";
             this.RenameBtn.Size = new System.Drawing.Size(28, 28);
             this.RenameBtn.TabIndex = 1;
@@ -104,14 +104,14 @@
             this.RenameBtn.UseVisualStyleBackColor = true;
             this.RenameBtn.Click += new System.EventHandler(this.RenameBtn_Click);
             // 
-            // pictureBox1
+            // Picture
             // 
-            this.pictureBox1.Image = global::DJetronicStudio.Properties.Resources.mps_128;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 16);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.Picture.Image = global::DJetronicStudio.Properties.Resources.mps_128;
+            this.Picture.Location = new System.Drawing.Point(0, 16);
+            this.Picture.Name = "Picture";
+            this.Picture.Size = new System.Drawing.Size(128, 128);
+            this.Picture.TabIndex = 0;
+            this.Picture.TabStop = false;
             // 
             // MPSProfileUI
             // 
@@ -123,18 +123,18 @@
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.TuneUsingBtn);
             this.Controls.Add(this.RenameBtn);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.Picture);
             this.Name = "MPSProfileUI";
             this.Size = new System.Drawing.Size(128, 177);
             ((System.ComponentModel.ISupportInitialize)(this.CalibrationIcon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox Picture;
         private System.Windows.Forms.Button RenameBtn;
         private System.Windows.Forms.Button TuneUsingBtn;
         private System.Windows.Forms.Button DeleteBtn;
