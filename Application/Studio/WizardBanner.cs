@@ -21,6 +21,15 @@ namespace DJetronicStudio
             set { TitleText.Text = value; }
         }
 
+        /// <summary>
+        /// Icon to show on the left
+        /// </summary>
+        public Image Icon
+        {
+            get { return IconBox.Image; }
+            set { IconBox.Image = value; }
+        }
+
         public WizardBanner()
         {
             InitializeComponent();

@@ -85,6 +85,18 @@ namespace DJetronicStudio
                 Tuner.RequestStopContinuousMeasurement();
                 ShowPage(TunePage3);
             }
+            else if (Tabs.SelectedTab == AddPage2)
+            {
+                ShowPage(AddPage1);
+            }
+            else if (Tabs.SelectedTab == AddPage3)
+            {
+                ShowPage(AddPage2);
+            }
+            else if (Tabs.SelectedTab == AddPage4)
+            {
+                ShowPage(AddPage3);
+            }
         }
 
         /// <summary>
@@ -115,6 +127,35 @@ namespace DJetronicStudio
                 ShowPage(DbPage);
                 if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);
             }
+            else if (Tabs.SelectedTab == AddPage1)
+            {
+                if (AddNameInput.Text.Trim().Length == 0)
+                {
+                    MessageBox.Show("Please enter a name for the MPS", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                if (AddDescriptionInput.Text.Trim().Length == 0)
+                {
+                    MessageBox.Show("Please enter a description for the MPS", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                ShowPage(AddPage2);
+            }
+            else if (Tabs.SelectedTab == AddPage2)
+            {
+                ShowPage(AddPage3);
+            }
+            else if (Tabs.SelectedTab == AddPage3)
+            {
+                ShowPage(AddPage4);
+            }
+            else if (Tabs.SelectedTab == AddPage4)
+            {
+                // fixme - to do - create profile
+                ShowPage(DbPage);
+                if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, AddMPSButton, true);
+            }
         }
 
         /// <summary>
@@ -143,8 +184,6 @@ namespace DJetronicStudio
             TuningReference = null;
             StartTuning();
         }
-
-        private volatile int x = 1;
 
         /// <summary>
         /// Configures the tuning gauge for a specified reference
@@ -284,6 +323,7 @@ namespace DJetronicStudio
         {
             ShowPage(TunePage1);
             if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, false);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, AddMPSButton, true);
 
             List<MPSProfile> References = new List<MPSProfile>();
             foreach (MPSProfile Profile in Database.GetProfiles()) References.Add(Profile);
@@ -379,7 +419,10 @@ namespace DJetronicStudio
             EventArgs e
             )
         {
-            // fixme - to do
+            AddCalibrationSelector.SelectedIndex = 0;
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, AddMPSButton, false);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);
+            ShowPage(AddPage1);
         }
 
         /// <summary>

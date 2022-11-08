@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.TitleText = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.IconBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.IconBox)).BeginInit();
             this.SuspendLayout();
             // 
             // TitleText
@@ -44,14 +44,14 @@
             this.TitleText.TabIndex = 1;
             this.TitleText.Text = "Tune MPS Step 1";
             // 
-            // pictureBox1
+            // IconBox
             // 
-            this.pictureBox1.Image = global::DJetronicStudio.Properties.Resources.tuneomatic_48;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 9);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.IconBox.Image = global::DJetronicStudio.Properties.Resources.tuneomatic_48;
+            this.IconBox.Location = new System.Drawing.Point(9, 9);
+            this.IconBox.Name = "IconBox";
+            this.IconBox.Size = new System.Drawing.Size(48, 48);
+            this.IconBox.TabIndex = 0;
+            this.IconBox.TabStop = false;
             // 
             // WizardBanner
             // 
@@ -59,10 +59,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.Controls.Add(this.TitleText);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.IconBox);
             this.Name = "WizardBanner";
             this.Size = new System.Drawing.Size(876, 68);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IconBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -70,7 +70,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox IconBox;
         private System.Windows.Forms.Label TitleText;
     }
 }

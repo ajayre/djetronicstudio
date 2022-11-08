@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TuneOMaticUI));
             this.ExportCSVDialog = new System.Windows.Forms.SaveFileDialog();
             this.GetPressureBtn = new System.Windows.Forms.Button();
             this.GetPulseWidthBtn = new System.Windows.Forms.Button();
@@ -60,6 +61,30 @@
             this.wizardText4 = new DJetronicStudio.WizardText();
             this.wizardNavigation2 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner2 = new DJetronicStudio.WizardBanner();
+            this.AddPage1 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AddCalibrationSelector = new System.Windows.Forms.ComboBox();
+            this.AddDescriptionInput = new System.Windows.Forms.TextBox();
+            this.AddNameInput = new System.Windows.Forms.TextBox();
+            this.wizardText2 = new DJetronicStudio.WizardText();
+            this.wizardNavigation3 = new DJetronicStudio.WizardNavigation();
+            this.wizardBanner3 = new DJetronicStudio.WizardBanner();
+            this.AddPage2 = new System.Windows.Forms.TabPage();
+            this.wizardText5 = new DJetronicStudio.WizardText();
+            this.wizardNavigation4 = new DJetronicStudio.WizardNavigation();
+            this.wizardBanner4 = new DJetronicStudio.WizardBanner();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.AddPage3 = new System.Windows.Forms.TabPage();
+            this.wizardBanner5 = new DJetronicStudio.WizardBanner();
+            this.wizardNavigation5 = new DJetronicStudio.WizardNavigation();
+            this.wizardText6 = new DJetronicStudio.WizardText();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.AddPage4 = new System.Windows.Forms.TabPage();
+            this.wizardBanner6 = new DJetronicStudio.WizardBanner();
+            this.wizardNavigation6 = new DJetronicStudio.WizardNavigation();
+            this.wizardText7 = new DJetronicStudio.WizardText();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -67,6 +92,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.TunePage3.SuspendLayout();
             this.TunePage4.SuspendLayout();
+            this.AddPage1.SuspendLayout();
+            this.AddPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.AddPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.AddPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExportCSVDialog
@@ -155,6 +186,10 @@
             this.Tabs.Controls.Add(this.TunePage2);
             this.Tabs.Controls.Add(this.TunePage3);
             this.Tabs.Controls.Add(this.TunePage4);
+            this.Tabs.Controls.Add(this.AddPage1);
+            this.Tabs.Controls.Add(this.AddPage2);
+            this.Tabs.Controls.Add(this.AddPage3);
+            this.Tabs.Controls.Add(this.AddPage4);
             this.Tabs.Location = new System.Drawing.Point(3, 61);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
@@ -227,6 +262,7 @@
             // 
             this.TunePage1Banner.BackColor = System.Drawing.Color.CornflowerBlue;
             this.TunePage1Banner.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TunePage1Banner.Icon = ((System.Drawing.Image)(resources.GetObject("TunePage1Banner.Icon")));
             this.TunePage1Banner.Location = new System.Drawing.Point(3, 3);
             this.TunePage1Banner.Name = "TunePage1Banner";
             this.TunePage1Banner.Size = new System.Drawing.Size(886, 68);
@@ -286,6 +322,7 @@
             // 
             this.TunePage2Banner.BackColor = System.Drawing.Color.CornflowerBlue;
             this.TunePage2Banner.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TunePage2Banner.Icon = ((System.Drawing.Image)(resources.GetObject("TunePage2Banner.Icon")));
             this.TunePage2Banner.Location = new System.Drawing.Point(3, 3);
             this.TunePage2Banner.Name = "TunePage2Banner";
             this.TunePage2Banner.Size = new System.Drawing.Size(886, 68);
@@ -354,6 +391,7 @@
             // 
             this.wizardBanner1.BackColor = System.Drawing.Color.CornflowerBlue;
             this.wizardBanner1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner1.Icon = ((System.Drawing.Image)(resources.GetObject("wizardBanner1.Icon")));
             this.wizardBanner1.Location = new System.Drawing.Point(3, 3);
             this.wizardBanner1.Name = "wizardBanner1";
             this.wizardBanner1.Size = new System.Drawing.Size(886, 68);
@@ -432,11 +470,297 @@
             // 
             this.wizardBanner2.BackColor = System.Drawing.Color.CornflowerBlue;
             this.wizardBanner2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner2.Icon = ((System.Drawing.Image)(resources.GetObject("wizardBanner2.Icon")));
             this.wizardBanner2.Location = new System.Drawing.Point(3, 3);
             this.wizardBanner2.Name = "wizardBanner2";
             this.wizardBanner2.Size = new System.Drawing.Size(886, 68);
             this.wizardBanner2.TabIndex = 0;
             this.wizardBanner2.Title = "Tune MPS Step 4";
+            // 
+            // AddPage1
+            // 
+            this.AddPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.AddPage1.Controls.Add(this.label4);
+            this.AddPage1.Controls.Add(this.label3);
+            this.AddPage1.Controls.Add(this.label2);
+            this.AddPage1.Controls.Add(this.AddCalibrationSelector);
+            this.AddPage1.Controls.Add(this.AddDescriptionInput);
+            this.AddPage1.Controls.Add(this.AddNameInput);
+            this.AddPage1.Controls.Add(this.wizardText2);
+            this.AddPage1.Controls.Add(this.wizardNavigation3);
+            this.AddPage1.Controls.Add(this.wizardBanner3);
+            this.AddPage1.Location = new System.Drawing.Point(4, 22);
+            this.AddPage1.Name = "AddPage1";
+            this.AddPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.AddPage1.Size = new System.Drawing.Size(892, 412);
+            this.AddPage1.TabIndex = 5;
+            this.AddPage1.Text = "AddPage1";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(36, 217);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Calibration Method:";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(71, 191);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Description:";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(96, 165);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Name:";
+            // 
+            // AddCalibrationSelector
+            // 
+            this.AddCalibrationSelector.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.AddCalibrationSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AddCalibrationSelector.FormattingEnabled = true;
+            this.AddCalibrationSelector.Items.AddRange(new object[] {
+            "Factory (Bosch, cap is intact)",
+            "Inductance",
+            "Wideband O2 sensor",
+            "Tune-o-Matic"});
+            this.AddCalibrationSelector.Location = new System.Drawing.Point(140, 214);
+            this.AddCalibrationSelector.Name = "AddCalibrationSelector";
+            this.AddCalibrationSelector.Size = new System.Drawing.Size(221, 21);
+            this.AddCalibrationSelector.TabIndex = 4;
+            // 
+            // AddDescriptionInput
+            // 
+            this.AddDescriptionInput.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.AddDescriptionInput.Location = new System.Drawing.Point(140, 188);
+            this.AddDescriptionInput.Name = "AddDescriptionInput";
+            this.AddDescriptionInput.Size = new System.Drawing.Size(705, 20);
+            this.AddDescriptionInput.TabIndex = 3;
+            // 
+            // AddNameInput
+            // 
+            this.AddNameInput.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.AddNameInput.Location = new System.Drawing.Point(140, 162);
+            this.AddNameInput.Name = "AddNameInput";
+            this.AddNameInput.Size = new System.Drawing.Size(221, 20);
+            this.AddNameInput.TabIndex = 2;
+            // 
+            // wizardText2
+            // 
+            this.wizardText2.Body = "Fill in a name, description and choose how this MPS was calibrated. Then click on" +
+    " Next.";
+            this.wizardText2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText2.Location = new System.Drawing.Point(3, 71);
+            this.wizardText2.Name = "wizardText2";
+            this.wizardText2.Size = new System.Drawing.Size(886, 85);
+            this.wizardText2.TabIndex = 1;
+            this.wizardText2.Title = "Enter MPS Details";
+            // 
+            // wizardNavigation3
+            // 
+            this.wizardNavigation3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.wizardNavigation3.FirstPage = true;
+            this.wizardNavigation3.LastPage = false;
+            this.wizardNavigation3.Location = new System.Drawing.Point(3, 373);
+            this.wizardNavigation3.Name = "wizardNavigation3";
+            this.wizardNavigation3.Size = new System.Drawing.Size(886, 36);
+            this.wizardNavigation3.TabIndex = 5;
+            this.wizardNavigation3.OnCancel += new DJetronicStudio.WizardNavigation.OnCancelHandler(this.Nav_OnCancel);
+            this.wizardNavigation3.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
+            this.wizardNavigation3.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
+            // 
+            // wizardBanner3
+            // 
+            this.wizardBanner3.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.wizardBanner3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner3.Icon = global::DJetronicStudio.Properties.Resources.database_add_48;
+            this.wizardBanner3.Location = new System.Drawing.Point(3, 3);
+            this.wizardBanner3.Name = "wizardBanner3";
+            this.wizardBanner3.Size = new System.Drawing.Size(886, 68);
+            this.wizardBanner3.TabIndex = 0;
+            this.wizardBanner3.Title = "Add MPS Step 1";
+            // 
+            // AddPage2
+            // 
+            this.AddPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.AddPage2.Controls.Add(this.pictureBox3);
+            this.AddPage2.Controls.Add(this.wizardText5);
+            this.AddPage2.Controls.Add(this.wizardNavigation4);
+            this.AddPage2.Controls.Add(this.wizardBanner4);
+            this.AddPage2.Location = new System.Drawing.Point(4, 22);
+            this.AddPage2.Name = "AddPage2";
+            this.AddPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.AddPage2.Size = new System.Drawing.Size(892, 412);
+            this.AddPage2.TabIndex = 6;
+            this.AddPage2.Text = "AddPage2";
+            // 
+            // wizardText5
+            // 
+            this.wizardText5.Body = "Plug the MPS into the Tune-o-Matic using the four pin screw terminal block. Match" +
+    " up the pin numbers embossed on the MPS with the pin numbers for the Tune-o-Mati" +
+    "c. When done click on Next.";
+            this.wizardText5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText5.Location = new System.Drawing.Point(3, 71);
+            this.wizardText5.Name = "wizardText5";
+            this.wizardText5.Size = new System.Drawing.Size(886, 85);
+            this.wizardText5.TabIndex = 2;
+            this.wizardText5.Title = "Connect MPS";
+            // 
+            // wizardNavigation4
+            // 
+            this.wizardNavigation4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.wizardNavigation4.FirstPage = false;
+            this.wizardNavigation4.LastPage = false;
+            this.wizardNavigation4.Location = new System.Drawing.Point(3, 373);
+            this.wizardNavigation4.Name = "wizardNavigation4";
+            this.wizardNavigation4.Size = new System.Drawing.Size(886, 36);
+            this.wizardNavigation4.TabIndex = 1;
+            this.wizardNavigation4.OnCancel += new DJetronicStudio.WizardNavigation.OnCancelHandler(this.Nav_OnCancel);
+            this.wizardNavigation4.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
+            this.wizardNavigation4.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
+            // 
+            // wizardBanner4
+            // 
+            this.wizardBanner4.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.wizardBanner4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner4.Icon = global::DJetronicStudio.Properties.Resources.database_add_48;
+            this.wizardBanner4.Location = new System.Drawing.Point(3, 3);
+            this.wizardBanner4.Name = "wizardBanner4";
+            this.wizardBanner4.Size = new System.Drawing.Size(886, 68);
+            this.wizardBanner4.TabIndex = 0;
+            this.wizardBanner4.Title = "Add MPS Step 2";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox3.Image = global::DJetronicStudio.Properties.Resources.Tune_o_Matic_V1_0_MPS_Connector;
+            this.pictureBox3.Location = new System.Drawing.Point(3, 156);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(886, 130);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 4;
+            this.pictureBox3.TabStop = false;
+            // 
+            // AddPage3
+            // 
+            this.AddPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.AddPage3.Controls.Add(this.pictureBox4);
+            this.AddPage3.Controls.Add(this.wizardText6);
+            this.AddPage3.Controls.Add(this.wizardNavigation5);
+            this.AddPage3.Controls.Add(this.wizardBanner5);
+            this.AddPage3.Location = new System.Drawing.Point(4, 22);
+            this.AddPage3.Name = "AddPage3";
+            this.AddPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.AddPage3.Size = new System.Drawing.Size(892, 412);
+            this.AddPage3.TabIndex = 7;
+            this.AddPage3.Text = "AddPage3";
+            // 
+            // wizardBanner5
+            // 
+            this.wizardBanner5.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.wizardBanner5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner5.Icon = global::DJetronicStudio.Properties.Resources.database_add_48;
+            this.wizardBanner5.Location = new System.Drawing.Point(3, 3);
+            this.wizardBanner5.Name = "wizardBanner5";
+            this.wizardBanner5.Size = new System.Drawing.Size(886, 68);
+            this.wizardBanner5.TabIndex = 0;
+            this.wizardBanner5.Title = "Add MPS Step 3";
+            // 
+            // wizardNavigation5
+            // 
+            this.wizardNavigation5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.wizardNavigation5.FirstPage = false;
+            this.wizardNavigation5.LastPage = false;
+            this.wizardNavigation5.Location = new System.Drawing.Point(3, 373);
+            this.wizardNavigation5.Name = "wizardNavigation5";
+            this.wizardNavigation5.Size = new System.Drawing.Size(886, 36);
+            this.wizardNavigation5.TabIndex = 1;
+            this.wizardNavigation5.OnCancel += new DJetronicStudio.WizardNavigation.OnCancelHandler(this.Nav_OnCancel);
+            this.wizardNavigation5.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
+            this.wizardNavigation5.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
+            // 
+            // wizardText6
+            // 
+            this.wizardText6.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the " +
+    "vacuum to 0 in Hg. When done click on Next.";
+            this.wizardText6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText6.Location = new System.Drawing.Point(3, 71);
+            this.wizardText6.Name = "wizardText6";
+            this.wizardText6.Size = new System.Drawing.Size(886, 85);
+            this.wizardText6.TabIndex = 2;
+            this.wizardText6.Title = "Connect MityVac to MPS";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox4.Image = global::DJetronicStudio.Properties.Resources.MPS_Vacuum_Port;
+            this.pictureBox4.Location = new System.Drawing.Point(3, 156);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(886, 130);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 5;
+            this.pictureBox4.TabStop = false;
+            // 
+            // AddPage4
+            // 
+            this.AddPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.AddPage4.Controls.Add(this.wizardText7);
+            this.AddPage4.Controls.Add(this.wizardNavigation6);
+            this.AddPage4.Controls.Add(this.wizardBanner6);
+            this.AddPage4.Location = new System.Drawing.Point(4, 22);
+            this.AddPage4.Name = "AddPage4";
+            this.AddPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.AddPage4.Size = new System.Drawing.Size(892, 412);
+            this.AddPage4.TabIndex = 8;
+            this.AddPage4.Text = "AddPage4";
+            // 
+            // wizardBanner6
+            // 
+            this.wizardBanner6.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.wizardBanner6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner6.Icon = global::DJetronicStudio.Properties.Resources.database_add_48;
+            this.wizardBanner6.Location = new System.Drawing.Point(3, 3);
+            this.wizardBanner6.Name = "wizardBanner6";
+            this.wizardBanner6.Size = new System.Drawing.Size(886, 68);
+            this.wizardBanner6.TabIndex = 0;
+            this.wizardBanner6.Title = "Add MPS Step 4";
+            // 
+            // wizardNavigation6
+            // 
+            this.wizardNavigation6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.wizardNavigation6.FirstPage = false;
+            this.wizardNavigation6.LastPage = true;
+            this.wizardNavigation6.Location = new System.Drawing.Point(3, 373);
+            this.wizardNavigation6.Name = "wizardNavigation6";
+            this.wizardNavigation6.Size = new System.Drawing.Size(886, 36);
+            this.wizardNavigation6.TabIndex = 1;
+            this.wizardNavigation6.OnCancel += new DJetronicStudio.WizardNavigation.OnCancelHandler(this.Nav_OnCancel);
+            this.wizardNavigation6.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
+            this.wizardNavigation6.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
+            // 
+            // wizardText7
+            // 
+            this.wizardText7.Body = "Set the vacuum to 0 inHg and click on Vacuum 0 inHg Done. Then repeat for vacuum " +
+    "1 inHg and continue until all vacuum settings have been completed. Then click on" +
+    " Finish";
+            this.wizardText7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText7.Location = new System.Drawing.Point(3, 71);
+            this.wizardText7.Name = "wizardText7";
+            this.wizardText7.Size = new System.Drawing.Size(886, 85);
+            this.wizardText7.TabIndex = 2;
+            this.wizardText7.Title = "Set Vacuum";
             // 
             // TuneOMaticUI
             // 
@@ -460,6 +784,13 @@
             this.TunePage3.ResumeLayout(false);
             this.TunePage3.PerformLayout();
             this.TunePage4.ResumeLayout(false);
+            this.AddPage1.ResumeLayout(false);
+            this.AddPage1.PerformLayout();
+            this.AddPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.AddPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.AddPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -498,5 +829,29 @@
         private TunerGauge Gauge;
         private System.Windows.Forms.OpenFileDialog ImportMPSProfileDialog;
         private System.Windows.Forms.SaveFileDialog ExportMPSProfileDialog;
+        private System.Windows.Forms.TabPage AddPage1;
+        private WizardText wizardText2;
+        private WizardNavigation wizardNavigation3;
+        private WizardBanner wizardBanner3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox AddCalibrationSelector;
+        private System.Windows.Forms.TextBox AddDescriptionInput;
+        private System.Windows.Forms.TextBox AddNameInput;
+        private System.Windows.Forms.TabPage AddPage2;
+        private WizardText wizardText5;
+        private WizardNavigation wizardNavigation4;
+        private WizardBanner wizardBanner4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.TabPage AddPage3;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private WizardText wizardText6;
+        private WizardNavigation wizardNavigation5;
+        private WizardBanner wizardBanner5;
+        private System.Windows.Forms.TabPage AddPage4;
+        private WizardText wizardText7;
+        private WizardNavigation wizardNavigation6;
+        private WizardBanner wizardBanner6;
     }
 }
