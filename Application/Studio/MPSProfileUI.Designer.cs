@@ -69,6 +69,7 @@
             this.ExportBtn.TabIndex = 4;
             this.ToolTips.SetToolTip(this.ExportBtn, "Export profile");
             this.ExportBtn.UseVisualStyleBackColor = true;
+            this.ExportBtn.Click += new System.EventHandler(this.ExportBtn_Click);
             // 
             // DeleteBtn
             // 
@@ -79,6 +80,7 @@
             this.DeleteBtn.TabIndex = 3;
             this.ToolTips.SetToolTip(this.DeleteBtn, "Delete profile");
             this.DeleteBtn.UseVisualStyleBackColor = true;
+            this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
             // 
             // TuneUsingBtn
             // 
@@ -89,6 +91,7 @@
             this.TuneUsingBtn.TabIndex = 2;
             this.ToolTips.SetToolTip(this.TuneUsingBtn, "Tune using this profile as a reference");
             this.TuneUsingBtn.UseVisualStyleBackColor = true;
+            this.TuneUsingBtn.Click += new System.EventHandler(this.TuneUsingBtn_Click);
             // 
             // RenameBtn
             // 
@@ -99,6 +102,7 @@
             this.RenameBtn.TabIndex = 1;
             this.ToolTips.SetToolTip(this.RenameBtn, "Rename");
             this.RenameBtn.UseVisualStyleBackColor = true;
+            this.RenameBtn.Click += new System.EventHandler(this.RenameBtn_Click);
             // 
             // pictureBox1
             // 

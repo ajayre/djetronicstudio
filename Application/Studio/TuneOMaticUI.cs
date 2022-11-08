@@ -47,6 +47,7 @@ namespace DJetronicStudio
             ToolbarButtons.Add(AddMPSButton);
 
             ImportMPSProfileButton = new ToolbarButton("Import MPS profile", Properties.Resources.import_mps_32, ImportMPSProfile, true);
+            ToolbarButtons.Add(ImportMPSProfileButton);
 
             Tuner.OnReceivedPressure += Tuner_OnReceivedPressure;
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
@@ -174,6 +175,11 @@ namespace DJetronicStudio
                 return;
             }
 
+            foreach (Control Cntrl in DbPage.Controls)
+            {
+                (Cntrl as MPSProfileUI).OnButtonClicked -= ProfileUI_OnButtonClicked;
+            }
+
             DbPage.Controls.Clear();
 
             int RowIndex = 0;
@@ -188,6 +194,7 @@ namespace DJetronicStudio
                 ProfileUI.Profile = Profile;
                 ProfileUI.Left = RowIndex * (ProfileUI.Width + MPS_DATABASE_LAYOUT_PADDING);
                 ProfileUI.Top = ColumnIndex * (ProfileUI.Height + MPS_DATABASE_LAYOUT_PADDING);
+                ProfileUI.OnButtonClicked += ProfileUI_OnButtonClicked;
                 DbPage.Controls.Add(ProfileUI);
 
                 if (++RowIndex == CurrentMPSDatabaseLayoutMaxColumns)
@@ -195,6 +202,67 @@ namespace DJetronicStudio
                     RowIndex = 0;
                     ColumnIndex++;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Called when user clicks on a button associated with an MPS profile
+        /// </summary>
+        /// <param name="sender">UI control that defines the button</param>
+        /// <param name="ButtonType">Type of button that was clicked</param>
+        /// <param name="Profile">The MPS profile to operate on</param>
+        private void ProfileUI_OnButtonClicked(object sender, MPSProfileUI.ButtonTypes ButtonType, MPSProfile Profile)
+        {
+            switch (ButtonType)
+            {
+                case MPSProfileUI.ButtonTypes.Export:
+                    ExportMPSProfile(Profile);
+                    break;
+
+                case MPSProfileUI.ButtonTypes.Delete:
+                    DeleteMPSProfile(Profile);
+                    break;
+
+                case MPSProfileUI.ButtonTypes.Rename:
+                    // fixme - to do
+                    break;
+
+                case MPSProfileUI.ButtonTypes.TuneUsing:
+                    // fixme - to do
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Exports an MPS profile
+        /// </summary>
+        /// <param name="Profile">Profile to export</param>
+        private void ExportMPSProfile
+            (
+            MPSProfile Profile
+            )
+        {
+            if (ExportMPSProfileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Profile.WriteToFile(ExportMPSProfileDialog.FileName);
+            }
+        }
+
+        /// <summary>
+        /// Deletes an MPS profile
+        /// </summary>
+        /// <param name="Profile">Profile to delete</param>
+        private void DeleteMPSProfile
+            (
+            MPSProfile Profile
+            )
+        {
+            DialogResult Result = MessageBox.Show("Are you sure you wish to delete the profile '" + Profile.Name + "'?",
+                Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (Result == DialogResult.Yes)
+            {
+                Tuner.Database.Remove(Profile);
+                ShowDatabase();
             }
         }
 
@@ -266,6 +334,7 @@ namespace DJetronicStudio
             {
                 MPSProfile NewProfile = MPSProfile.ReadFromFile(ImportMPSProfileDialog.FileName);
                 Tuner.Database.Add(NewProfile);
+                ShowDatabase();
             }
         }
 

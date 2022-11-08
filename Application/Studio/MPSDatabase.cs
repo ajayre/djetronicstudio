@@ -81,6 +81,7 @@ namespace DJetronicStudio
                 {
                     MPSProfile Profile = MPSProfile.ReadFromFile(FileName);
                     Profile.UserProfile = UserProfile;
+                    Profile.FileName = FileName;
 
                     Profiles.Add(Profile);
                 }
@@ -102,13 +103,13 @@ namespace DJetronicStudio
             {
                 if (Profile.UserProfile)
                 {
-                    string FileName = UserFolder + Path.DirectorySeparatorChar + Profile.Name + ".mps";
-                    if (File.Exists(FileName))
+                    if (File.Exists(Profile.FileName))
                     {
                         continue;
                     }
 
-                    Profile.WriteToFile(FileName);
+                    Profile.FileName = UserFolder + Path.DirectorySeparatorChar + Profile.Name + ".mps";
+                    Profile.WriteToFile(Profile.FileName);
                 }
             }
         }
@@ -123,6 +124,25 @@ namespace DJetronicStudio
             )
         {
             Profiles.Add(Profile);
+
+            Profile.FileName = UserFolder + Path.DirectorySeparatorChar + Profile.Name + ".mps";
+            Profile.WriteToFile(Profile.FileName);
+        }
+
+        /// <summary>
+        /// Deletes a user profile
+        /// </summary>
+        /// <param name="Profile">Profile to delete</param>
+        public void Remove
+            (
+            MPSProfile Profile
+            )
+        {
+            if (Profile.UserProfile == true)
+            {
+                Profiles.Remove(Profile);
+                File.Delete(Profile.FileName);
+            }
         }
 
         /// <summary>

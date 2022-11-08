@@ -23,6 +23,7 @@ namespace DJetronicStudio
         public DateTime CreationDate;
         public double[] PulseWidths;
         public bool UserProfile;
+        public string FileName;
 
         public MPSProfile
             (
@@ -119,6 +120,7 @@ namespace DJetronicStudio
                     Profile.AtmosphericPressure = (double)Root.Element("AtmosphericPressure");
                     Profile.CalibrationType = (CalibrationTypes)Enum.Parse(typeof(CalibrationTypes), Root.Element("CalibrationType").Value.Trim());
                     Profile.CreationDate = DateTime.Parse(Root.Element("CreationDate").Value.Trim());
+                    Profile.FileName = FileName;
 
                     Regex VacName = new Regex("^Vacuum_([0-9]+)$", RegexOptions.IgnoreCase);
 
