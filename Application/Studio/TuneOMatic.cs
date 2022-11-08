@@ -120,12 +120,12 @@ namespace DJetronicStudio
                 throw new Exception("Unrecognized hardware. Is the MPS Tune-o-Matic connected to the PC?");
             }
 
+            Database = new MPSDatabase();
+
             if (OnConnected != null)
             {
                 OnConnected(this, Connection.PortName, Connection.BaudRate, FirmwareMajorVersion, FirmwareMinorVersion);
             }
-
-            Database = new MPSDatabase();
         }
 
         /// <summary>

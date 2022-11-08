@@ -17,6 +17,8 @@ namespace DJetronicStudio
         public event Action<object, ToolbarButton, bool> OnSetToolbarButtonState = null;
         public event Action<object, StatusLabel, string> OnSetStatusLabelText = null;
 
+        private const int MPS_DATABASE_LAYOUT_PADDING = 10;
+
         private List<ToolbarButton> ToolbarButtons = new List<ToolbarButton>();
         private List<StatusLabel> StatusLabels = new List<StatusLabel>();
         private TuneOMatic Tuner;
@@ -27,6 +29,7 @@ namespace DJetronicStudio
         private ToolbarButton TuneMPSButton;
         private ToolbarButton AddMPSButton;
         private ToolbarButton ImportMPSProfileButton;
+        private int CurrentMPSDatabaseLayoutMaxColumns;
 
         public TuneOMaticUI
             (
@@ -131,6 +134,17 @@ namespace DJetronicStudio
             if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, false);
         }
 
+        // from: https://stackoverflow.com/questions/76993/how-to-double-buffer-net-controls-on-a-form
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;    // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+
         /// <summary>
         /// Shows a page
         /// </summary>
@@ -142,8 +156,84 @@ namespace DJetronicStudio
         {
             Tabs.SelectedTab = Page;
 
-            if (Page == TunePage1)
+            if (Page == DbPage)
             {
+                ShowDatabase();
+            }
+        }
+
+        /// <summary>
+        /// Shows the database
+        /// </summary>
+        private void ShowDatabase
+            (
+            )
+        {
+            if (Tabs.SelectedTab != DbPage)
+            {
+                return;
+            }
+
+            DbPage.Controls.Clear();
+
+            int RowIndex = 0;
+            int ColumnIndex = 0;
+
+            MPSProfileUI ProfileUI = new MPSProfileUI();
+            CurrentMPSDatabaseLayoutMaxColumns = DbPage.Width / (ProfileUI.Width + MPS_DATABASE_LAYOUT_PADDING);
+
+            foreach (MPSProfile Profile in Tuner.Database.GetProfiles())
+            {
+                ProfileUI = new MPSProfileUI();
+                ProfileUI.Profile = Profile;
+                ProfileUI.Left = RowIndex * (ProfileUI.Width + MPS_DATABASE_LAYOUT_PADDING);
+                ProfileUI.Top = ColumnIndex * (ProfileUI.Height + MPS_DATABASE_LAYOUT_PADDING);
+                DbPage.Controls.Add(ProfileUI);
+
+                if (++RowIndex == CurrentMPSDatabaseLayoutMaxColumns)
+                {
+                    RowIndex = 0;
+                    ColumnIndex++;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Recalculates the layout of the database to fit the current
+        /// size of the page
+        /// </summary>
+        private void RecalculateDatabaseLyout
+            (
+            )
+        {
+            if (DbPage.Controls.Count == 0)
+            {
+                return;
+            }
+
+            Control FirstControl = DbPage.Controls[0];
+
+            int MaxColumns = DbPage.Width / (FirstControl.Width + MPS_DATABASE_LAYOUT_PADDING);
+            if (MaxColumns == CurrentMPSDatabaseLayoutMaxColumns)
+            {
+                return;
+            }
+
+            CurrentMPSDatabaseLayoutMaxColumns = MaxColumns;
+
+            int RowIndex = 0;
+            int ColumnIndex = 0;
+
+            foreach (Control Cntrl in DbPage.Controls)
+            {
+                Cntrl.Left = RowIndex * (Cntrl.Width + MPS_DATABASE_LAYOUT_PADDING);
+                Cntrl.Top = ColumnIndex * (Cntrl.Height + MPS_DATABASE_LAYOUT_PADDING);
+
+                if (++RowIndex == CurrentMPSDatabaseLayoutMaxColumns)
+                {
+                    RowIndex = 0;
+                    ColumnIndex++;
+                }
             }
         }
 
@@ -158,6 +248,7 @@ namespace DJetronicStudio
             EventArgs e
             )
         {
+            // fixme - to do
         }
 
         /// <summary>
@@ -261,6 +352,7 @@ namespace DJetronicStudio
             (
             )
         {
+            ShowPage(DbPage);
         }
 
         /// <summary>
@@ -318,6 +410,17 @@ namespace DJetronicStudio
                     CSVFile.Close();
                 }
             }
+        }
+
+        /// <summary>
+        /// Called when the database page is resized
+        /// Updates the grid of profiles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DbPage_Resize(object sender, EventArgs e)
+        {
+            RecalculateDatabaseLyout();
         }
     }
 }

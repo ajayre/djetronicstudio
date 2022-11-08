@@ -134,6 +134,12 @@
     <Compile Include="ECUTester.cs" />
     <Compile Include="IUI.cs" />
     <Compile Include="MPSDatabase.cs" />
+    <Compile Include="MPSProfileUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MPSProfileUI.Designer.cs">
+      <DependentUpon>MPSProfileUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -217,6 +223,9 @@
     <EmbeddedResource Include="DJetChart.resx">
       <DependentUpon>DJetChart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MPSProfileUI.resx">
+      <DependentUpon>MPSProfileUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TuneOMaticUI.resx">
       <DependentUpon>TuneOMaticUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,6 +281,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\delete_24.png" />
+    <None Include="Graphics\star_24.png" />
+    <None Include="Graphics\mps_128.png" />
     <None Include="Graphics\import_mps_72.png" />
     <None Include="Graphics\import_mps_64.png" />
     <None Include="Graphics\import_mps_48.png" />

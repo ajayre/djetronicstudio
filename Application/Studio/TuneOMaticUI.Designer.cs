@@ -35,6 +35,7 @@
             this.PulseWidthValue = new System.Windows.Forms.Label();
             this.StartContBtn = new System.Windows.Forms.Button();
             this.StopContBtn = new System.Windows.Forms.Button();
+            this.ImportMPSProfileDialog = new System.Windows.Forms.OpenFileDialog();
             this.Tabs = new DJetronicStudio.TablessControl();
             this.DbPage = new System.Windows.Forms.TabPage();
             this.TunePage1 = new System.Windows.Forms.TabPage();
@@ -58,7 +59,6 @@
             this.wizardText4 = new DJetronicStudio.WizardText();
             this.wizardNavigation2 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner2 = new DJetronicStudio.WizardBanner();
-            this.ImportMPSProfileDialog = new System.Windows.Forms.OpenFileDialog();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -132,6 +132,12 @@
             this.StopContBtn.UseVisualStyleBackColor = true;
             this.StopContBtn.Click += new System.EventHandler(this.StopContBtn_Click);
             // 
+            // ImportMPSProfileDialog
+            // 
+            this.ImportMPSProfileDialog.DefaultExt = "mps";
+            this.ImportMPSProfileDialog.Filter = "MPS Profiles (*.mps)|*.mps|All Files (*.*)|*.*";
+            this.ImportMPSProfileDialog.Title = "Import MPS Profile";
+            // 
             // Tabs
             // 
             this.Tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -150,6 +156,7 @@
             // 
             // DbPage
             // 
+            this.DbPage.AutoScroll = true;
             this.DbPage.BackColor = System.Drawing.SystemColors.Control;
             this.DbPage.Location = new System.Drawing.Point(4, 22);
             this.DbPage.Name = "DbPage";
@@ -157,6 +164,7 @@
             this.DbPage.Size = new System.Drawing.Size(892, 412);
             this.DbPage.TabIndex = 0;
             this.DbPage.Text = "DbPage";
+            this.DbPage.Resize += new System.EventHandler(this.DbPage_Resize);
             // 
             // TunePage1
             // 
@@ -422,12 +430,6 @@
             this.wizardBanner2.Size = new System.Drawing.Size(886, 68);
             this.wizardBanner2.TabIndex = 0;
             this.wizardBanner2.Title = "Tune MPS Step 4";
-            // 
-            // ImportMPSProfileDialog
-            // 
-            this.ImportMPSProfileDialog.DefaultExt = "mps";
-            this.ImportMPSProfileDialog.Filter = "MPS Profiles (*.mps)|*.mps|All Files (*.*)|*.*";
-            this.ImportMPSProfileDialog.Title = "Import MPS Profile";
             // 
             // TuneOMaticUI
             // 

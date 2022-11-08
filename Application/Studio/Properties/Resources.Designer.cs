@@ -313,6 +313,16 @@ namespace DJetronicStudio.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap delete_24 {
+            get {
+                object obj = ResourceManager.GetObject("delete_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap disconnect {
             get {
                 object obj = ResourceManager.GetObject("disconnect", resourceCulture);
@@ -503,6 +513,16 @@ namespace DJetronicStudio.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mps_128 {
+            get {
+                object obj = ResourceManager.GetObject("mps_128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MPS_Vacuum_Port {
             get {
                 object obj = ResourceManager.GetObject("MPS_Vacuum_Port", resourceCulture);
@@ -566,6 +586,16 @@ namespace DJetronicStudio.Properties {
         internal static System.Drawing.Bitmap simulation_72 {
             get {
                 object obj = ResourceManager.GetObject("simulation_72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap star_24 {
+            get {
+                object obj = ResourceManager.GetObject("star_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -31,8 +31,21 @@ namespace DJetronicStudio
                 Directory.CreateDirectory(UserFolder);
             }
 
-            Load(InternalFolder, false);
-            Load(UserFolder, true);
+            Reload();
+        }
+
+        /// <summary>
+        /// Enumerates the profiles in the database
+        /// </summary>
+        /// <returns>Enumeration of profiles</returns>
+        public IEnumerable<MPSProfile> GetProfiles
+            (
+            )
+        {
+            foreach (MPSProfile Profile in Profiles)
+            {
+                yield return Profile;
+            }
         }
 
         /// <summary>
@@ -46,6 +59,7 @@ namespace DJetronicStudio
 
             Load(InternalFolder, false);
             Load(UserFolder, true);
+            GenerateFactoryAverageProfile();
         }
 
         /// <summary>
@@ -91,7 +105,7 @@ namespace DJetronicStudio
                     string FileName = UserFolder + Path.DirectorySeparatorChar + Profile.Name + ".mps";
                     if (File.Exists(FileName))
                     {
-                        File.Delete(FileName);
+                        continue;
                     }
 
                     Profile.WriteToFile(FileName);
@@ -109,6 +123,17 @@ namespace DJetronicStudio
             )
         {
             Profiles.Add(Profile);
+        }
+
+        /// <summary>
+        /// Generates a profile based on the average of the factory-calibrated MPSs
+        /// </summary>
+        private void GenerateFactoryAverageProfile
+            (
+            )
+        {
+            // fixme - to do
+            // only generate if there is more than one factory calibrated profile in the database
         }
     }
 }
