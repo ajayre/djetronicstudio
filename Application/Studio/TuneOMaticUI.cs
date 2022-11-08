@@ -259,7 +259,13 @@ namespace DJetronicStudio
                     break;
 
                 case MPSProfileUI.ButtonTypes.Rename:
-                    // fixme - to do
+                    RenameForm RForm = new RenameForm();
+                    RForm.NameText = Profile.Name;
+                    if (RForm.ShowDialog() == DialogResult.OK)
+                    {
+                        Database.SetProfileName(Profile, RForm.NameText);
+                        (sender as MPSProfileUI).RefreshName();
+                    }
                     break;
 
                 case MPSProfileUI.ButtonTypes.TuneUsing:

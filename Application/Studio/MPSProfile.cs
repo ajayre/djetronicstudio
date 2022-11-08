@@ -53,7 +53,7 @@ namespace DJetronicStudio
 
         public override string ToString()
         {
-            return string.Format("{0} [{1},{2}]", Name, UserProfile ? "User" : "Internal", CalibrationType);
+            return string.Format("{0} [{1}, {2} Calibration]", Name, UserProfile ? "User Profile" : "Internal Profile", CalibrationType);
         }
 
         /// <summary>

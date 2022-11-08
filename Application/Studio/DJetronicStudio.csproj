@@ -140,6 +140,12 @@
     <Compile Include="MPSProfileUI.Designer.cs">
       <DependentUpon>MPSProfileUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="RenameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RenameForm.Designer.cs">
+      <DependentUpon>RenameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -225,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MPSProfileUI.resx">
       <DependentUpon>MPSProfileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RenameForm.resx">
+      <DependentUpon>RenameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TuneOMaticUI.resx">
       <DependentUpon>TuneOMaticUI.cs</DependentUpon>

@@ -148,6 +148,24 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Sets the name of a profile
+        /// </summary>
+        /// <param name="Profile">Profile to change</param>
+        /// <param name="NewName">New name for profile</param>
+        public void SetProfileName
+            (
+            MPSProfile Profile,
+            string NewName
+            )
+        {
+            if (Profile.UserProfile == true)
+            {
+                Profile.Name = NewName;
+                Profile.WriteToFile(Profile.FileName);
+            }
+        }
+
+        /// <summary>
         /// Generates a profile based on the average of the factory-calibrated MPSs
         /// </summary>
         private void GenerateFactoryAverageProfile

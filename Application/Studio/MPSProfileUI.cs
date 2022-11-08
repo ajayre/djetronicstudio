@@ -49,6 +49,16 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Refreshes the display of the profile name
+        /// </summary>
+        public void RefreshName
+            (
+            )
+        {
+            MPSNamelabel.Text = _Profile.Name;
+        }
+
+        /// <summary>
         /// Called when user clicks on the rename button
         /// </summary>
         /// <param name="sender"></param>
