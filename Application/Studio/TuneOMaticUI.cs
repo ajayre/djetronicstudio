@@ -29,10 +29,12 @@ namespace DJetronicStudio
         private ToolbarButton TuneMPSButton;
         private ToolbarButton AddMPSButton;
         private ToolbarButton ImportMPSProfileButton;
+        private ToolbarButton ChartButton;
         private int CurrentMPSDatabaseLayoutMaxColumns;
         private MPSDatabase Database = null;
         private MPSProfile TuningReference = null;
         private int TuningVacuumSetting = 5;
+        private StatusLabel AtmosphericPressureIndicator;
 
         public TuneOMaticUI
             (
@@ -52,8 +54,15 @@ namespace DJetronicStudio
             ImportMPSProfileButton = new ToolbarButton("Import MPS profile", Properties.Resources.import_mps_32, ImportMPSProfile, true);
             ToolbarButtons.Add(ImportMPSProfileButton);
 
+            ChartButton = new ToolbarButton("Compare charts of MPSs", Properties.Resources.chart_32, ChartProfiles, true);
+            ToolbarButtons.Add(ChartButton);
+
+            AtmosphericPressureIndicator = new StatusLabel("0", Properties.Resources.pressure_24, 127);
+            StatusLabels.Add(AtmosphericPressureIndicator);
+
             Tuner.OnReceivedPressure += Tuner_OnReceivedPressure;
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
+            Tuner.OnConnected += Tuner_OnConnected;
             Recording = false;
 
             Database = new MPSDatabase();
@@ -63,6 +72,19 @@ namespace DJetronicStudio
             ShowInitialSettings();
 
             UpdateUI();
+        }
+
+        /// <summary>
+        /// Called when connected to the tune-o-matic
+        /// Performs an initial pressure request
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="PortName"></param>
+        /// <param name="Baudrate"></param>
+        /// <param name="FirmwareMajorVersion"></param>
+        /// <param name="FirmwareMinorVersion"></param>
+        private void Tuner_OnConnected(object sender, string PortName, int Baudrate, byte FirmwareMajorVersion, byte FirmwareMinorVersion)
+        {
         }
 
         /// <summary>
@@ -183,6 +205,20 @@ namespace DJetronicStudio
         {
             TuningReference = null;
             StartTuning();
+        }
+
+        /// <summary>
+        /// Shows the chart page to compare the charts of multiple MPS profiles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChartProfiles
+            (
+            object sender,
+            EventArgs e
+            )
+        {
+
         }
 
         /// <summary>
@@ -485,6 +521,8 @@ namespace DJetronicStudio
             }
 
             PressureValue.Text = string.Format("{0}", Pressure);
+
+            if (OnSetStatusLabelText != null) OnSetStatusLabelText(this, AtmosphericPressureIndicator, string.Format("{0:N3} Pa ({1:N6} inHg)", Pressure, Pressure / 3386.3886666667));
 
             if (Recording)
             {

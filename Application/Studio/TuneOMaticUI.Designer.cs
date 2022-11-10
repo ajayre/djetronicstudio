@@ -72,19 +72,19 @@
             this.wizardNavigation3 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner3 = new DJetronicStudio.WizardBanner();
             this.AddPage2 = new System.Windows.Forms.TabPage();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.wizardText5 = new DJetronicStudio.WizardText();
             this.wizardNavigation4 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner4 = new DJetronicStudio.WizardBanner();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.AddPage3 = new System.Windows.Forms.TabPage();
-            this.wizardBanner5 = new DJetronicStudio.WizardBanner();
-            this.wizardNavigation5 = new DJetronicStudio.WizardNavigation();
-            this.wizardText6 = new DJetronicStudio.WizardText();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.wizardText6 = new DJetronicStudio.WizardText();
+            this.wizardNavigation5 = new DJetronicStudio.WizardNavigation();
+            this.wizardBanner5 = new DJetronicStudio.WizardBanner();
             this.AddPage4 = new System.Windows.Forms.TabPage();
-            this.wizardBanner6 = new DJetronicStudio.WizardBanner();
-            this.wizardNavigation6 = new DJetronicStudio.WizardNavigation();
             this.wizardText7 = new DJetronicStudio.WizardText();
+            this.wizardNavigation6 = new DJetronicStudio.WizardNavigation();
+            this.wizardBanner6 = new DJetronicStudio.WizardBanner();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -434,10 +434,10 @@
             this.Gauge.ThresholdOutOfRange = 60F;
             this.Gauge.ThresholdWarning1 = 40F;
             this.Gauge.ThresholdWarning2 = 50.5F;
-            this.Gauge.Value = 10F;
+            this.Gauge.Value = 16F;
             this.Gauge.ValueFont = new System.Drawing.Font("Calibri", 22F);
-            this.Gauge.ValueMax = 15F;
-            this.Gauge.ValueMin = 5F;
+            this.Gauge.ValueMax = 20F;
+            this.Gauge.ValueMin = 12F;
             this.Gauge.ValueUnit = "ms";
             this.Gauge.ValueUnitFont = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
             this.Gauge.WarningColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(156)))), ((int)(((byte)(71)))));
@@ -606,6 +606,17 @@
             this.AddPage2.TabIndex = 6;
             this.AddPage2.Text = "AddPage2";
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox3.Image = global::DJetronicStudio.Properties.Resources.Tune_o_Matic_V1_0_MPS_Connector;
+            this.pictureBox3.Location = new System.Drawing.Point(3, 156);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(886, 130);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 4;
+            this.pictureBox3.TabStop = false;
+            // 
             // wizardText5
             // 
             this.wizardText5.Body = "Plug the MPS into the Tune-o-Matic using the four pin screw terminal block. Match" +
@@ -642,17 +653,6 @@
             this.wizardBanner4.TabIndex = 0;
             this.wizardBanner4.Title = "Add MPS Step 2";
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox3.Image = global::DJetronicStudio.Properties.Resources.Tune_o_Matic_V1_0_MPS_Connector;
-            this.pictureBox3.Location = new System.Drawing.Point(3, 156);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(886, 130);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 4;
-            this.pictureBox3.TabStop = false;
-            // 
             // AddPage3
             // 
             this.AddPage3.BackColor = System.Drawing.SystemColors.Control;
@@ -667,16 +667,27 @@
             this.AddPage3.TabIndex = 7;
             this.AddPage3.Text = "AddPage3";
             // 
-            // wizardBanner5
+            // pictureBox4
             // 
-            this.wizardBanner5.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.wizardBanner5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.wizardBanner5.Icon = global::DJetronicStudio.Properties.Resources.database_add_48;
-            this.wizardBanner5.Location = new System.Drawing.Point(3, 3);
-            this.wizardBanner5.Name = "wizardBanner5";
-            this.wizardBanner5.Size = new System.Drawing.Size(886, 68);
-            this.wizardBanner5.TabIndex = 0;
-            this.wizardBanner5.Title = "Add MPS Step 3";
+            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox4.Image = global::DJetronicStudio.Properties.Resources.MPS_Vacuum_Port;
+            this.pictureBox4.Location = new System.Drawing.Point(3, 156);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(886, 130);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 5;
+            this.pictureBox4.TabStop = false;
+            // 
+            // wizardText6
+            // 
+            this.wizardText6.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the " +
+    "vacuum to 0 in Hg. When done click on Next.";
+            this.wizardText6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText6.Location = new System.Drawing.Point(3, 71);
+            this.wizardText6.Name = "wizardText6";
+            this.wizardText6.Size = new System.Drawing.Size(886, 85);
+            this.wizardText6.TabIndex = 2;
+            this.wizardText6.Title = "Connect MityVac to MPS";
             // 
             // wizardNavigation5
             // 
@@ -691,27 +702,16 @@
             this.wizardNavigation5.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
             this.wizardNavigation5.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
             // 
-            // wizardText6
+            // wizardBanner5
             // 
-            this.wizardText6.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the " +
-    "vacuum to 0 in Hg. When done click on Next.";
-            this.wizardText6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.wizardText6.Location = new System.Drawing.Point(3, 71);
-            this.wizardText6.Name = "wizardText6";
-            this.wizardText6.Size = new System.Drawing.Size(886, 85);
-            this.wizardText6.TabIndex = 2;
-            this.wizardText6.Title = "Connect MityVac to MPS";
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox4.Image = global::DJetronicStudio.Properties.Resources.MPS_Vacuum_Port;
-            this.pictureBox4.Location = new System.Drawing.Point(3, 156);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(886, 130);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 5;
-            this.pictureBox4.TabStop = false;
+            this.wizardBanner5.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.wizardBanner5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner5.Icon = global::DJetronicStudio.Properties.Resources.database_add_48;
+            this.wizardBanner5.Location = new System.Drawing.Point(3, 3);
+            this.wizardBanner5.Name = "wizardBanner5";
+            this.wizardBanner5.Size = new System.Drawing.Size(886, 68);
+            this.wizardBanner5.TabIndex = 0;
+            this.wizardBanner5.Title = "Add MPS Step 3";
             // 
             // AddPage4
             // 
@@ -726,16 +726,17 @@
             this.AddPage4.TabIndex = 8;
             this.AddPage4.Text = "AddPage4";
             // 
-            // wizardBanner6
+            // wizardText7
             // 
-            this.wizardBanner6.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.wizardBanner6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.wizardBanner6.Icon = global::DJetronicStudio.Properties.Resources.database_add_48;
-            this.wizardBanner6.Location = new System.Drawing.Point(3, 3);
-            this.wizardBanner6.Name = "wizardBanner6";
-            this.wizardBanner6.Size = new System.Drawing.Size(886, 68);
-            this.wizardBanner6.TabIndex = 0;
-            this.wizardBanner6.Title = "Add MPS Step 4";
+            this.wizardText7.Body = "Set the vacuum to 0 inHg and click on Vacuum 0 inHg Done. Then repeat for vacuum " +
+    "1 inHg and continue until all vacuum settings have been completed. Then click on" +
+    " Finish";
+            this.wizardText7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardText7.Location = new System.Drawing.Point(3, 71);
+            this.wizardText7.Name = "wizardText7";
+            this.wizardText7.Size = new System.Drawing.Size(886, 85);
+            this.wizardText7.TabIndex = 2;
+            this.wizardText7.Title = "Set Vacuum";
             // 
             // wizardNavigation6
             // 
@@ -750,17 +751,16 @@
             this.wizardNavigation6.OnPrevious += new DJetronicStudio.WizardNavigation.OnPreviousHandler(this.Nav_OnPrevious);
             this.wizardNavigation6.OnNext += new DJetronicStudio.WizardNavigation.OnNextHandler(this.Nav_OnNext);
             // 
-            // wizardText7
+            // wizardBanner6
             // 
-            this.wizardText7.Body = "Set the vacuum to 0 inHg and click on Vacuum 0 inHg Done. Then repeat for vacuum " +
-    "1 inHg and continue until all vacuum settings have been completed. Then click on" +
-    " Finish";
-            this.wizardText7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.wizardText7.Location = new System.Drawing.Point(3, 71);
-            this.wizardText7.Name = "wizardText7";
-            this.wizardText7.Size = new System.Drawing.Size(886, 85);
-            this.wizardText7.TabIndex = 2;
-            this.wizardText7.Title = "Set Vacuum";
+            this.wizardBanner6.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.wizardBanner6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.wizardBanner6.Icon = global::DJetronicStudio.Properties.Resources.database_add_48;
+            this.wizardBanner6.Location = new System.Drawing.Point(3, 3);
+            this.wizardBanner6.Name = "wizardBanner6";
+            this.wizardBanner6.Size = new System.Drawing.Size(886, 68);
+            this.wizardBanner6.TabIndex = 0;
+            this.wizardBanner6.Title = "Add MPS Step 4";
             // 
             // TuneOMaticUI
             // 

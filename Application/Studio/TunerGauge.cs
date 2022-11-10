@@ -32,10 +32,6 @@ namespace DJetronicStudio
         private float __ValueMin;
         private float __ValueMax;
         private string __Unit;
-        private float __ThresholdWarning1;
-        private float __ThresholdNormal;
-        private float __ThresholdWarning2;
-        private float __ThresholdOutOfRange;
 
         private float __ThresholdWarning1Percent;
         private float __ThresholdNormalPercent;

@@ -290,6 +290,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\chart_72.png" />
+    <None Include="Graphics\chart_64.png" />
+    <None Include="Graphics\chart_48.png" />
+    <None Include="Graphics\chart_32.png" />
+    <None Include="Graphics\chart_24.png" />
+    <None Include="Graphics\pressure_72.png" />
+    <None Include="Graphics\pressure_64.png" />
+    <None Include="Graphics\pressure_48.png" />
+    <None Include="Graphics\pressure_32.png" />
+    <None Include="Graphics\pressure_24.png" />
     <None Include="Graphics\delete_24.png" />
     <None Include="Graphics\star_24.png" />
     <None Include="Graphics\mps_128.png" />
