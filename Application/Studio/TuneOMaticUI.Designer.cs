@@ -445,7 +445,8 @@
             // wizardText4
             // 
             this.wizardText4.Body = "Turn the adjustment screw of the front of the MPS clockwise or counter-clockwise " +
-    "to get the gauge below to turn green. When done click on Finish.";
+    "to get the gauge below to turn green. Use a 4mm allen key. When done click on Fi" +
+    "nish.";
             this.wizardText4.Dock = System.Windows.Forms.DockStyle.Top;
             this.wizardText4.Location = new System.Drawing.Point(3, 71);
             this.wizardText4.Name = "wizardText4";

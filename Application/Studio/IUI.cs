@@ -13,5 +13,7 @@ namespace DJetronicStudio
 
         IEnumerable<ToolbarButton> GetToolbarButtons();
         IEnumerable<StatusLabel> GetStatusLabels();
+
+        void UIReady();
     }
 }

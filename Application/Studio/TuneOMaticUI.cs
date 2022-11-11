@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Threading;
 
 namespace DJetronicStudio
 {
@@ -62,7 +63,6 @@ namespace DJetronicStudio
 
             Tuner.OnReceivedPressure += Tuner_OnReceivedPressure;
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
-            Tuner.OnConnected += Tuner_OnConnected;
             Recording = false;
 
             Database = new MPSDatabase();
@@ -75,16 +75,13 @@ namespace DJetronicStudio
         }
 
         /// <summary>
-        /// Called when connected to the tune-o-matic
-        /// Performs an initial pressure request
+        /// Called when the user interface has been constructed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="PortName"></param>
-        /// <param name="Baudrate"></param>
-        /// <param name="FirmwareMajorVersion"></param>
-        /// <param name="FirmwareMinorVersion"></param>
-        private void Tuner_OnConnected(object sender, string PortName, int Baudrate, byte FirmwareMajorVersion, byte FirmwareMinorVersion)
+        public void UIReady
+            (
+            )
         {
+            Tuner.RequestPressure();
         }
 
         /// <summary>
@@ -96,6 +93,7 @@ namespace DJetronicStudio
         {
             if (Tabs.SelectedTab == TunePage2)
             {
+                Tuner.RequestStopContinuousMeasurement();
                 ShowPage(TunePage1);
             }
             else if (Tabs.SelectedTab == TunePage3)
@@ -104,7 +102,6 @@ namespace DJetronicStudio
             }
             else if (Tabs.SelectedTab == TunePage4)
             {
-                Tuner.RequestStopContinuousMeasurement();
                 ShowPage(TunePage3);
             }
             else if (Tabs.SelectedTab == AddPage2)
@@ -131,6 +128,7 @@ namespace DJetronicStudio
             if (Tabs.SelectedTab == TunePage1)
             {
                 ShowPage(TunePage2);
+                Tuner.RequestStartContinuousMeasurement();
             }
             else if (Tabs.SelectedTab == TunePage2)
             {
@@ -141,7 +139,6 @@ namespace DJetronicStudio
                 ShowPage(TunePage4);
                 TuningReference = ReferenceSelector.SelectedItem as MPSProfile;
                 ConfigureTuningGauge(TuningReference, TuningVacuumSetting);
-                Tuner.RequestStartContinuousMeasurement();
             }
             else if (Tabs.SelectedTab == TunePage4)
             {

@@ -121,6 +121,15 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Called when the user interface has been constructed
+        /// </summary>
+        public void UIReady
+            (
+            )
+        {
+        }
+
+        /// <summary>
         /// Called when user clicks on button to start recording
         /// </summary>
         /// <param name="sender"></param>

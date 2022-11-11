@@ -63,6 +63,15 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Called when the user interface has been constructed
+        /// </summary>
+        public void UIReady
+            (
+            )
+        {
+        }
+
+        /// <summary>
         /// Shows the initial settings
         /// </summary>
         private void ShowInitialSettings

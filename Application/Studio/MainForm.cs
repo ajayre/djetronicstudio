@@ -208,6 +208,8 @@ namespace DJetronicStudio
             {
                 UIToolStripItems.Add(AddStatusLabel(Label));
             }
+
+            UI.UIReady();
         }
 
         /// <summary>
