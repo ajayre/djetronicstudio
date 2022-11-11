@@ -85,6 +85,7 @@
             this.wizardText7 = new DJetronicStudio.WizardText();
             this.wizardNavigation6 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner6 = new DJetronicStudio.WizardBanner();
+            this.AddPressureButtonGrid = new DJetronicStudio.ReadPressureButtonGrid();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -717,6 +718,7 @@
             // AddPage4
             // 
             this.AddPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.AddPage4.Controls.Add(this.AddPressureButtonGrid);
             this.AddPage4.Controls.Add(this.wizardText7);
             this.AddPage4.Controls.Add(this.wizardNavigation6);
             this.AddPage4.Controls.Add(this.wizardBanner6);
@@ -729,9 +731,9 @@
             // 
             // wizardText7
             // 
-            this.wizardText7.Body = "Set the vacuum to 0 inHg and click on Vacuum 0 inHg Done. Then repeat for vacuum " +
-    "1 inHg and continue until all vacuum settings have been completed. Then click on" +
-    " Finish";
+            this.wizardText7.Body = "Set the vacuum to 0 inHg and click on Vacuum set to 0 inHg. Then repeat for vacuu" +
+    "m 1 inHg and continue until all vacuum settings have been completed. Then click " +
+    "on Finish";
             this.wizardText7.Dock = System.Windows.Forms.DockStyle.Top;
             this.wizardText7.Location = new System.Drawing.Point(3, 71);
             this.wizardText7.Name = "wizardText7";
@@ -762,6 +764,14 @@
             this.wizardBanner6.Size = new System.Drawing.Size(886, 68);
             this.wizardBanner6.TabIndex = 0;
             this.wizardBanner6.Title = "Add MPS Step 4";
+            // 
+            // AddPressureButtonGrid
+            // 
+            this.AddPressureButtonGrid.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.AddPressureButtonGrid.Location = new System.Drawing.Point(126, 162);
+            this.AddPressureButtonGrid.Name = "AddPressureButtonGrid";
+            this.AddPressureButtonGrid.Size = new System.Drawing.Size(641, 152);
+            this.AddPressureButtonGrid.TabIndex = 3;
             // 
             // TuneOMaticUI
             // 
@@ -854,5 +864,6 @@
         private WizardText wizardText7;
         private WizardNavigation wizardNavigation6;
         private WizardBanner wizardBanner6;
+        private ReadPressureButtonGrid AddPressureButtonGrid;
     }
 }

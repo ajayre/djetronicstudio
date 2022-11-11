@@ -140,6 +140,18 @@
     <Compile Include="MPSProfileUI.Designer.cs">
       <DependentUpon>MPSProfileUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReadPressureButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReadPressureButton.Designer.cs">
+      <DependentUpon>ReadPressureButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReadPressureButtonGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReadPressureButtonGrid.Designer.cs">
+      <DependentUpon>ReadPressureButtonGrid.cs</DependentUpon>
+    </Compile>
     <Compile Include="RenameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +244,12 @@
     <EmbeddedResource Include="MPSProfileUI.resx">
       <DependentUpon>MPSProfileUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReadPressureButton.resx">
+      <DependentUpon>ReadPressureButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReadPressureButtonGrid.resx">
+      <DependentUpon>ReadPressureButtonGrid.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RenameForm.resx">
       <DependentUpon>RenameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -290,6 +308,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\check_mark_24.png" />
     <None Include="Graphics\chart_72.png" />
     <None Include="Graphics\chart_64.png" />
     <None Include="Graphics\chart_48.png" />

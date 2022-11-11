@@ -111,6 +111,7 @@ namespace DJetronicStudio
             else if (Tabs.SelectedTab == AddPage3)
             {
                 ShowPage(AddPage2);
+                Tuner.RequestStopContinuousMeasurement();
             }
             else if (Tabs.SelectedTab == AddPage4)
             {
@@ -164,14 +165,17 @@ namespace DJetronicStudio
             else if (Tabs.SelectedTab == AddPage2)
             {
                 ShowPage(AddPage3);
+                Tuner.RequestStartContinuousMeasurement();
             }
             else if (Tabs.SelectedTab == AddPage3)
             {
                 ShowPage(AddPage4);
+                AddPressureButtonGrid.ResetAll();
             }
             else if (Tabs.SelectedTab == AddPage4)
             {
                 // fixme - to do - create profile
+                Tuner.RequestStopContinuousMeasurement();
                 ShowPage(DbPage);
                 if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, AddMPSButton, true);
             }
