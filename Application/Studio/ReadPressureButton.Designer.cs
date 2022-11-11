@@ -41,7 +41,6 @@
             this.Btn.TabIndex = 0;
             this.Btn.Text = "Vacuum set to 0 inHg";
             this.Btn.UseVisualStyleBackColor = true;
-            this.Btn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Btn_MouseClick);
             // 
             // ReadPressureButton
             // 

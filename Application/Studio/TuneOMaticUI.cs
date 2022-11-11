@@ -19,6 +19,7 @@ namespace DJetronicStudio
         public event Action<object, StatusLabel, string> OnSetStatusLabelText = null;
 
         private const int MPS_DATABASE_LAYOUT_PADDING = 10;
+        private const int NUM_AVERAGE_PRESSURE_SAMPLES = 50;
 
         private List<ToolbarButton> ToolbarButtons = new List<ToolbarButton>();
         private List<StatusLabel> StatusLabels = new List<StatusLabel>();
@@ -36,6 +37,8 @@ namespace DJetronicStudio
         private MPSProfile TuningReference = null;
         private int TuningVacuumSetting = 5;
         private StatusLabel AtmosphericPressureIndicator;
+        private SimpleMovingAverage PressureMovingAverage = new SimpleMovingAverage(NUM_AVERAGE_PRESSURE_SAMPLES);
+        private double AveragePressure;
 
         public TuneOMaticUI
             (
@@ -65,6 +68,8 @@ namespace DJetronicStudio
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
             Recording = false;
 
+            AddPressureButtonGrid.OnButtonClicked += AddPressureButtonGrid_OnButtonClicked;
+
             Database = new MPSDatabase();
 
             TunePage2WizardText.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the vacuum to " + TuningVacuumSetting.ToString() + " in Hg. When done click on Next.";
@@ -72,6 +77,28 @@ namespace DJetronicStudio
             ShowInitialSettings();
 
             UpdateUI();
+        }
+
+        /// <summary>
+        /// Called when user clicks on a pressure button
+        /// Captures the current pulse width and stores it
+        /// </summary>
+        /// <param name="sender">The button that was clicked</param>
+        /// <param name="Pressure">The vacuum setting for the button</param>
+        /// <param name="PreviouslyClicked">true if the user already clicked on this button</param>
+        private void AddPressureButtonGrid_OnButtonClicked(ReadPressureButton sender, int Pressure, bool PreviouslyClicked)
+        {
+            if (PreviouslyClicked)
+            {
+                DialogResult Result = MessageBox.Show(string.Format("Vacuum {0} has already been marked as done. Do you want to re-capture it?",
+                    Pressure), Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (Result != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+
+            // fixme - capture pulse width and store
         }
 
         /// <summary>
@@ -129,6 +156,7 @@ namespace DJetronicStudio
             if (Tabs.SelectedTab == TunePage1)
             {
                 ShowPage(TunePage2);
+                PressureMovingAverage.Clear();
                 Tuner.RequestStartContinuousMeasurement();
             }
             else if (Tabs.SelectedTab == TunePage2)
@@ -165,6 +193,7 @@ namespace DJetronicStudio
             else if (Tabs.SelectedTab == AddPage2)
             {
                 ShowPage(AddPage3);
+                PressureMovingAverage.Clear();
                 Tuner.RequestStartContinuousMeasurement();
             }
             else if (Tabs.SelectedTab == AddPage3)
@@ -521,9 +550,11 @@ namespace DJetronicStudio
                 return;
             }
 
+            AveragePressure = PressureMovingAverage.Update(Pressure);
+
             PressureValue.Text = string.Format("{0}", Pressure);
 
-            if (OnSetStatusLabelText != null) OnSetStatusLabelText(this, AtmosphericPressureIndicator, string.Format("{0:N3} Pa ({1:N6} inHg)", Pressure, Pressure / 3386.3886666667));
+            if (OnSetStatusLabelText != null) OnSetStatusLabelText(this, AtmosphericPressureIndicator, string.Format("{0:N3} Pa ({1:N6} inHg) Ave:{2:N3}", Pressure, Pressure / 3386.3886666667, AveragePressure));
 
             if (Recording)
             {
@@ -590,6 +621,7 @@ namespace DJetronicStudio
 
         private void StartContBtn_Click(object sender, EventArgs e)
         {
+            PressureMovingAverage.Clear();
             Tuner.RequestStartContinuousMeasurement();
             RecordingBuffer.Clear();
             LastPressure = 0;

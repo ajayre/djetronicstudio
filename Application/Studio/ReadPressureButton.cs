@@ -67,15 +67,5 @@ namespace DJetronicStudio
                 Btn.Text = string.Format("Vacuum set to {0} inHg", _Pressure);
             }
         }
-
-        /// <summary>
-        /// Called when button is clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_MouseClick(object sender, MouseEventArgs e)
-        {
-            Done = true;
-        }
     }
 }
