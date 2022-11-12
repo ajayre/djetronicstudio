@@ -13,7 +13,7 @@ namespace DJetronicStudio
     public partial class ReadPressureButton : UserControl
     {
         public delegate void OnClickHandler(object sender);
-        public event OnClickHandler OnClick = null;
+        public new event OnClickHandler OnClick = null;
 
         private int _Pressure = 0;
         public int Pressure

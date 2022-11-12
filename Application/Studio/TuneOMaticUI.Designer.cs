@@ -86,6 +86,8 @@
             this.wizardText7 = new DJetronicStudio.WizardText();
             this.wizardNavigation6 = new DJetronicStudio.WizardNavigation();
             this.wizardBanner6 = new DJetronicStudio.WizardBanner();
+            this.ChartPage = new System.Windows.Forms.TabPage();
+            this.Chart = new DJetronicStudio.MPSChart();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -99,6 +101,7 @@
             this.AddPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.AddPage4.SuspendLayout();
+            this.ChartPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExportCSVDialog
@@ -191,6 +194,7 @@
             this.Tabs.Controls.Add(this.AddPage2);
             this.Tabs.Controls.Add(this.AddPage3);
             this.Tabs.Controls.Add(this.AddPage4);
+            this.Tabs.Controls.Add(this.ChartPage);
             this.Tabs.Location = new System.Drawing.Point(3, 61);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
@@ -771,6 +775,26 @@
             this.wizardBanner6.TabIndex = 0;
             this.wizardBanner6.Title = "Add MPS Step 4";
             // 
+            // ChartPage
+            // 
+            this.ChartPage.BackColor = System.Drawing.SystemColors.Control;
+            this.ChartPage.Controls.Add(this.Chart);
+            this.ChartPage.Location = new System.Drawing.Point(4, 22);
+            this.ChartPage.Name = "ChartPage";
+            this.ChartPage.Padding = new System.Windows.Forms.Padding(3);
+            this.ChartPage.Size = new System.Drawing.Size(892, 412);
+            this.ChartPage.TabIndex = 9;
+            this.ChartPage.Text = "ChartPage";
+            // 
+            // Chart
+            // 
+            this.Chart.Buffer = null;
+            this.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Chart.Location = new System.Drawing.Point(3, 3);
+            this.Chart.Name = "Chart";
+            this.Chart.Size = new System.Drawing.Size(886, 406);
+            this.Chart.TabIndex = 1;
+            // 
             // TuneOMaticUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -800,6 +824,7 @@
             this.AddPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.AddPage4.ResumeLayout(false);
+            this.ChartPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -863,5 +888,7 @@
         private WizardNavigation wizardNavigation6;
         private WizardBanner wizardBanner6;
         private ReadPressureButtonGrid AddPressureButtonGrid;
+        private System.Windows.Forms.TabPage ChartPage;
+        private MPSChart Chart;
     }
 }

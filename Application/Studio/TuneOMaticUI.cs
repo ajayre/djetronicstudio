@@ -31,6 +31,7 @@ namespace DJetronicStudio
         private ToolbarButton AddMPSButton;
         private ToolbarButton ImportMPSProfileButton;
         private ToolbarButton ChartButton;
+        private ToolbarButton ViewDatabaseButton;
         private int CurrentMPSDatabaseLayoutMaxColumns;
         private MPSDatabase Database = null;
         private MPSProfile TuningReference = null;
@@ -39,6 +40,7 @@ namespace DJetronicStudio
         private StatusLabel PulseWidthIndicator;
         private MPSProfile NewMPSProfile;
         private UInt16 LastPulseWidth;
+        private DataBuffer Buffer = new DataBuffer();
 
         public TuneOMaticUI
             (
@@ -48,6 +50,9 @@ namespace DJetronicStudio
             this.Tuner = Tuner;
 
             InitializeComponent();
+
+            ViewDatabaseButton = new ToolbarButton("View MPS Database", Properties.Resources.database_32, ViewMPSDatabase, true);
+            ToolbarButtons.Add(ViewDatabaseButton);
 
             TuneMPSButton = new ToolbarButton("Tune MPS", Properties.Resources.tuneomatic_32, TuneMPS, true);
             ToolbarButtons.Add(TuneMPSButton);
@@ -76,6 +81,13 @@ namespace DJetronicStudio
             Database = new MPSDatabase();
 
             TunePage2WizardText.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the vacuum to " + TuningVacuumSetting.ToString() + " in Hg. When done click on Next.";
+
+            //Buffer.OnDataAdded += Buffer_OnDataAdded;
+            //Buffer.OnDataCleared += Buffer_OnDataCleared;
+
+            Buffer.Clear();
+
+            Chart.Buffer = Buffer;
 
             ShowInitialSettings();
 
@@ -272,6 +284,23 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Called when user clicks on button to view the MPS database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ViewMPSDatabase
+            (
+            object sender,
+            EventArgs e
+            )
+        {
+            Tuner.RequestStopContinuousMeasurement();
+            ShowPage(DbPage);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, AddMPSButton, true);
+        }
+
+        /// <summary>
         /// Shows the chart page to compare the charts of multiple MPS profiles
         /// </summary>
         /// <param name="sender"></param>
@@ -282,7 +311,10 @@ namespace DJetronicStudio
             EventArgs e
             )
         {
-
+            Tuner.RequestStopContinuousMeasurement();
+            ShowPage(ChartPage);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, TuneMPSButton, true);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, AddMPSButton, true);
         }
 
         /// <summary>

@@ -133,6 +133,12 @@
     <Compile Include="DynamicSettings.cs" />
     <Compile Include="ECUTester.cs" />
     <Compile Include="IUI.cs" />
+    <Compile Include="MPSChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MPSChart.designer.cs">
+      <DependentUpon>MPSChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="MPSDatabase.cs" />
     <Compile Include="MPSProfileUI.cs">
       <SubType>UserControl</SubType>
@@ -240,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DJetChart.resx">
       <DependentUpon>DJetChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MPSChart.resx">
+      <DependentUpon>MPSChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MPSProfileUI.resx">
       <DependentUpon>MPSProfileUI.cs</DependentUpon>

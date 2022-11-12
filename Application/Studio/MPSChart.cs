@@ -28,7 +28,7 @@ using SkiaSharp.Internals;
 
 namespace DJetronicStudio
 {
-    public partial class DJetChart : UserControl
+    public partial class MPSChart : UserControl
     {
         private class SeriesDescription
         {
@@ -85,7 +85,7 @@ namespace DJetronicStudio
             }
         }
 
-        public DJetChart()
+        public MPSChart()
         {
             InitializeComponent();
 
@@ -111,9 +111,10 @@ namespace DJetronicStudio
                 new LiveChartsCore.SkiaSharpView.Axis
                 {
                     TextSize = 12,
-                    Name = "Time",
+                    Name = "Vacuum (inHg)",
                     NameTextSize = 16,
-                    Labeler = TimeLabeler
+                    MinLimit = 0,
+                    MaxLimit = 15
                 }
             };
 
@@ -125,23 +126,10 @@ namespace DJetronicStudio
                     MinLimit = Settings.MinY,
                     MaxLimit = Settings.MaxY,
                     NameTextSize = 16,
-                    Name = Settings.YAxisTitle,
+                    Name = "Pulse Width (ms)",
                     Position = AxisPosition.Start,
                     NamePaint = new SolidColorPaint(new SKColor(Settings.YColor.R, Settings.YColor.G, Settings.YColor.B, Settings.YColor.A)),
                     LabelsPaint = new SolidColorPaint(new SKColor(Settings.YColor.R, Settings.YColor.G, Settings.YColor.B, Settings.YColor.A))
-                },
-
-                new Axis
-                {
-                    TextSize = 12,
-                    MinLimit = Settings.SecondYAxisMin,
-                    MaxLimit = Settings.SecondYAxisMax,
-                    NameTextSize = 16,
-                    Name = Settings.SecondYAxisTitle,
-                    Position = AxisPosition.End,
-                    NamePaint = new SolidColorPaint(new SKColor(Settings.SecondYAxisColor.R, Settings.SecondYAxisColor.G, Settings.SecondYAxisColor.B, Settings.SecondYAxisColor.A)),
-                    LabelsPaint = new SolidColorPaint(new SKColor(Settings.SecondYAxisColor.R, Settings.SecondYAxisColor.G, Settings.SecondYAxisColor.B, Settings.SecondYAxisColor.A)),
-                    IsVisible = Settings.EnableSecondYAxis
                 }
             };
 
@@ -166,7 +154,7 @@ namespace DJetronicStudio
             Chart.EasingFunction = null;
             Chart.Title = new LabelVisual
             {
-                Text = "Chart",
+                Text = "Pulse Width vs Vacuum for Select MPSs at Sea Level Pressure",
                 TextSize = 18,
                 Padding = new LiveChartsCore.Drawing.Padding(15),
                 Paint = new SolidColorPaint(SKColors.Black)
@@ -206,92 +194,7 @@ namespace DJetronicStudio
             ((Axis)((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[0]).NamePaint = new SolidColorPaint(new SKColor(Settings.YColor.R, Settings.YColor.G, Settings.YColor.B, Settings.YColor.A));
             ((Axis)((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[0]).LabelsPaint = new SolidColorPaint(new SKColor(Settings.YColor.R, Settings.YColor.G, Settings.YColor.B, Settings.YColor.A));
 
-            ((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[1].MinLimit = Settings.SecondYAxisMin;
-            ((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[1].MaxLimit = Settings.SecondYAxisMax;
-            ((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[1].Name = Settings.SecondYAxisTitle;
-            ((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[1].IsVisible = Settings.EnableSecondYAxis;
-            ((Axis)((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[1]).NamePaint = new SolidColorPaint(new SKColor(Settings.SecondYAxisColor.R, Settings.SecondYAxisColor.G, Settings.SecondYAxisColor.B, Settings.SecondYAxisColor.A));
-            ((Axis)((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[1]).LabelsPaint = new SolidColorPaint(new SKColor(Settings.SecondYAxisColor.R, Settings.SecondYAxisColor.G, Settings.SecondYAxisColor.B, Settings.SecondYAxisColor.A));
-
-            foreach (ISeries Ser in Series)
-            {
-                LineSeries<ObservablePoint> SerObj = Ser as LineSeries<ObservablePoint>;
-
-                if ((SerObj.Name == "Pulse Width I") && Settings.SecondYAxisShowPulseWidthI && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Pulse Width II") && Settings.SecondYAxisShowPulseWidthII && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Pulse Width III") && Settings.SecondYAxisShowPulseWidthIII && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Pulse Width IV") && Settings.SecondYAxisShowPulseWidthIV && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Fuel Pump") && Settings.SecondYAxisShowFuelPump && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Engine Speed") && Settings.SecondYAxisShowEngineSpeed && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Throttle") && Settings.SecondYAxisShowThrottle && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Coolant Temperature") && Settings.SecondYAxisShowCoolantTemperature && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Air Temperature") && Settings.SecondYAxisShowAirTemperature && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Vacuum") && Settings.SecondYAxisShowVacuum && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-
-                if ((SerObj.Name == "Starter Motor") && Settings.SecondYAxisShowStaterMotor && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
-            }
-
             Chart.Invalidate();
-        }
-
-        /// <summary>
-        /// Formats the time labels
-        /// </summary>
-        /// <param name="Value">Time in milliseconds</param>
-        /// <returns>Formatted time</returns>
-        private string TimeLabeler
-            (
-            double Value
-            )
-        {
-            if (Value >= 1000)
-            {
-                return (Value / 1000).ToString("N1") + "s";
-            }
-
-            return Value.ToString("N0") + "ms";
         }
 
         /// <summary>
@@ -385,16 +288,6 @@ namespace DJetronicStudio
         }
 
         /// <summary>
-        /// Called when user clicks on the clear button
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ClearBtn_Click(object sender, EventArgs e)
-        {
-            Clear();
-        }
-
-        /// <summary>
         /// Exports the chart as an image
         /// </summary>
         private void ExportImage
@@ -427,33 +320,6 @@ namespace DJetronicStudio
         private void ExportImageBtn_Click(object sender, EventArgs e)
         {
             ExportImage();
-        }
-
-        /// <summary>
-        /// Edits the chart settings
-        /// </summary>
-        private void EditSettings
-            (
-            )
-        {
-            ChartSettingsForm SettingsForm = new ChartSettingsForm();
-            SettingsForm.Settings = Settings;
-
-            if (SettingsForm.ShowDialog() == DialogResult.OK)
-            {
-                Settings = SettingsForm.Settings;
-                ApplySettings();
-            }
-        }
-
-        /// <summary>
-        /// Called when the user clicks on the button to edit the chart settings
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SettingsBtn_Click(object sender, EventArgs e)
-        {
-            EditSettings();
         }
     }
 }
