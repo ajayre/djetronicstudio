@@ -12,6 +12,9 @@ namespace DJetronicStudio
 {
     public partial class ReadPressureButton : UserControl
     {
+        public delegate void OnClickHandler(object sender);
+        public event OnClickHandler OnClick = null;
+
         private int _Pressure = 0;
         public int Pressure
         {
@@ -66,6 +69,16 @@ namespace DJetronicStudio
             {
                 Btn.Text = string.Format("Vacuum set to {0} inHg", _Pressure);
             }
+        }
+
+        /// <summary>
+        /// Called when button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Btn_Click(object sender, EventArgs e)
+        {
+            if (OnClick != null) OnClick(this);
         }
     }
 }

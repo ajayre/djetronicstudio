@@ -57,6 +57,16 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Clears the pulse widths
+        /// </summary>
+        public void ClearPulseWidths
+            (
+            )
+        {
+            for (int p = 0; p <= MAX_VACUUM; p++) PulseWidths[p] = 0;
+        }
+
+        /// <summary>
         /// Stores the profile in a file
         /// </summary>
         /// <param name="FileName">Path and name of file</param>

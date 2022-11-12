@@ -23,11 +23,25 @@ namespace DJetronicStudio
             {
                 if (Ctrl is ReadPressureButton)
                 {
-                    (Ctrl as ReadPressureButton).Click += Btn_Click;
+                    (Ctrl as ReadPressureButton).OnClick += ReadPressureButtonGrid_OnClick;
                 }
             }
 
             ResetAll();
+        }
+
+        /// <summary>
+        /// Called when a button is clicked
+        /// Raises an event passing the pressure of the button
+        /// </summary>
+        /// <param name="sender"></param>
+        private void ReadPressureButtonGrid_OnClick(object sender)
+        {
+            ReadPressureButton PButton = sender as ReadPressureButton;
+
+            if (OnButtonClicked != null) OnButtonClicked(PButton, PButton.Pressure, PButton.Done);
+
+            PButton.Done = true;
         }
 
         /// <summary>
@@ -47,18 +61,22 @@ namespace DJetronicStudio
         }
 
         /// <summary>
-        /// Called when a button is clicked
-        /// Raises an event passing the pressure of the button
+        /// Checks if all pressure buttons have been clicked on
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_Click(object sender, EventArgs e)
+        /// <returns></returns>
+        public bool AreAllDone
+            (
+            )
         {
-            ReadPressureButton PButton = sender as ReadPressureButton;
+            foreach (Control Ctrl in Controls)
+            {
+                if (Ctrl is ReadPressureButton)
+                {
+                    if (!(Ctrl as ReadPressureButton).Done) return false;
+                }
+            }
 
-            if (OnButtonClicked != null) OnButtonClicked(PButton, PButton.Pressure, PButton.Done);
-
-            PButton.Done = true;
+            return true;
         }
     }
 }
