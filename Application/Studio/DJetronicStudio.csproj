@@ -308,6 +308,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\pulse_width_72.png" />
+    <None Include="Graphics\pulse_width_64.png" />
+    <None Include="Graphics\pulse_width_48.png" />
+    <None Include="Graphics\pulse_width_32.png" />
+    <None Include="Graphics\pulse_width_24.png" />
     <None Include="Graphics\check_mark_24.png" />
     <None Include="Graphics\chart_72.png" />
     <None Include="Graphics\chart_64.png" />

@@ -36,7 +36,9 @@ namespace DJetronicStudio
         private MPSProfile TuningReference = null;
         private int TuningVacuumSetting = 5;
         private StatusLabel AtmosphericPressureIndicator;
+        private StatusLabel PulseWidthIndicator;
         private MPSProfile NewMPSProfile;
+        private UInt16 LastPulseWidth;
 
         public TuneOMaticUI
             (
@@ -61,6 +63,9 @@ namespace DJetronicStudio
 
             AtmosphericPressureIndicator = new StatusLabel("0", Properties.Resources.pressure_24, 127);
             StatusLabels.Add(AtmosphericPressureIndicator);
+
+            PulseWidthIndicator = new StatusLabel("0", Properties.Resources.pulse_width_24, 127);
+            StatusLabels.Add(PulseWidthIndicator);
 
             Tuner.OnReceivedPressure += Tuner_OnReceivedPressure;
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
@@ -96,7 +101,10 @@ namespace DJetronicStudio
                 }
             }
 
-            // fixme - capture pulse width and store
+            if (Pressure <= MPSProfile.MAX_VACUUM)
+            {
+                NewMPSProfile.PulseWidths[Pressure] = LastPulseWidth;
+            }
         }
 
         /// <summary>
@@ -155,6 +163,8 @@ namespace DJetronicStudio
             {
                 ShowPage(TunePage2);
                 Tuner.RequestStartContinuousMeasurement();
+                LastPressure = 0;
+                LastPulseWidth = 0;
             }
             else if (Tabs.SelectedTab == TunePage2)
             {
@@ -187,6 +197,18 @@ namespace DJetronicStudio
 
                 NewMPSProfile.Name = AddNameInput.Text.Trim();
                 NewMPSProfile.Description = AddDescriptionInput.Text.Trim();
+                NewMPSProfile.UserProfile = true;
+
+                if (((string)AddCalibrationSelector.SelectedItem).Contains("Factory"))
+                    NewMPSProfile.CalibrationType = MPSProfile.CalibrationTypes.Factory;
+                else if (((string)AddCalibrationSelector.SelectedItem) == "Wideband O2 sensor")
+                    NewMPSProfile.CalibrationType = MPSProfile.CalibrationTypes.WidebandO2;
+                else if (((string)AddCalibrationSelector.SelectedItem) == "Inductance")
+                    NewMPSProfile.CalibrationType = MPSProfile.CalibrationTypes.Inductance;
+                else if (((string)AddCalibrationSelector.SelectedItem) == "Tune-o-Matic")
+                    NewMPSProfile.CalibrationType = MPSProfile.CalibrationTypes.TuneOMatic;
+                else
+                    NewMPSProfile.CalibrationType = MPSProfile.CalibrationTypes.TuneOMatic;
 
                 ShowPage(AddPage2);
             }
@@ -194,6 +216,8 @@ namespace DJetronicStudio
             {
                 ShowPage(AddPage3);
                 Tuner.RequestStartContinuousMeasurement();
+                LastPressure = 0;
+                LastPulseWidth = 0;
             }
             else if (Tabs.SelectedTab == AddPage3)
             {
@@ -209,7 +233,10 @@ namespace DJetronicStudio
                     return;
                 }
 
-                // fixme - to do - create profile
+                NewMPSProfile.AtmosphericPressure = LastPressure;
+
+                Database.Add(NewMPSProfile);
+
                 Tuner.RequestStopContinuousMeasurement();
                 ShowPage(DbPage);
                 if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, AddMPSButton, true);
@@ -538,12 +565,16 @@ namespace DJetronicStudio
                 RecordingBuffer.Add(new Tuple<double, double, UInt16>((DateTime.Now - RecordingStartTime).TotalMilliseconds, LastPressure, PulseWidth));
             }
 
+            LastPulseWidth = PulseWidth;
+
             // if on tuning page then show pulse width on gauge
             if (Tabs.SelectedTab == TunePage4)
             {
                 //Gauge.Value = (float)(PulseWidth / 1000.0);
                 Gauge.Value = (float)(PulseWidth / 1000.0);
             }
+
+            if (OnSetStatusLabelText != null) OnSetStatusLabelText(this, PulseWidthIndicator, string.Format("{0:N3} ms", PulseWidth / 1000.0));
         }
 
         /// <summary>
@@ -563,10 +594,7 @@ namespace DJetronicStudio
 
             if (OnSetStatusLabelText != null) OnSetStatusLabelText(this, AtmosphericPressureIndicator, string.Format("{0:N3} Pa ({1:N6} inHg)", Pressure, Pressure / 3386.3886666667));
 
-            if (Recording)
-            {
-                LastPressure = Pressure;
-            }
+            LastPressure = Pressure;
         }
 
         /// <summary>
@@ -631,6 +659,7 @@ namespace DJetronicStudio
             Tuner.RequestStartContinuousMeasurement();
             RecordingBuffer.Clear();
             LastPressure = 0;
+            LastPulseWidth = 0;
             RecordingStartTime = DateTime.Now;
             Recording = true;
         }

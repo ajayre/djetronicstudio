@@ -12,7 +12,7 @@ namespace DJetronicStudio
 {
     public class MPSProfile
     {
-        private const int MAX_VACUUM = 15;
+        public const int MAX_VACUUM = 15;
 
         public enum CalibrationTypes { Factory, Inductance, WidebandO2, TuneOMatic };
 
