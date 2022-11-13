@@ -30,79 +30,23 @@ namespace DJetronicStudio
 {
     public partial class MPSChart : UserControl
     {
-        private class SeriesDescription
-        {
-            public string Name;
-            public CheckBox CheckBox;
-            public Color LineColor;
-
-            public SeriesDescription
-                (
-                string Name,
-                CheckBox CheckBox,
-                Color LineColor
-                )
-            {
-                this.Name = Name;
-                this.CheckBox = CheckBox;
-                this.LineColor = LineColor;
-            }
-        };
-
-        private const int NUM_SERIES = 11;
-
-        private SeriesDescription[] SeriesDescriptions;
         private ObservableCollection<ISeries> Series { get; set; }
-        private ChartSettings Settings = new ChartSettings();
+        private Random RandomGenerator = new Random();
 
-        private enum SeriesIndices
+        private MPSDatabase _Database = null;
+        public MPSDatabase Database
         {
-            PulseWidthI = 0,
-            PulseWidthII = 1,
-            PulseWidthIII = 2,
-            PulseWidthIV = 3,
-            FuelPump = 4,
-            EngineSpeed = 5,
-            Throttle = 6,
-            CoolantTemperature = 7,
-            AirTemperature = 8,
-            Vacuum = 9,
-            StarterMotor = 10
-        };
-
-        private DataBuffer _Buffer;
-        public DataBuffer Buffer
-        {
-            get { return _Buffer; }
+            get { return _Database; }
             set
             {
-                _Buffer = value;
-                if (_Buffer != null)
-                {
-                    _Buffer.OnDataAdded += _Buffer_OnDataAdded;
-                    _Buffer.OnDataCleared += _Buffer_OnDataCleared;
-                }
+                _Database = value;
+                BuildTree();
             }
         }
 
         public MPSChart()
         {
             InitializeComponent();
-
-            SeriesDescriptions = new SeriesDescription[]
-            {
-                new SeriesDescription("Pulse Width I",       PulseWidthIInput,   Color.Orange),
-                new SeriesDescription("Pulse Width II",      PulseWidthIIInput,  Color.Red),
-                new SeriesDescription("Pulse Width III",     PulseWidthIIIInput, Color.Blue),
-                new SeriesDescription("Pulse Widtn IV",      PulseWidthIVInput,  Color.Purple),
-                new SeriesDescription("Fuel Pump",           FuelPumpInput,      Color.Green),
-                new SeriesDescription("Engine Speed",        EngineSpeedInput,   Color.Magenta),
-                new SeriesDescription("Throttle",            ThrottleInput,      Color.Cyan),
-                new SeriesDescription("Coolant Temperature", CoolantTempInput,   Color.HotPink),
-                new SeriesDescription("Air Temperature",     AirTempInput,       Color.Violet),
-                new SeriesDescription("Vacuum",              VacuumInput,        Color.SlateBlue),
-                new SeriesDescription("Starter Motor",       StarterMotorInput,  Color.MediumVioletRed)
-            };
 
             Series = new ObservableCollection<ISeries> { };
 
@@ -123,31 +67,15 @@ namespace DJetronicStudio
                 new Axis
                 {
                     TextSize = 12,
-                    MinLimit = Settings.MinY,
-                    MaxLimit = Settings.MaxY,
+                    MinLimit = 16,
+                    MaxLimit = 18.5,
                     NameTextSize = 16,
                     Name = "Pulse Width (ms)",
                     Position = AxisPosition.Start,
-                    NamePaint = new SolidColorPaint(new SKColor(Settings.YColor.R, Settings.YColor.G, Settings.YColor.B, Settings.YColor.A)),
-                    LabelsPaint = new SolidColorPaint(new SKColor(Settings.YColor.R, Settings.YColor.G, Settings.YColor.B, Settings.YColor.A))
+                    NamePaint = new SolidColorPaint(new SKColor(0, 0, 0)),
+                    LabelsPaint = new SolidColorPaint(new SKColor(0, 0, 0))
                 }
             };
-
-            for (int Ser = 0; Ser < NUM_SERIES; Ser++)
-            {
-                Color LineColor = SeriesDescriptions[Ser].LineColor;
-
-                LineSeries<ObservablePoint> NewSeries = new LineSeries<ObservablePoint>();
-                NewSeries.Name = SeriesDescriptions[Ser].Name;
-                NewSeries.LineSmoothness = 0.0;
-                NewSeries.Fill = null;
-                NewSeries.GeometrySize = 0.0;
-                NewSeries.GeometryStroke = new SolidColorPaint(new SKColor(LineColor.R, LineColor.G, LineColor.B, LineColor.A)) { StrokeThickness = 1.0F };
-                NewSeries.Stroke = new SolidColorPaint(new SKColor(LineColor.R, LineColor.G, LineColor.B, LineColor.A)) { StrokeThickness = 2.0F };
-                NewSeries.Values = new ObservableCollection<ObservablePoint>();
-                SeriesDescriptions[Ser].CheckBox.Tag = NewSeries;
-                Series.Add(NewSeries);
-            }
 
             Chart.Series = Series;
             Chart.AnimationsSpeed = TimeSpan.FromMilliseconds(300);
@@ -160,130 +88,30 @@ namespace DJetronicStudio
                 Paint = new SolidColorPaint(SKColors.Black)
             };
 
-            //MotionCanvas<SkiaSharpDrawingContext> Canvas = Chart.CoreCanvas;
-            //IPaint<SkiaSharpDrawingContext> TitleLabel = new SolidColorPaint(new SKColor(0, 0, 0)) { ZIndex = int.MaxValue - 1 };
-            //LabelGeometry LabelGeom = new LabelGeometry { X = 0, Y = 30, Text = "Chart Title", TextSize = 16 };
-            //LabelGeom.X = (Chart.Width - LabelGeom.Measure(TitleLabel).Width) / 2;
-            //TitleLabel.AddGeometryToPaintTask(Canvas, LabelGeom);
-            //Canvas.AddDrawableTask(TitleLabel);
-
-            //var m = new Margin();
-            //m.Top = LabelGeom.Measure(TitleLabel).Height;
-            //((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).DrawMarginSize = null;
+            //((LiveChartsCore.SkiaSharpView.WinForms.DefaultLegend)Chart.Legend).Visible = true;
         }
 
         /// <summary>
-        /// Applies the current settings to the chart
+        /// Builds a tree of the MPS database
         /// </summary>
-        private void ApplySettings
+        private void BuildTree
             (
             )
         {
-            LabelVisual Title = (LabelVisual)Chart.Title;
+            DatabaseTree.Nodes.Clear();
 
-            Title.Text = Settings.Title;
-            //var titleSize = Title.Measure(Chart.CoreChart, null, null);
-            //Title.AlignToTopLeftCorner();
-            //Title.X = ControlSize.Width * 0.5f - titleSize.Width * 0.5f;
-            //Title.Y = 0;
-            //RegisterAndInvalidateVisual(title);
+            ImageList Images = new ImageList();
 
-            ((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[0].MinLimit = Settings.MinY;
-            ((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[0].MaxLimit = Settings.MaxY;
-            ((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[0].Name = Settings.YAxisTitle;
-            ((Axis)((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[0]).NamePaint = new SolidColorPaint(new SKColor(Settings.YColor.R, Settings.YColor.G, Settings.YColor.B, Settings.YColor.A));
-            ((Axis)((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[0]).LabelsPaint = new SolidColorPaint(new SKColor(Settings.YColor.R, Settings.YColor.G, Settings.YColor.B, Settings.YColor.A));
+            // set up image list
+            Images.Images.Add(Properties.Resources.mps_128);
+            DatabaseTree.ImageList = Images;
 
-            Chart.Invalidate();
-        }
-
-        /// <summary>
-        /// Called when the recording buffer is emptied
-        /// </summary>
-        /// <param name="sender"></param>
-        private void _Buffer_OnDataCleared(object sender)
-        {
-            Clear();
-        }
-
-        /// <summary>
-        /// Called when data is inserted into the recording buffer
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="NumPoints"></param>
-        private void _Buffer_OnDataAdded(object sender, int NumPoints, DataPoint NewPoint)
-        {
-            if (SeriesDescriptions[(int)SeriesIndices.PulseWidthI].CheckBox.Checked)
+            foreach (MPSProfile Profile in Database.GetProfiles())
             {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.PulseWidth_I / 1000.0);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.PulseWidthI].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.PulseWidthII].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.PulseWidth_II / 1000.0);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.PulseWidthII].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.PulseWidthIII].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.PulseWidth_III / 1000.0);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.PulseWidthIII].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.PulseWidthIV].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.PulseWidth_IV / 1000.0);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.PulseWidthIV].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.FuelPump].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.FuelPumpOn ? 0 : 12);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.FuelPump].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.EngineSpeed].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.EngineSpeed);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.EngineSpeed].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.CoolantTemperature].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.CoolantTemperature);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.CoolantTemperature].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.AirTemperature].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.AirTemperature);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.AirTemperature].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.Vacuum].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.Vacuum);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.Vacuum].Values).Add(NewData);
-            }
-
-            if (SeriesDescriptions[(int)SeriesIndices.StarterMotor].CheckBox.Checked)
-            {
-                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.StarterMotorOn ? 12 : 0);
-                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.StarterMotor].Values).Add(NewData);
-            }
-        }
-
-        /// <summary>
-        /// Clears data from the chart
-        /// </summary>
-        private void Clear
-            (
-            )
-        {
-            for (int Ser = 0; Ser < NUM_SERIES; Ser++)
-            {
-                ((ObservableCollection<ObservablePoint>)Series[Ser].Values).Clear();
+                TreeNode MPSNode = new TreeNode(Profile.Name, 0, 0);
+                MPSNode.Checked = false;
+                MPSNode.Tag = Profile;
+                DatabaseTree.Nodes.Add(MPSNode);
             }
         }
 
@@ -320,6 +148,82 @@ namespace DJetronicStudio
         private void ExportImageBtn_Click(object sender, EventArgs e)
         {
             ExportImage();
+        }
+
+        /// <summary>
+        /// Called after user selects or deselects an MPS to be displayed on the chart
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DatabaseTree_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            MPSProfile Profile = e.Node.Tag as MPSProfile;
+            if (e.Node.Checked)
+            {
+                AddSeries(Profile, e.Node);
+            }
+            else
+            {
+                RemoveSeries(Profile, e.Node);
+            }
+        }
+
+        /// <summary>
+        /// Adds a series to the chart
+        /// </summary>
+        /// <param name="Profile">Profile to show on chart</param>
+        /// <param name="TNode">Tree node associated with profile</param>
+        private void AddSeries
+            (
+            MPSProfile Profile,
+            TreeNode TNode
+            )
+        {
+            Color LineColor = Color.FromArgb(RandomGenerator.Next(256), RandomGenerator.Next(256), RandomGenerator.Next(256));
+
+            LineSeries<ObservablePoint> NewSeries = new LineSeries<ObservablePoint>();
+            NewSeries.Name = Profile.Name;
+            NewSeries.LineSmoothness = 0.0;
+            NewSeries.Fill = null;
+            NewSeries.GeometrySize = 8.0;
+            NewSeries.GeometryStroke = new SolidColorPaint(new SKColor(LineColor.R, LineColor.G, LineColor.B, LineColor.A)) { StrokeThickness = 1.0F };
+            NewSeries.Stroke = new SolidColorPaint(new SKColor(LineColor.R, LineColor.G, LineColor.B, LineColor.A)) { StrokeThickness = 2.0F };
+            NewSeries.Values = new ObservableCollection<ObservablePoint>();
+            NewSeries.Tag = Profile;
+            Series.Add(NewSeries);
+
+            for (int p = 0; p <= MPSProfile.MAX_VACUUM; p++)
+            {
+                ObservablePoint NewData = new ObservablePoint(p, Profile.PulseWidths[p] / 1000.0);
+                ((ObservableCollection<ObservablePoint>)NewSeries.Values).Add(NewData);
+            }
+
+            Chart.CoreChart.Update(new LiveChartsCore.Kernel.ChartUpdateParams { IsAutomaticUpdate = false, Throttling = false });
+
+            TNode.ForeColor = LineColor;
+        }
+
+        /// <summary>
+        /// Removes a series from the chart
+        /// </summary>
+        /// <param name="Profile">Profile to remove from chart</param>
+        /// <param name="TNode">Tree node associated with profile</param>
+        private void RemoveSeries
+            (
+            MPSProfile Profile,
+            TreeNode TNode
+            )
+        {
+            foreach (LineSeries<ObservablePoint> Ser in Series)
+            {
+                if (Ser.Tag == Profile)
+                {
+                    ((ObservableCollection<ObservablePoint>)Ser.Values).Clear();
+                    Series.Remove(Ser);
+                    TNode.ForeColor = Color.Black;
+                    return;
+                }
+            }
         }
     }
 }

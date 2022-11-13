@@ -788,7 +788,6 @@
             // 
             // Chart
             // 
-            this.Chart.Buffer = null;
             this.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Chart.Location = new System.Drawing.Point(3, 3);
             this.Chart.Name = "Chart";

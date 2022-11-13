@@ -40,7 +40,6 @@ namespace DJetronicStudio
         private StatusLabel PulseWidthIndicator;
         private MPSProfile NewMPSProfile;
         private UInt16 LastPulseWidth;
-        private DataBuffer Buffer = new DataBuffer();
 
         public TuneOMaticUI
             (
@@ -81,13 +80,6 @@ namespace DJetronicStudio
             Database = new MPSDatabase();
 
             TunePage2WizardText.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the vacuum to " + TuningVacuumSetting.ToString() + " in Hg. When done click on Next.";
-
-            //Buffer.OnDataAdded += Buffer_OnDataAdded;
-            //Buffer.OnDataCleared += Buffer_OnDataCleared;
-
-            Buffer.Clear();
-
-            Chart.Buffer = Buffer;
 
             ShowInitialSettings();
 
@@ -366,6 +358,10 @@ namespace DJetronicStudio
             if (Page == DbPage)
             {
                 ShowDatabase();
+            }
+            else if (Page == ChartPage)
+            {
+                Chart.Database = Database;
             }
         }
 
