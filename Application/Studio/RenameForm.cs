@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace DJetronicStudio
 {
-    public partial class RenameForm : Form
+    public partial class EditMPSForm : Form
     {
         public string NameText
         {
@@ -18,7 +18,13 @@ namespace DJetronicStudio
             set { NameInput.Text = value; }
         }
 
-        public RenameForm()
+        public string DescriptionText
+        {
+            get { return DescriptionInput.Text; }
+            set { DescriptionInput.Text = value; }
+        }
+
+        public EditMPSForm()
         {
             InitializeComponent();
         }

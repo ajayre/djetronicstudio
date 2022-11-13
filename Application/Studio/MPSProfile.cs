@@ -67,6 +67,26 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Gets the pulse widths adjusted for a specific atmpspheric pressure
+        /// </summary>
+        /// <param name="AtmosphericPressure">Atmospheric pressure to adjust to</param>
+        public double[] GetAdjustedPulseWidths
+            (
+            double AtmosphericPressure
+            )
+        {
+            double[] AdjPulseWidths = new double[MAX_VACUUM + 1];
+
+            for (int p = 0; p <= MAX_VACUUM; p++)
+            {
+                // fixme - use test data to convert pulse widths
+                AdjPulseWidths[p] = PulseWidths[p];
+            }
+
+            return AdjPulseWidths;
+        }
+
+        /// <summary>
         /// Stores the profile in a file
         /// </summary>
         /// <param name="FileName">Path and name of file</param>

@@ -30,6 +30,11 @@ namespace DJetronicStudio
 {
     public partial class MPSChart : UserControl
     {
+        /// <summary>
+        /// Sea level pressure in pascals
+        /// </summary>
+        private const int SEA_LEVEL_PA = 101325;
+
         private ObservableCollection<ISeries> Series { get; set; }
         private Random RandomGenerator = new Random();
 
@@ -192,9 +197,11 @@ namespace DJetronicStudio
             NewSeries.Tag = Profile;
             Series.Add(NewSeries);
 
+            double[] AdjPulseWidths = Profile.GetAdjustedPulseWidths(SEA_LEVEL_PA);
+
             for (int p = 0; p <= MPSProfile.MAX_VACUUM; p++)
             {
-                ObservablePoint NewData = new ObservablePoint(p, Profile.PulseWidths[p] / 1000.0);
+                ObservablePoint NewData = new ObservablePoint(p, AdjPulseWidths[p] / 1000.0);
                 ((ObservableCollection<ObservablePoint>)NewSeries.Values).Add(NewData);
             }
 

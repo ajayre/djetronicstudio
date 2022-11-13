@@ -12,7 +12,7 @@ namespace DJetronicStudio
 {
     public partial class MPSProfileUI : UserControl
     {
-        public enum ButtonTypes { Rename, TuneUsing, Delete, Export };
+        public enum ButtonTypes { Edit, TuneUsing, Delete, Export };
 
         public delegate void OnButtonClickedHandler(object sender, ButtonTypes ButtonType, MPSProfile Profile);
         public event OnButtonClickedHandler OnButtonClicked = null;
@@ -36,7 +36,7 @@ namespace DJetronicStudio
                     CalibrationIcon.Visible = false;
                 }
 
-                RenameBtn.Enabled = _Profile.UserProfile;
+                EditBtn.Enabled = _Profile.UserProfile;
                 DeleteBtn.Enabled = _Profile.UserProfile;
 
                 ToolTips.SetToolTip(Picture, _Profile.Description);
@@ -59,13 +59,23 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Refreshes the display of the profile description
+        /// </summary>
+        public void RefreshDescription
+            (
+            )
+        {
+            ToolTips.SetToolTip(Picture, _Profile.Description);
+        }
+
+        /// <summary>
         /// Called when user clicks on the rename button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RenameBtn_Click(object sender, EventArgs e)
+        private void EditBtn_Click(object sender, EventArgs e)
         {
-            if (OnButtonClicked != null) OnButtonClicked(this, ButtonTypes.Rename, _Profile);
+            if (OnButtonClicked != null) OnButtonClicked(this, ButtonTypes.Edit, _Profile);
         }
 
         /// <summary>

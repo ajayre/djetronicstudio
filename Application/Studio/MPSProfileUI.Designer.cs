@@ -35,7 +35,7 @@
             this.ExportBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.TuneUsingBtn = new System.Windows.Forms.Button();
-            this.RenameBtn = new System.Windows.Forms.Button();
+            this.EditBtn = new System.Windows.Forms.Button();
             this.Picture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.CalibrationIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
@@ -93,16 +93,16 @@
             this.TuneUsingBtn.UseVisualStyleBackColor = true;
             this.TuneUsingBtn.Click += new System.EventHandler(this.TuneUsingBtn_Click);
             // 
-            // RenameBtn
+            // EditBtn
             // 
-            this.RenameBtn.Image = global::DJetronicStudio.Properties.Resources.edit_24;
-            this.RenameBtn.Location = new System.Drawing.Point(33, 147);
-            this.RenameBtn.Name = "RenameBtn";
-            this.RenameBtn.Size = new System.Drawing.Size(28, 28);
-            this.RenameBtn.TabIndex = 1;
-            this.ToolTips.SetToolTip(this.RenameBtn, "Rename");
-            this.RenameBtn.UseVisualStyleBackColor = true;
-            this.RenameBtn.Click += new System.EventHandler(this.RenameBtn_Click);
+            this.EditBtn.Image = global::DJetronicStudio.Properties.Resources.edit_24;
+            this.EditBtn.Location = new System.Drawing.Point(33, 147);
+            this.EditBtn.Name = "EditBtn";
+            this.EditBtn.Size = new System.Drawing.Size(28, 28);
+            this.EditBtn.TabIndex = 1;
+            this.ToolTips.SetToolTip(this.EditBtn, "Edit name and description");
+            this.EditBtn.UseVisualStyleBackColor = true;
+            this.EditBtn.Click += new System.EventHandler(this.EditBtn_Click);
             // 
             // Picture
             // 
@@ -122,7 +122,7 @@
             this.Controls.Add(this.ExportBtn);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.TuneUsingBtn);
-            this.Controls.Add(this.RenameBtn);
+            this.Controls.Add(this.EditBtn);
             this.Controls.Add(this.Picture);
             this.Name = "MPSProfileUI";
             this.Size = new System.Drawing.Size(128, 177);
@@ -135,7 +135,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox Picture;
-        private System.Windows.Forms.Button RenameBtn;
+        private System.Windows.Forms.Button EditBtn;
         private System.Windows.Forms.Button TuneUsingBtn;
         private System.Windows.Forms.Button DeleteBtn;
         private System.Windows.Forms.Button ExportBtn;

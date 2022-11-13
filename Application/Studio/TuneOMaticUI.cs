@@ -19,6 +19,8 @@ namespace DJetronicStudio
         public event Action<object, StatusLabel, string> OnSetStatusLabelText = null;
 
         private const int MPS_DATABASE_LAYOUT_PADDING = 10;
+        // range of tuning gauge in milliseconds
+        private const int GAUGE_RANGE_MS = 3;
 
         private List<ToolbarButton> ToolbarButtons = new List<ToolbarButton>();
         private List<StatusLabel> StatusLabels = new List<StatusLabel>();
@@ -320,17 +322,11 @@ namespace DJetronicStudio
             int VacuumSetting
             )
         {
-            // this construct came from here:
-            // https://stackoverflow.com/questions/1362204/how-to-remove-a-lambda-event-handler
-            TuneOMatic.OnReceivedPressureHandler Handler = null;
-            Handler = (sender, pressure) =>
-            {
-                // fixme - to do - configure gauge based on reference, vacuum setting and current pressure
+            double[] AdjPulseWidths = Reference.GetAdjustedPulseWidths(LastPressure);
+            double TargetPulseWidth = AdjPulseWidths[VacuumSetting];
 
-                Tuner.OnReceivedPressure -= Handler;
-            };
-            Tuner.OnReceivedPressure += Handler;
-            Tuner.RequestPressure();
+            Gauge.ValueMin = (float)((TargetPulseWidth / 1000.0) - ((double)GAUGE_RANGE_MS / 2));
+            Gauge.ValueMax = (float)((TargetPulseWidth / 1000.0) + ((double)GAUGE_RANGE_MS / 2));
         }
 
         // from: https://stackoverflow.com/questions/76993/how-to-double-buffer-net-controls-on-a-form
@@ -425,13 +421,16 @@ namespace DJetronicStudio
                     DeleteMPSProfile(Profile);
                     break;
 
-                case MPSProfileUI.ButtonTypes.Rename:
-                    RenameForm RForm = new RenameForm();
-                    RForm.NameText = Profile.Name;
-                    if (RForm.ShowDialog() == DialogResult.OK)
+                case MPSProfileUI.ButtonTypes.Edit:
+                    EditMPSForm EditForm = new EditMPSForm();
+                    EditForm.NameText = Profile.Name;
+                    EditForm.DescriptionText = Profile.Description;
+                    if (EditForm.ShowDialog() == DialogResult.OK)
                     {
-                        Database.SetProfileName(Profile, RForm.NameText);
+                        Database.SetProfileName(Profile, EditForm.NameText);
+                        Database.SetProfileDescription(Profile, EditForm.DescriptionText);
                         (sender as MPSProfileUI).RefreshName();
+                        (sender as MPSProfileUI).RefreshDescription();
                     }
                     break;
 
@@ -598,7 +597,6 @@ namespace DJetronicStudio
             // if on tuning page then show pulse width on gauge
             if (Tabs.SelectedTab == TunePage4)
             {
-                //Gauge.Value = (float)(PulseWidth / 1000.0);
                 Gauge.Value = (float)(PulseWidth / 1000.0);
             }
 
