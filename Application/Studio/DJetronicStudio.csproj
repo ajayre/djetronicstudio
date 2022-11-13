@@ -132,6 +132,12 @@
     </Compile>
     <Compile Include="DynamicSettings.cs" />
     <Compile Include="ECUTester.cs" />
+    <Compile Include="EditMPSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditMPSForm.Designer.cs">
+      <DependentUpon>EditMPSForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="IUI.cs" />
     <Compile Include="MPSChart.cs">
       <SubType>UserControl</SubType>
@@ -157,12 +163,6 @@
     </Compile>
     <Compile Include="ReadPressureButtonGrid.Designer.cs">
       <DependentUpon>ReadPressureButtonGrid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RenameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RenameForm.Designer.cs">
-      <DependentUpon>RenameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TablessControl.cs">
       <SubType>Component</SubType>
@@ -247,6 +247,9 @@
     <EmbeddedResource Include="DJetChart.resx">
       <DependentUpon>DJetChart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditMPSForm.resx">
+      <DependentUpon>EditMPSForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MPSChart.resx">
       <DependentUpon>MPSChart.cs</DependentUpon>
     </EmbeddedResource>
@@ -258,9 +261,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReadPressureButtonGrid.resx">
       <DependentUpon>ReadPressureButtonGrid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RenameForm.resx">
-      <DependentUpon>RenameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TuneOMaticUI.resx">
       <DependentUpon>TuneOMaticUI.cs</DependentUpon>
