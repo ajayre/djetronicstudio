@@ -19,6 +19,7 @@ namespace DJetronicStudio
         private List<ToolbarButton> ToolbarButtons = new List<ToolbarButton>();
         private List<StatusLabel> StatusLabels = new List<StatusLabel>();
         private Simulator Sim;
+        private NGSpice Spice = new NGSpice();
 
         public SimulationUI
             (
@@ -29,9 +30,33 @@ namespace DJetronicStudio
 
             InitializeComponent();
 
+            Spice.OnShowMessage += Spice_OnShowMessage;
+
+            string[] VersionInfo = Spice.GetVersion();
+            foreach (string Line in VersionInfo)
+            {
+                OutputBox.AppendText(Line + Environment.NewLine);
+            }
+
             ShowInitialSettings();
 
             UpdateUI();
+        }
+
+        /// <summary>
+        /// Called when simulator wants to output a message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="Message"></param>
+        private void Spice_OnShowMessage(object sender, string Message)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<object, string>(Spice_OnShowMessage), sender, Message);
+                return;
+            }
+
+            OutputBox.AppendText(Message + Environment.NewLine);
         }
 
         /// <summary>
@@ -87,6 +112,11 @@ namespace DJetronicStudio
             (
             )
         {
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Spice.RunCommand();
         }
     }
 }

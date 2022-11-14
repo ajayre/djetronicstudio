@@ -14,10 +14,19 @@ namespace DJetronicStudio
         public delegate void OnDisconnectedHandler(object sender);
         public event OnDisconnectedHandler OnDisconnected = null;
 
+        public delegate void OnShowMessageHandler(object sender, string Message);
+        public event OnShowMessageHandler OnShowMessage = null;
+
         private bool Connected = false;
 
+        public Simulator
+            (
+            )
+        {
+        }
+
         /// <summary>
-        /// true if connected to the tester
+        /// true if connected to the simulation
         /// </summary>
         public bool IsConnected
         {
@@ -28,7 +37,7 @@ namespace DJetronicStudio
         }
 
         /// <summary>
-        /// Finds and connects to the tester
+        /// Finds and connects to the simulation
         /// </summary>
         public void Connect
             (
