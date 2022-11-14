@@ -1,0 +1,20 @@
+* D-Jetronic Rheostat Model
+* Version 1.0 March 2022
+* (C) andy@britishideas.com
+
+.SUBCKT rheostat 1 2 3 pospin gndpin
+
+.FUNC ratio(pos) = { pos == 0 ? 0 : pos <= 1 ? (1.00 / totalpositions * 1) : pos <= 2 ? (1.00 / totalpositions * 2) : pos <= 3 ? (1.00 / totalpositions * 3)
++ : pos <= 4 ? (1.00 / totalpositions * 4) : pos <= 5 ? (1.00 / totalpositions * 5) : pos <= 6 ? (1.00 / totalpositions * 6) : pos <= 7 ? (1.00 / totalpositions * 7)
++ : pos <= 8 ? (1.00 / totalpositions * 8) : pos <= 9 ? (1.00 / totalpositions * 9) : pos <= 10 ? (1.00 / totalpositions * 10) : pos <= 11 ? (1.00 / totalpositions * 11)
++ : pos <= 12 ? (1.00 / totalpositions * 12) : pos <= 13 ? (1.00 / totalpositions * 13) : pos <= 14 ? (1.00 / totalpositions * 14) : pos <= 15 ? (1.00 / totalpositions * 15)
++ : pos <= 16 ? (1.00 / totalpositions * 16) : pos <= 17 ? (1.00 / totalpositions * 17) : pos <= 18 ? (1.00 / totalpositions * 18) : pos <= 19 ? (1.00 / totalpositions * 19)
++ : pos <= 20 ? (1.00 / totalpositions * 20) : pos <= 21 ? (1.00 / totalpositions * 21) : pos <= 22 ? (1.00 / totalpositions * 22) : 1.00 }
+
+.param value=5k
+.param totalpositions=23
+
+R1 1 2 {value*ratio(V(pospin,gnd)) + 1m}
+R2 2 3 {value*(1-ratio(V(pospin,gnd)))+ 1m}
+
+.ENDS

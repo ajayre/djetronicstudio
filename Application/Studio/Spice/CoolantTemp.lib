@@ -1,0 +1,16 @@
+* D-Jetronic Coolant Temperature Sensor Model
+* Steinhart-Hart Coefficients and formulae by Brad Cushman
+* See: http://www.ecircuitcenter.com/Circuits/therm_model1/therm_model1.htm
+* Version 1.0 March 2022
+
+.SUBCKT coolanttemp 1 2 tempc gnd A=0.001301733 B=0.000258731 C=0.000000173
+
+.FUNC tempk() = { (V(tempc,gnd)+273.15) }
+.FUNC alpha() = { ((A-(1/tempk()))/C) }
+.FUNC beta() = { (SQRT( PWR(B/(3*C),3) + ((alpha() * alpha())/4))) }
+.FUNC resistance() = { (EXP(PWR(beta()-(alpha()/2),1/3) - PWR(beta()+(alpha()/2),1/3))) }
+
+ETHERM 1 3 VALUE = { I(VSENSE) * resistance() }
+VSENSE 3 2 DC 0
+
+.ENDS

@@ -30,6 +30,7 @@ namespace DJetronicStudio
 
             InitializeComponent();
 
+            Sim.Spice = Spice;
             Spice.OnShowMessage += Spice_OnShowMessage;
 
             string[] VersionInfo = Spice.GetVersion();
@@ -116,7 +117,8 @@ namespace DJetronicStudio
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Spice.RunCommand();
+            OutputBox.Clear();
+            Sim.Run();
         }
     }
 }

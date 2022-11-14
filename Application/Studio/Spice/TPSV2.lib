@@ -1,0 +1,252 @@
+* D-Jetronic Throttle Position Switch
+* Version 2.0, September 2022
+* (C) andy@britishideas.com 2022
+
+.subckt tps position enrich_en idle full_throttle enrich_a enrich_b vcc gnd
+
+.model DIODE D 
+.model BCY58 npn 
+.model BSX95 npn 
+.model AUY21 pnp 
+
+XS2 0 Net-_R11-Pad2_ POSITION 0 vcs close_v=0.083
+R2 VCC Net-_R11-Pad2_ 1k
+Q2 Net-_Q1-Pad3_ Net-_Q2-Pad2_ 0 BCY58
+R11 Net-_Q2-Pad2_ Net-_R11-Pad2_ 10k
+R10 Net-_Q1-Pad2_ Net-_R1-Pad1_ 10k
+Q1 PA_1 Net-_Q1-Pad2_ Net-_Q1-Pad3_ BCY58
+R1 Net-_R1-Pad1_ 0 1k
+XS1 VCC Net-_R1-Pad1_ POSITION 0 vcs close_v=0.068
+R9 VCC Net-_R18-Pad2_ 1k
+XS9 0 Net-_R18-Pad2_ POSITION 0 vcs close_v=0.0145
+Q9 IDLE Net-_Q9-Pad2_ 0 BCY58
+R18 Net-_Q9-Pad2_ Net-_R18-Pad2_ 10k
+* R23 VCC IDLE 1k
+R40 Net-_R40-Pad1_ 0 1k
+XS18 VCC Net-_R40-Pad1_ POSITION 0 vcs close_v=0.8058
+Q18 FULL_THROTTLE Net-_Q18-Pad2_ 0 BCY58
+R45 Net-_Q18-Pad2_ Net-_R40-Pad1_ 10k
+* R46 VCC FULL_THROTTLE 1k
+R19 VCC PA_1 1k
+XS11 0 Net-_R25-Pad2_ POSITION 0 vcs close_v=0.1428
+R25 VCC Net-_R25-Pad2_ 1k
+Q11 Net-_Q10-Pad3_ Net-_Q11-Pad2_ 0 BCY58
+R33 Net-_Q11-Pad2_ Net-_R25-Pad2_ 10k
+R32 Net-_Q10-Pad2_ Net-_R24-Pad1_ 10k
+Q10 PA_2 Net-_Q10-Pad2_ Net-_Q10-Pad3_ BCY58
+R24 Net-_R24-Pad1_ 0 1k
+XS10 VCC Net-_R24-Pad1_ POSITION 0 vcs close_v=0.1278
+R41 VCC PA_2 1k
+XS20 0 Net-_R48-Pad2_ POSITION 0 vcs close_v=0.2026
+R48 VCC Net-_R48-Pad2_ 1k
+Q20 Net-_Q19-Pad3_ Net-_Q20-Pad2_ 0 BCY58
+R56 Net-_Q20-Pad2_ Net-_R48-Pad2_ 10k
+R55 Net-_Q19-Pad2_ Net-_R47-Pad1_ 10k
+Q19 PA_3 Net-_Q19-Pad2_ Net-_Q19-Pad3_ BCY58
+R47 Net-_R47-Pad1_ 0 1k
+XS19 VCC Net-_R47-Pad1_ POSITION 0 vcs close_v=0.1877
+R63 VCC PA_3 1k
+XS28 0 Net-_R68-Pad2_ POSITION 0 vcs close_v=0.2624
+R68 VCC Net-_R68-Pad2_ 1k
+Q28 Net-_Q27-Pad3_ Net-_Q28-Pad2_ 0 BCY58
+R76 Net-_Q28-Pad2_ Net-_R68-Pad2_ 10k
+R75 Net-_Q27-Pad2_ Net-_R67-Pad1_ 10k
+Q27 PA_4 Net-_Q27-Pad2_ Net-_Q27-Pad3_ BCY58
+R67 Net-_R67-Pad1_ 0 1k
+XS27 VCC Net-_R67-Pad1_ POSITION 0 vcs close_v=0.2475
+R83 VCC PA_4 1k
+XS36 0 Net-_R88-Pad2_ POSITION 0 vcs close_v=0.3223
+R88 VCC Net-_R88-Pad2_ 1k
+Q36 Net-_Q35-Pad3_ Net-_Q36-Pad2_ 0 BCY58
+R96 Net-_Q36-Pad2_ Net-_R88-Pad2_ 10k
+R95 Net-_Q35-Pad2_ Net-_R87-Pad1_ 10k
+Q35 PA_5 Net-_Q35-Pad2_ Net-_Q35-Pad3_ BCY58
+R87 Net-_R87-Pad1_ 0 1k
+XS35 VCC Net-_R87-Pad1_ POSITION 0 vcs close_v=0.3073
+R103 VCC PA_5 1k
+XS4 0 Net-_R13-Pad2_ POSITION 0 vcs close_v=0.3821
+R4 VCC Net-_R13-Pad2_ 1k
+Q4 Net-_Q3-Pad3_ Net-_Q4-Pad2_ 0 BCY58
+R13 Net-_Q4-Pad2_ Net-_R13-Pad2_ 10k
+R12 Net-_Q3-Pad2_ Net-_R12-Pad2_ 10k
+Q3 PA_6 Net-_Q3-Pad2_ Net-_Q3-Pad3_ BCY58
+R3 Net-_R12-Pad2_ 0 1k
+XS3 VCC Net-_R12-Pad2_ POSITION 0 vcs close_v=0.3671
+R20 VCC PA_6 1k
+XS13 0 Net-_R27-Pad2_ POSITION 0 vcs close_v=0.4419
+R27 VCC Net-_R27-Pad2_ 1k
+Q13 Net-_Q12-Pad3_ Net-_Q13-Pad2_ 0 BCY58
+R35 Net-_Q13-Pad2_ Net-_R27-Pad2_ 10k
+R34 Net-_Q12-Pad2_ Net-_R26-Pad1_ 10k
+Q12 PA_7 Net-_Q12-Pad2_ Net-_Q12-Pad3_ BCY58
+R26 Net-_R26-Pad1_ 0 1k
+XS12 VCC Net-_R26-Pad1_ POSITION 0 vcs close_v=0.4270
+R42 VCC PA_7 1k
+XS22 0 Net-_R50-Pad2_ POSITION 0 vcs close_v=0.5017
+R50 VCC Net-_R50-Pad2_ 1k
+Q22 Net-_Q21-Pad3_ Net-_Q22-Pad2_ 0 BCY58
+R58 Net-_Q22-Pad2_ Net-_R50-Pad2_ 10k
+R57 Net-_Q21-Pad2_ Net-_R49-Pad1_ 10k
+Q21 PA_8 Net-_Q21-Pad2_ Net-_Q21-Pad3_ BCY58
+R49 Net-_R49-Pad1_ 0 1k
+XS21 VCC Net-_R49-Pad1_ POSITION 0 vcs close_v=0.4868
+R64 VCC PA_8 1k
+XS30 0 Net-_R70-Pad2_ POSITION 0 vcs close_v=0.5616
+R70 VCC Net-_R70-Pad2_ 1k
+Q30 Net-_Q29-Pad3_ Net-_Q30-Pad2_ 0 BCY58
+R78 Net-_Q30-Pad2_ Net-_R70-Pad2_ 10k
+R77 Net-_Q29-Pad2_ Net-_R69-Pad1_ 10k
+Q29 PA_9 Net-_Q29-Pad2_ Net-_Q29-Pad3_ BCY58
+R69 Net-_R69-Pad1_ 0 1k
+XS29 VCC Net-_R69-Pad1_ POSITION 0 vcs close_v=0.5466
+R84 VCC PA_9 1k
+XS38 0 Net-_R90-Pad2_ POSITION 0 vcs close_v=1.00
+R90 VCC Net-_R90-Pad2_ 1k
+Q38 Net-_Q37-Pad3_ Net-_Q38-Pad2_ 0 BCY58
+R98 Net-_Q38-Pad2_ Net-_R90-Pad2_ 10k
+R97 Net-_Q37-Pad2_ Net-_R89-Pad1_ 10k
+Q37 PA_10 Net-_Q37-Pad2_ Net-_Q37-Pad3_ BCY58
+R89 Net-_R89-Pad1_ 0 1k
+XS37 VCC Net-_R89-Pad1_ POSITION 0 vcs close_v=0.6064
+R104 VCC PA_10 1k
+Q54 Net-_Q54-Pad1_ PA_1 Net-_Q54-Pad3_ BCY58
+Q55 Net-_Q54-Pad3_ PA_2 Net-_Q55-Pad3_ BCY58
+Q56 Net-_Q55-Pad3_ PA_3 Net-_Q56-Pad3_ BCY58
+Q57 Net-_Q56-Pad3_ PA_4 Net-_Q57-Pad3_ BCY58
+Q58 Net-_Q57-Pad3_ PA_5 Net-_Q58-Pad3_ BCY58
+Q59 Net-_Q58-Pad3_ PA_6 Net-_Q59-Pad3_ BCY58
+Q60 Net-_Q59-Pad3_ PA_7 Net-_Q60-Pad3_ BCY58
+Q61 Net-_Q60-Pad3_ PA_8 Net-_Q61-Pad3_ BCY58
+Q62 Net-_Q61-Pad3_ PA_9 Net-_Q62-Pad3_ BCY58
+Q63 Net-_Q62-Pad3_ PA_10 0 BCY58
+XS6 0 Net-_R15-Pad2_ POSITION 0 vcs close_v=0.0441
+R6 VCC Net-_R15-Pad2_ 1k
+Q6 Net-_Q5-Pad3_ Net-_Q6-Pad2_ 0 BCY58
+R15 Net-_Q6-Pad2_ Net-_R15-Pad2_ 10k
+R14 Net-_Q5-Pad2_ Net-_R14-Pad2_ 10k
+Q5 PB_1 Net-_Q5-Pad2_ Net-_Q5-Pad3_ BCY58
+R5 Net-_R14-Pad2_ 0 1k
+XS5 VCC Net-_R14-Pad2_ POSITION 0 vcs close_v=0.0291
+R21 VCC PB_1 1k
+XS15 0 Net-_R29-Pad2_ POSITION 0 vcs close_v=0.1039
+R29 VCC Net-_R29-Pad2_ 1k
+Q15 Net-_Q14-Pad3_ Net-_Q15-Pad2_ 0 BCY58
+R37 Net-_Q15-Pad2_ Net-_R29-Pad2_ 10k
+R36 Net-_Q14-Pad2_ Net-_R28-Pad1_ 10k
+Q14 PB_2 Net-_Q14-Pad2_ Net-_Q14-Pad3_ BCY58
+R28 Net-_R28-Pad1_ 0 1k
+XS14 VCC Net-_R28-Pad1_ POSITION 0 vcs close_v=0.0889
+R43 VCC PB_2 1k
+XS24 0 Net-_R52-Pad2_ POSITION 0 vcs close_v=0.1637
+R52 VCC Net-_R52-Pad2_ 1k
+Q24 Net-_Q23-Pad3_ Net-_Q24-Pad2_ 0 BCY58
+R60 Net-_Q24-Pad2_ Net-_R52-Pad2_ 10k
+R59 Net-_Q23-Pad2_ Net-_R51-Pad1_ 10k
+Q23 PB_3 Net-_Q23-Pad2_ Net-_Q23-Pad3_ BCY58
+R51 Net-_R51-Pad1_ 0 1k
+XS23 VCC Net-_R51-Pad1_ POSITION 0 vcs close_v=0.1488
+R65 VCC PB_3 1k
+XS32 0 Net-_R72-Pad2_ POSITION 0 vcs close_v=0.2235
+R72 VCC Net-_R72-Pad2_ 1k
+Q32 Net-_Q31-Pad3_ Net-_Q32-Pad2_ 0 BCY58
+R80 Net-_Q32-Pad2_ Net-_R72-Pad2_ 10k
+R79 Net-_Q31-Pad2_ Net-_R71-Pad1_ 10k
+Q31 PB_4 Net-_Q31-Pad2_ Net-_Q31-Pad3_ BCY58
+R71 Net-_R71-Pad1_ 0 1k
+XS31 VCC Net-_R71-Pad1_ POSITION 0 vcs close_v=0.2086
+R85 VCC PB_4 1k
+XS40 0 Net-_R100-Pad2_ POSITION 0 vcs close_v=0.2834
+R92 VCC Net-_R100-Pad2_ 1k
+Q40 Net-_Q39-Pad3_ Net-_Q40-Pad2_ 0 BCY58
+R100 Net-_Q40-Pad2_ Net-_R100-Pad2_ 10k
+R99 Net-_Q39-Pad2_ Net-_R91-Pad1_ 10k
+Q39 PB_5 Net-_Q39-Pad2_ Net-_Q39-Pad3_ BCY58
+R91 Net-_R91-Pad1_ 0 1k
+XS39 VCC Net-_R91-Pad1_ POSITION 0 vcs close_v=0.2684
+R105 VCC PB_5 1k
+XS8 0 Net-_R17-Pad2_ POSITION 0 vcs close_v=0.3432
+R8 VCC Net-_R17-Pad2_ 1k
+Q8 Net-_Q7-Pad3_ Net-_Q8-Pad2_ 0 BCY58
+R17 Net-_Q8-Pad2_ Net-_R17-Pad2_ 10k
+R16 Net-_Q7-Pad2_ Net-_R16-Pad2_ 10k
+Q7 PB_6 Net-_Q7-Pad2_ Net-_Q7-Pad3_ BCY58
+R7 Net-_R16-Pad2_ 0 1k
+XS7 VCC Net-_R16-Pad2_ POSITION 0 vcs close_v=0.3282
+R22 VCC PB_6 1k
+R31 VCC Net-_R31-Pad2_ 1k
+Q17 Net-_Q16-Pad3_ Net-_Q17-Pad2_ 0 BCY58
+R39 Net-_Q17-Pad2_ Net-_R31-Pad2_ 10k
+R38 Net-_Q16-Pad2_ Net-_R30-Pad1_ 10k
+Q16 PB_7 Net-_Q16-Pad2_ Net-_Q16-Pad3_ BCY58
+R30 Net-_R30-Pad1_ 0 1k
+XS16 VCC Net-_R30-Pad1_ POSITION 0 vcs close_v=0.3881
+R44 VCC PB_7 1k
+R54 VCC Net-_R54-Pad2_ 1k
+Q26 Net-_Q25-Pad3_ Net-_Q26-Pad2_ 0 BCY58
+R62 Net-_Q26-Pad2_ Net-_R54-Pad2_ 10k
+R61 Net-_Q25-Pad2_ Net-_R53-Pad1_ 10k
+Q25 PB_8 Net-_Q25-Pad2_ Net-_Q25-Pad3_ BCY58
+R53 Net-_R53-Pad1_ 0 1k
+R66 VCC PB_8 1k
+XS34 0 Net-_R74-Pad2_ POSITION 0 vcs close_v=0.5227
+R74 VCC Net-_R74-Pad2_ 1k
+Q34 Net-_Q33-Pad3_ Net-_Q34-Pad2_ 0 BCY58
+R82 Net-_Q34-Pad2_ Net-_R74-Pad2_ 10k
+R81 Net-_Q33-Pad2_ Net-_R73-Pad1_ 10k
+Q33 PB_9 Net-_Q33-Pad2_ Net-_Q33-Pad3_ BCY58
+R73 Net-_R73-Pad1_ 0 1k
+XS33 VCC Net-_R73-Pad1_ POSITION 0 vcs close_v=0.5077
+R86 VCC PB_9 1k
+XS42 0 Net-_R102-Pad2_ POSITION 0 vcs close_v=0.5825
+R94 VCC Net-_R102-Pad2_ 1k
+Q42 Net-_Q41-Pad3_ Net-_Q42-Pad2_ 0 BCY58
+R102 Net-_Q42-Pad2_ Net-_R102-Pad2_ 10k
+R101 Net-_Q41-Pad2_ Net-_R101-Pad2_ 10k
+Q41 PB_10 Net-_Q41-Pad2_ Net-_Q41-Pad3_ BCY58
+R93 Net-_R101-Pad2_ 0 1k
+XS41 VCC Net-_R101-Pad2_ POSITION 0 vcs close_v=0.5675
+R106 VCC PB_10 1k
+XS26 0 Net-_R54-Pad2_ POSITION 0 vcs close_v=0.4628
+XS17 0 Net-_R31-Pad2_ POSITION 0 vcs close_v=0.4030
+XS25 VCC Net-_R53-Pad1_ POSITION 0 vcs close_v=0.4479
+R108 VCC Net-_Q44-Pad1_ 1k
+Q53 Net-_Q52-Pad3_ PB_10 0 BCY58
+Q52 Net-_Q51-Pad3_ PB_9 Net-_Q52-Pad3_ BCY58
+Q51 Net-_Q50-Pad3_ PB_8 Net-_Q51-Pad3_ BCY58
+Q50 Net-_Q49-Pad3_ PB_7 Net-_Q50-Pad3_ BCY58
+Q49 Net-_Q48-Pad3_ PB_6 Net-_Q49-Pad3_ BCY58
+Q48 Net-_Q47-Pad3_ PB_5 Net-_Q48-Pad3_ BCY58
+Q47 Net-_Q46-Pad3_ PB_4 Net-_Q47-Pad3_ BCY58
+Q46 Net-_Q45-Pad3_ PB_3 Net-_Q46-Pad3_ BCY58
+Q45 Net-_Q44-Pad3_ PB_2 Net-_Q45-Pad3_ BCY58
+Q44 Net-_Q44-Pad1_ PB_1 Net-_Q44-Pad3_ BCY58
+Q67 VCC Net-_Q67-Pad2_ Net-_Q65-Pad3_ BCY58
+Q65 VCC N_ENRICH_EN Net-_Q65-Pad3_ BCY58
+Q43 N_ENRICH_EN ENRICH_EN 0 BCY58
+R107 VCC N_ENRICH_EN 1k
+R109 VCC Net-_Q54-Pad1_ 1k
+R113 Net-_Q65-Pad3_ 0 1k
+R117 VCC Net-_Q69-Pad1_ 1k
+Q69 Net-_Q69-Pad1_ Net-_Q69-Pad2_ 0 BCY58
+* R121 VCC ENRICH_A 1k
+Q71 ENRICH_A Net-_Q71-Pad2_ 0 BCY58
+R115 Net-_Q69-Pad2_ Net-_Q65-Pad3_ 1k
+R119 Net-_Q71-Pad2_ Net-_Q69-Pad1_ 1k
+R111 Net-_Q67-Pad2_ Net-_Q54-Pad1_ 1k
+Q66 VCC Net-_Q66-Pad2_ Net-_Q64-Pad3_ BCY58
+Q64 VCC N_ENRICH_EN Net-_Q64-Pad3_ BCY58
+R112 Net-_Q64-Pad3_ 0 1k
+R116 VCC Net-_Q68-Pad1_ 1k
+Q68 Net-_Q68-Pad1_ Net-_Q68-Pad2_ 0 BCY58
+* R120 VCC ENRICH_B 1k
+Q70 ENRICH_B Net-_Q70-Pad2_ 0 BCY58
+R114 Net-_Q68-Pad2_ Net-_Q64-Pad3_ 1k
+R118 Net-_Q70-Pad2_ Net-_Q68-Pad1_ 1k
+R110 Net-_Q66-Pad2_ Net-_Q44-Pad1_ 1k
+
+.ends
+
+.subckt vcs in_pin out_pin vcc_pin gnd_pin close_v=5.0
+.model vcs_switch sw vt={close_v} vh=0.01 ron=1 roff=1Meg
+S1 in_pin out_pin vcc_pin gnd_pin vcs_switch
+.ends

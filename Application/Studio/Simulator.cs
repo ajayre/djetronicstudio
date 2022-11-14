@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Windows.Forms;
 
 namespace DJetronicStudio
 {
@@ -18,11 +20,19 @@ namespace DJetronicStudio
         public event OnShowMessageHandler OnShowMessage = null;
 
         private bool Connected = false;
+        private string SpiceFolder;
+
+        public NGSpice Spice;
 
         public Simulator
             (
             )
         {
+#if DEBUG
+            SpiceFolder = Path.GetDirectoryName(Application.ExecutablePath) + @"\..\..\..\Spice";
+#else
+            SpiceFolder = Path.GetDirectoryName(Application.ExecutablePath) + @"\Spice";
+#endif
         }
 
         /// <summary>
@@ -73,6 +83,38 @@ namespace DJetronicStudio
             if (OnDisconnected != null)
             {
                 OnDisconnected(this);
+            }
+        }
+
+        /// <summary>
+        /// Runs a simulation
+        /// </summary>
+        public void Run
+            (
+            )
+        {
+            if (!Spice.RunCommand("set ngbehavior=ps"))
+            {
+                return;
+            }
+            if (!Spice.RunCommand("cd \"" + SpiceFolder.Replace(@"\", @"/") + "\""))
+            {
+                return;
+            }
+
+            string Netlist = SpiceFolder + Path.DirectorySeparatorChar + "Bosch ECU 0 280 002 005.cir";
+
+            string[] NetListLines = File.ReadAllLines(Netlist);
+
+            foreach (string Line in NetListLines)
+            {
+                if (Line.Trim().Length > 0)
+                {
+                    if (!Spice.RunCommand("circbyline " + Line.Trim()))
+                    {
+                        return;
+                    }
+                }
             }
         }
     }

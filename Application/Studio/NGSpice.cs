@@ -7,8 +7,10 @@ using System.Runtime.InteropServices;
 
 namespace DJetronicStudio
 {
+    // dll source: https://sourceforge.net/p/ngspice/ngspice/ci/ngspice-37/tree/visualc/
+
     // adapted from: https://github.com/nextguyover/sharedspice-csharp-interface/blob/main/Ngspice_Interface_Concept.cs
-    internal class NGSpice
+    public class NGSpice
     {
         public delegate void OnShowMessageHandler(object sender, string Message);
         public event OnShowMessageHandler OnShowMessage = null;
@@ -32,6 +34,7 @@ namespace DJetronicStudio
         };
         private Commands CurrentCommand;
         private List<string> OutputLines = new List<string>();
+        private bool CommandError;
 
         // references to keep callbacks in memory
         private SendChar SendCharCallback;
@@ -57,11 +60,19 @@ namespace DJetronicStudio
             CurrentCommand = Commands.None;
         }
 
-        public void RunCommand
+        /// <summary>
+        /// Runs a command
+        /// </summary>
+        /// <param name="Command">Command to run</param>
+        /// <returns>true for success, false for error</returns>
+        public bool RunCommand
             (
+            string Command
             )
         {
-            ngSpice_Command("foo");
+            CommandError = false;
+            ngSpice_Command(Command);
+            return !CommandError;
         }
 
         /// <summary>
@@ -116,6 +127,8 @@ namespace DJetronicStudio
         #region Callback functions
         private int SendCharReceive(string callerOut, int idNum, IntPtr pointer)
         {
+            if (callerOut.StartsWith("stderr")) CommandError = true;
+
             string Line = callerOut.Replace("stdout", "").Replace("stderr", "ERROR:");
 
             switch (CurrentCommand)
