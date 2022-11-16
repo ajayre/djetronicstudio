@@ -15,6 +15,9 @@ namespace DJetronicStudio
         public delegate void OnShowMessageHandler(object sender, string Message);
         public event OnShowMessageHandler OnShowMessage = null;
 
+        public delegate void OnEndedHandler(object sender);
+        public event OnEndedHandler OnEnded = null;
+
         public delegate int SendChar(string callerOut, int idNum, IntPtr pointer);                              //Define the delegates required to interface with Ngspice.dll
         public delegate int SendStat(string simStatus, int idNum, IntPtr pointer);                              //Note: char* data type in C++ seems to translate to string type in C#
         public delegate int ControlledExit(int exitStatus, bool unloadStatus, bool exitType, int idNum, IntPtr pointer);    //IntPtr type stores a pointer as an integer
@@ -35,6 +38,7 @@ namespace DJetronicStudio
         private Commands CurrentCommand;
         private List<string> OutputLines = new List<string>();
         private bool CommandError;
+        private List<vecValue[]> SimulationData = new List<vecValue[]>();
 
         // references to keep callbacks in memory
         private SendChar SendCharCallback;
@@ -43,6 +47,8 @@ namespace DJetronicStudio
         private SendData SendDataCallback;
         private SendInitData SendInitDataCallback;
         private BGThreadRunning BGThreadRunningCallback;
+
+        public int counter = 0;
 
         public NGSpice
             (
@@ -58,6 +64,8 @@ namespace DJetronicStudio
             ngSpice_Init(SendCharCallback, SendStatCallback, ControlledExitCallback, SendDataCallback, SendInitDataCallback, BGThreadRunningCallback, dummyIntPtr);
 
             CurrentCommand = Commands.None;
+
+            SimulationData.Clear();
         }
 
         /// <summary>
@@ -147,6 +155,11 @@ namespace DJetronicStudio
 
         private int SendStatReceive(string simStatus, int idNum, IntPtr pointer)
         {
+            if (simStatus == "--ready--")
+            {
+                if (OnEnded != null) OnEnded(this);
+            }
+
             //Debug.Log("SendStatReceive called: " + simStatus);
             return 0;
         }
@@ -159,6 +172,8 @@ namespace DJetronicStudio
 
         private int SendDataReceive(IntPtr pvecvaluesall, int structNum, int idNum, IntPtr pointer)
         {
+            counter++;
+
             //Debug.Log("SendDataReceive called");
 
             vecValuesAll allValues = (vecValuesAll)Marshal.PtrToStructure(pvecvaluesall, typeof(vecValuesAll));         // get allValues struct from unmanaged memory
@@ -174,10 +189,15 @@ namespace DJetronicStudio
                 // iterate through each vector
                 // marshal each vector value structure from each pointer value in vecValuePtrs array
                 values[i] = (vecValue)Marshal.PtrToStructure(vecValuePtrs[i].vecValuePtr, typeof(vecValue)); 
+
+                //if (values[i].vecName == "time")
+                //{
+                //    // convert from s to x10ns
+                //    UInt32 Timestamp = (UInt32)(values[i].cReal * 1000 * 1000 * 100);
+                //}
             }
 
-            //values[] now contains all the vector structures
-            //Do something...
+            SimulationData.Add(values);
 
             return 0;
         }

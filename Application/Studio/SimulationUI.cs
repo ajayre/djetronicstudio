@@ -32,6 +32,7 @@ namespace DJetronicStudio
 
             Sim.Spice = Spice;
             Spice.OnShowMessage += Spice_OnShowMessage;
+            Spice.OnEnded += Spice_OnEnded;
 
             string[] VersionInfo = Spice.GetVersion();
             foreach (string Line in VersionInfo)
@@ -42,6 +43,11 @@ namespace DJetronicStudio
             ShowInitialSettings();
 
             UpdateUI();
+        }
+
+        private void Spice_OnEnded(object sender)
+        {
+            MessageBox.Show("Sim ended");
         }
 
         /// <summary>
@@ -118,7 +124,11 @@ namespace DJetronicStudio
         private void button1_Click(object sender, EventArgs e)
         {
             OutputBox.Clear();
-            Sim.Run();
+            Sim.Run(0, 200, 8);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
         }
     }
 }

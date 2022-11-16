@@ -89,8 +89,14 @@ namespace DJetronicStudio
         /// <summary>
         /// Runs a simulation
         /// </summary>
+        /// <param name="StartTimeMs">Time of simulation start in ms</param>
+        /// <param name="EndTimeMs">Time of simulation end in ms</param>
+        /// <param name="StepUs">Simulation step time in us</param>
         public void Run
             (
+            int StartTimeMs,
+            int EndTimeMs,
+            int StepUs
             )
         {
             if (!Spice.RunCommand("set ngbehavior=ps"))
@@ -108,14 +114,23 @@ namespace DJetronicStudio
 
             foreach (string Line in NetListLines)
             {
-                if (Line.Trim().Length > 0)
+                string TrimmedLine = Line.Trim();
+
+                if (TrimmedLine.Length > 0)
                 {
-                    if (!Spice.RunCommand("circbyline " + Line.Trim()))
+                    if (TrimmedLine.StartsWith(".tran"))
+                    {
+                        TrimmedLine = string.Format(".tran {0}us {1}ms {2}ms", StepUs, EndTimeMs, StartTimeMs);
+                    }
+
+                    if (!Spice.RunCommand("circbyline " + TrimmedLine))
                     {
                         return;
                     }
                 }
             }
+
+            int c = Spice.counter;
         }
     }
 }
