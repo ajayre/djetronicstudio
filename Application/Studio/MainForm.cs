@@ -176,6 +176,8 @@ namespace DJetronicStudio
                 StripItem.GetCurrentParent().Items.Remove(StripItem);
             }
             UIToolStripItems.Clear();
+
+            UIPanel.BackColor = SystemColors.ControlDark;
         }
 
         /// <summary>
@@ -208,6 +210,8 @@ namespace DJetronicStudio
             {
                 UIToolStripItems.Add(AddStatusLabel(Label));
             }
+
+            UIPanel.BackColor = SystemColors.Control;
 
             UI.UIReady();
         }

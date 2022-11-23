@@ -79,8 +79,12 @@ namespace DJetronicStudio
 
             for (int p = 0; p <= MAX_VACUUM; p++)
             {
-                // fixme - use test data to convert pulse widths
-                AdjPulseWidths[p] = PulseWidths[p];
+                // see: https://www.benzworld.org/threads/atmospheric-pressure-testing-of-d-jetronic-manifold-pressure-sensor-mps.3109384/#post-18503957
+
+                double LineSlope = (PulseWidths[p] - 19.8823805648711) / -3.43310224625425 / 100000;
+                double PAchange = AtmosphericPressure - this.AtmosphericPressure;
+                double PWchange = LineSlope * PAchange;
+                AdjPulseWidths[p] = PulseWidths[p] + PWchange;
             }
 
             return AdjPulseWidths;
