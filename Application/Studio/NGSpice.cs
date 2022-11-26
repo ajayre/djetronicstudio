@@ -18,16 +18,17 @@ namespace DJetronicStudio
         public delegate void OnEndedHandler(object sender);
         public event OnEndedHandler OnEnded = null;
 
-        public delegate int SendChar(string callerOut, int idNum, IntPtr pointer);                              //Define the delegates required to interface with Ngspice.dll
-        public delegate int SendStat(string simStatus, int idNum, IntPtr pointer);                              //Note: char* data type in C++ seems to translate to string type in C#
-        public delegate int ControlledExit(int exitStatus, bool unloadStatus, bool exitType, int idNum, IntPtr pointer);    //IntPtr type stores a pointer as an integer
+        // define the delegates required to interface with Ngspice.dll
+        public delegate int SendChar(string callerOut, int idNum, IntPtr pointer);                              
+        public delegate int SendStat(string simStatus, int idNum, IntPtr pointer);
+        public delegate int ControlledExit(int exitStatus, bool unloadStatus, bool exitType, int idNum, IntPtr pointer);
         public delegate int SendData(IntPtr pvecvaluesall, int structNum, int idNum, IntPtr pointer);
         public delegate int SendInitData(IntPtr pvecinfoall, int idNum, IntPtr pointer);
         public delegate int BGThreadRunning(bool backgroundThreadRunning, int idNum, IntPtr pointer);
 
         [DllImport("ngspice.dll")] private static extern int ngSpice_Init(SendChar aa, SendStat bb, ControlledExit cc, SendData dd, SendInitData ee, BGThreadRunning ff, IntPtr pointer);    //define external dll functions (aa, bb, cc, dd, ee, ff are random variable names)
         [DllImport("ngspice.dll")] private static extern int ngSpice_Command(string commandString);
-        //Other required ngspice functions can be defined as above
+        [DllImport("ngspice.dll")] private static extern int ngSpice_Circ(string[] Lines);
 
         private IntPtr dummyIntPtr = new IntPtr();
         private enum Commands
@@ -47,8 +48,29 @@ namespace DJetronicStudio
         private SendData SendDataCallback;
         private SendInitData SendInitDataCallback;
         private BGThreadRunning BGThreadRunningCallback;
+        private bool TerminationRequested;
+        private bool Running;
 
-        public int counter = 0;
+        public class SimDataPoint
+        {
+            public double Time;
+            public double Value;
+
+            public SimDataPoint
+                (
+                double Time,
+                double Value
+                )
+            {
+                this.Time = Time;
+                this.Value = Value;
+            }
+
+            public override string ToString()
+            {
+                return Time.ToString() + ": " + Value.ToString();
+            }
+        }
 
         public NGSpice
             (
@@ -63,9 +85,30 @@ namespace DJetronicStudio
 
             ngSpice_Init(SendCharCallback, SendStatCallback, ControlledExitCallback, SendDataCallback, SendInitDataCallback, BGThreadRunningCallback, dummyIntPtr);
 
-            CurrentCommand = Commands.None;
+            Reset();
+        }
 
+        /// <summary>
+        /// Reset the module, call before each simulation run
+        /// </summary>
+        public void Reset
+            (
+            )
+        {
+            CurrentCommand = Commands.None;
+            TerminationRequested = false;
+            Running = false;
             SimulationData.Clear();
+        }
+
+        /// <summary>
+        /// Stops the currently executing simulation
+        /// </summary>
+        public void Stop
+            (
+            )
+        {
+            TerminationRequested = true;
         }
 
         /// <summary>
@@ -78,8 +121,33 @@ namespace DJetronicStudio
             string Command
             )
         {
+            try
+            {
+                CommandError = false;
+                ngSpice_Command(Command);
+                return !CommandError;
+            }
+            catch
+            {
+                // this will happen when ngspice is sent the 'quit' comamnd during simulation
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Specifies a circuit
+        /// </summary>
+        /// <param name="Lines">Array of lines that define the circuit</param>
+        /// <returns></returns>
+        public bool SpecifyCircuit
+            (
+            string[] Lines
+            )
+        {
+            Running = true;
+
             CommandError = false;
-            ngSpice_Command(Command);
+            ngSpice_Circ(Lines);
             return !CommandError;
         }
 
@@ -113,20 +181,20 @@ namespace DJetronicStudio
             public IntPtr vecArray;                 // values of actual set of vectors, indexed from 0 to veccount - 1
         };
 
-        //WARNING: The boolean variables of the structure below (isScale and isComplex) may not be memory mapped correctly between C and C#
-        //and as such, may not yield correct values. (I did no testing on these two variables) 
-
+        // WARNING: The boolean variables of the structure below (isScale and isComplex) may not be memory mapped correctly between C and C#
+        // and as such, may not yield correct values. (I did no testing on these two variables) 
         [StructLayout(LayoutKind.Sequential)]
         private struct vecValue
         {
-            public string vecName;              // name of a specific vector (as char*, this pointer can be turned into a string later)
+            public string vecName;                  // name of a specific vector (as char*, this pointer can be turned into a string later)
             public double cReal;                    // actual data value (real)
             public double cImag;                    // actual data value (imaginary)
             public bool isScale;                    // if ’name ’ is the scale vector
             public bool isComplex;                  // if the data are complex numbers
         };
 
-        private struct vecValuePtrStruct             // this structure purely makes parsing easier using C# Marshalling
+        // this structure purely makes parsing easier using C# Marshalling
+        private struct vecValuePtrStruct
         {
             public IntPtr vecValuePtr;
         };
@@ -157,29 +225,26 @@ namespace DJetronicStudio
         {
             if (simStatus == "--ready--")
             {
+                Running = false;
+
                 if (OnEnded != null) OnEnded(this);
             }
 
-            //Debug.Log("SendStatReceive called: " + simStatus);
             return 0;
         }
 
         private int ControlledExitReceive(int exitStatus, bool unloadStatus, bool exitType, int idNum, IntPtr pointer)
         {
-            //Debug.Log("ControlledExitReceive called: " + exitStatus);
             return 0;
         }
 
         private int SendDataReceive(IntPtr pvecvaluesall, int structNum, int idNum, IntPtr pointer)
         {
-            counter++;
+            // get allValues struct from unmanaged memory
+            vecValuesAll allValues = (vecValuesAll)Marshal.PtrToStructure(pvecvaluesall, typeof(vecValuesAll));
 
-            //Debug.Log("SendDataReceive called");
-
-            vecValuesAll allValues = (vecValuesAll)Marshal.PtrToStructure(pvecvaluesall, typeof(vecValuesAll));         // get allValues struct from unmanaged memory
-
-            vecValuePtrStruct[] vecValuePtrs = new vecValuePtrStruct[allValues.vecCount];       // define array of IntPtrs
-            vecValue[] values = new vecValue[allValues.vecCount];                               // define array of vector values
+            vecValuePtrStruct[] vecValuePtrs = new vecValuePtrStruct[allValues.vecCount];
+            vecValue[] values = new vecValue[allValues.vecCount];
 
             // marshal array of pointers from location of allValues.vecArray, and paste into vecValuePtrs array
             MarshalUnmananagedArray2Struct(allValues.vecArray, allValues.vecCount, out vecValuePtrs);
@@ -189,28 +254,76 @@ namespace DJetronicStudio
                 // iterate through each vector
                 // marshal each vector value structure from each pointer value in vecValuePtrs array
                 values[i] = (vecValue)Marshal.PtrToStructure(vecValuePtrs[i].vecValuePtr, typeof(vecValue)); 
-
-                //if (values[i].vecName == "time")
-                //{
-                //    // convert from s to x10ns
-                //    UInt32 Timestamp = (UInt32)(values[i].cReal * 1000 * 1000 * 100);
-                //}
             }
 
             SimulationData.Add(values);
 
+            if (TerminationRequested)
+            {
+                // fixme - to do
+                Running = false;
+            }
+
             return 0;
+        }
+
+        /// <summary>
+        /// Gets the data for a specific simulation vector
+        /// </summary>
+        /// <param name="VectorName">Name of vector</param>
+        /// <returns>List of time-value pairs</returns>
+        public List<SimDataPoint> GetData
+            (
+            string VectorName
+            )
+        {
+            if (Running)
+            {
+                throw new Exception("Cannot get data while simulation is running");
+            }
+
+            if (VectorName == "time")
+            {
+                throw new Exception("Cannot get data for time vector");
+            }
+
+            List<SimDataPoint> Data = new List<SimDataPoint>();
+            string VName = VectorName.ToLower();
+
+            foreach (vecValue[] ValArr in SimulationData)
+            {
+                double? Time = null;
+                double? Value = null;
+
+                foreach (vecValue Val in ValArr)
+                {
+                    if (Val.vecName == "time")
+                    {
+                        Time = Val.cReal;
+                    }
+                    else if (Val.vecName == VName)
+                    {
+                        Value = Val.cReal;
+                    }
+
+                    if (Time.HasValue && Value.HasValue)
+                    {
+                        Data.Add(new SimDataPoint(Time.Value, Value.Value));
+                        break;
+                    }
+                }
+            }
+
+            return Data;
         }
 
         private int SendInitDataReceive(IntPtr pvecinfoall, int idNum, IntPtr pointer)
         {
-            //Debug.Log("SendInitDataReceive called");
             return 0;
         }
 
         private int BGThreadRunningReceive(bool backgroundThreadRunning, int idNum, IntPtr pointer)
         {
-            //Debug.Log("BGThreadRunningReceive called");
             return 0;
         }
         #endregion

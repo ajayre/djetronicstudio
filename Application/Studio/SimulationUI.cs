@@ -20,6 +20,9 @@ namespace DJetronicStudio
         private List<StatusLabel> StatusLabels = new List<StatusLabel>();
         private Simulator Sim;
         private NGSpice Spice = new NGSpice();
+        private ToolbarButton RunSimButton;
+        private ToolbarButton StopSimButton;
+        private bool Running = false;
 
         public SimulationUI
             (
@@ -30,9 +33,16 @@ namespace DJetronicStudio
 
             InitializeComponent();
 
+            RunSimButton = new ToolbarButton("Run Simulation", Properties.Resources.run_32, RunSimulation, true);
+            ToolbarButtons.Add(RunSimButton);
+            StopSimButton = new ToolbarButton("Stop Simulation", Properties.Resources.stop, StopSimulation, false);
+            ToolbarButtons.Add(StopSimButton);
+
             Sim.Spice = Spice;
             Spice.OnShowMessage += Spice_OnShowMessage;
-            Spice.OnEnded += Spice_OnEnded;
+
+            Sim.OnSimulationStarted += Sim_OnSimulationStarted;
+            Sim.OnSimulationEnded += Sim_OnSimulationEnded;
 
             string[] VersionInfo = Spice.GetVersion();
             foreach (string Line in VersionInfo)
@@ -40,14 +50,45 @@ namespace DJetronicStudio
                 OutputBox.AppendText(Line + Environment.NewLine);
             }
 
+            Running = false;
+
             ShowInitialSettings();
 
             UpdateUI();
         }
 
-        private void Spice_OnEnded(object sender)
+        /// <summary>
+        /// Called when the simulation has started
+        /// </summary>
+        /// <param name="sender"></param>
+        private void Sim_OnSimulationEnded(object sender)
         {
-            MessageBox.Show("Sim ended");
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<object>(Sim_OnSimulationEnded), sender);
+                return;
+            }
+
+            Running = false;
+            UpdateUI();
+
+            ShowData();
+        }
+
+        /// <summary>
+        /// Called when the simulation has ended
+        /// </summary>
+        /// <param name="sender"></param>
+        private void Sim_OnSimulationStarted(object sender)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<object>(Sim_OnSimulationStarted), sender);
+                return;
+            }
+
+            Running = true;
+            UpdateUI();
         }
 
         /// <summary>
@@ -119,16 +160,65 @@ namespace DJetronicStudio
             (
             )
         {
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, RunSimButton, !Running);
+            if (OnSetToolbarButtonState != null) OnSetToolbarButtonState(this, StopSimButton, Running);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Stops the simulation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StopSimulation
+            (
+            object sender,
+            EventArgs e
+            )
         {
-            OutputBox.Clear();
-            Sim.Run(0, 200, 8);
+            Sim.Stop();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Runs the simulation
+        /// </summary>
+        private void RunSimulation
+            (
+            object sender,
+            EventArgs e
+            )
         {
+            try
+            {
+                OutputBox.Clear();
+                ClearData();
+                Sim.Run(0, 30, 8);
+            }
+            finally
+            {
+                Running = false;
+                UpdateUI();
+            }
+        }
+
+        /// <summary>
+        /// Shows simulation data in the UI
+        /// </summary>
+        private void ShowData
+            (
+            )
+        {
+            List<NGSpice.SimDataPoint> Values = Spice.GetData("E4-INJ4-8");
+            SimChart.AddData("Injector Group IV", "E4-INJ4-8", Values);
+        }
+
+        /// <summary>
+        /// Clears all of the simulation data from the UI
+        /// </summary>
+        private void ClearData
+            (
+            )
+        {
+            SimChart.Clear();
         }
     }
 }

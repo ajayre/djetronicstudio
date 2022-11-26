@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
@@ -19,10 +20,25 @@ namespace DJetronicStudio
         public delegate void OnShowMessageHandler(object sender, string Message);
         public event OnShowMessageHandler OnShowMessage = null;
 
+        public delegate void OnSimulationStartedHandler(object sender);
+        public event OnSimulationStartedHandler OnSimulationStarted = null;
+
+        public delegate void OnSimulationEndedHandler(object sender);
+        public event OnSimulationEndedHandler OnSimulationEnded = null;
+
         private bool Connected = false;
         private string SpiceFolder;
+        private int StartTimeMs;
+        private int EndTimeMs;
+        private int StepUs;
+        private Thread SimThread;
 
-        public NGSpice Spice;
+        private NGSpice _Spice;
+        public NGSpice Spice
+        {
+            get { return _Spice; }
+            set { _Spice = value; }
+        }
 
         public Simulator
             (
@@ -33,6 +49,8 @@ namespace DJetronicStudio
 #else
             SpiceFolder = Path.GetDirectoryName(Application.ExecutablePath) + @"\Spice";
 #endif
+
+            SimThread = null;
         }
 
         /// <summary>
@@ -78,6 +96,8 @@ namespace DJetronicStudio
                 return;
             }
 
+            Stop();
+
             Connected = false;
 
             if (OnDisconnected != null)
@@ -99,38 +119,105 @@ namespace DJetronicStudio
             int StepUs
             )
         {
-            if (!Spice.RunCommand("set ngbehavior=ps"))
+            if (SimThread != null)
             {
-                return;
-            }
-            if (!Spice.RunCommand("cd \"" + SpiceFolder.Replace(@"\", @"/") + "\""))
-            {
-                return;
+                Stop();
+                SimThread = null;
             }
 
-            string Netlist = SpiceFolder + Path.DirectorySeparatorChar + "Bosch ECU 0 280 002 005.cir";
+            this.StartTimeMs = StartTimeMs;
+            this.EndTimeMs = EndTimeMs;
+            this.StepUs = StepUs;
 
-            string[] NetListLines = File.ReadAllLines(Netlist);
+            SimThread = new Thread(new ThreadStart(RunSim));
+            SimThread.Name = "Simulation";
+            SimThread.Start();
+        }
 
-            foreach (string Line in NetListLines)
+        /// <summary>
+        /// Stops the current simulation
+        /// </summary>
+        public void Stop
+            (
+            )
+        {
+            if (SimThread != null)
             {
-                string TrimmedLine = Line.Trim();
+                Spice.Stop();
+            }
 
-                if (TrimmedLine.Length > 0)
+            SimThread = null;
+            if (OnSimulationEnded != null) OnSimulationEnded(this);
+        }
+
+        /// <summary>
+        /// Runs the simulation
+        /// Executes as a background thread
+        /// </summary>
+        private void RunSim
+            (
+            )
+        {
+            if (OnSimulationStarted != null) OnSimulationStarted(this);
+
+            try
+            {
+                Spice.Reset();
+
+                if (!Spice.RunCommand("set ngbehavior=ps"))
                 {
-                    if (TrimmedLine.StartsWith(".tran"))
-                    {
-                        TrimmedLine = string.Format(".tran {0}us {1}ms {2}ms", StepUs, EndTimeMs, StartTimeMs);
-                    }
+                    return;
+                }
+                if (!Spice.RunCommand("cd \"" + SpiceFolder.Replace(@"\", @"/") + "\""))
+                {
+                    return;
+                }
 
-                    if (!Spice.RunCommand("circbyline " + TrimmedLine))
+                string Netlist = SpiceFolder + Path.DirectorySeparatorChar + "Bosch ECU 0 280 002 005.cir";
+
+                string[] NetListLines = File.ReadAllLines(Netlist);
+
+                List<string> ProcessedNetList = new List<string>();
+                foreach (string Line in NetListLines)
+                {
+                    string TrimmedLine = Line.Trim();
+
+                    if (TrimmedLine.Length > 0)
                     {
-                        return;
+                        if (TrimmedLine.StartsWith(".tran"))
+                        {
+                            TrimmedLine = string.Format(".tran {0}us {1}ms {2}ms", StepUs, EndTimeMs, StartTimeMs);
+                        }
+
+                        ProcessedNetList.Add(TrimmedLine);
                     }
                 }
-            }
 
-            int c = Spice.counter;
+                Spice.SpecifyCircuit(ProcessedNetList.ToArray());
+
+                /*foreach (string Line in NetListLines)
+                {
+                    string TrimmedLine = Line.Trim();
+
+                    if (TrimmedLine.Length > 0)
+                    {
+                        if (TrimmedLine.StartsWith(".tran"))
+                        {
+                            TrimmedLine = string.Format(".tran {0}us {1}ms {2}ms", StepUs, EndTimeMs, StartTimeMs);
+                        }
+
+                        if (!Spice.RunCommand("circbyline " + TrimmedLine))
+                        {
+                            return;
+                        }
+                    }
+                }*/
+            }
+            finally
+            {
+                SimThread = null;
+                if (OnSimulationEnded != null) OnSimulationEnded(this);
+            }
         }
     }
 }

@@ -165,6 +165,12 @@
     <Compile Include="ReadPressureButtonGrid.Designer.cs">
       <DependentUpon>ReadPressureButtonGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="SimChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SimChart.designer.cs">
+      <DependentUpon>SimChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -263,6 +269,9 @@
     <EmbeddedResource Include="ReadPressureButtonGrid.resx">
       <DependentUpon>ReadPressureButtonGrid.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SimChart.resx">
+      <DependentUpon>SimChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TuneOMaticUI.resx">
       <DependentUpon>TuneOMaticUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -318,6 +327,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\run_72.png" />
+    <None Include="Graphics\run_64.png" />
+    <None Include="Graphics\run_48.png" />
+    <None Include="Graphics\run_32.png" />
+    <None Include="Graphics\run_24.png" />
     <None Include="Graphics\pulse_width_72.png" />
     <None Include="Graphics\pulse_width_64.png" />
     <None Include="Graphics\pulse_width_48.png" />
