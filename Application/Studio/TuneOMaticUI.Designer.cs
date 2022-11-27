@@ -30,12 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TuneOMaticUI));
             this.ExportCSVDialog = new System.Windows.Forms.SaveFileDialog();
-            this.GetPressureBtn = new System.Windows.Forms.Button();
-            this.GetPulseWidthBtn = new System.Windows.Forms.Button();
-            this.PressureValue = new System.Windows.Forms.Label();
-            this.PulseWidthValue = new System.Windows.Forms.Label();
-            this.StartContBtn = new System.Windows.Forms.Button();
-            this.StopContBtn = new System.Windows.Forms.Button();
             this.ImportMPSProfileDialog = new System.Windows.Forms.OpenFileDialog();
             this.ExportMPSProfileDialog = new System.Windows.Forms.SaveFileDialog();
             this.Tabs = new DJetronicStudio.TablessControl();
@@ -110,64 +104,6 @@
             this.ExportCSVDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
             this.ExportCSVDialog.Title = "Export Data to CSV";
             // 
-            // GetPressureBtn
-            // 
-            this.GetPressureBtn.Location = new System.Drawing.Point(3, 3);
-            this.GetPressureBtn.Name = "GetPressureBtn";
-            this.GetPressureBtn.Size = new System.Drawing.Size(104, 23);
-            this.GetPressureBtn.TabIndex = 0;
-            this.GetPressureBtn.Text = "Get Pressure";
-            this.GetPressureBtn.UseVisualStyleBackColor = true;
-            this.GetPressureBtn.Click += new System.EventHandler(this.GetPressureBtn_Click);
-            // 
-            // GetPulseWidthBtn
-            // 
-            this.GetPulseWidthBtn.Location = new System.Drawing.Point(3, 32);
-            this.GetPulseWidthBtn.Name = "GetPulseWidthBtn";
-            this.GetPulseWidthBtn.Size = new System.Drawing.Size(104, 23);
-            this.GetPulseWidthBtn.TabIndex = 1;
-            this.GetPulseWidthBtn.Text = "Get Pulse Width";
-            this.GetPulseWidthBtn.UseVisualStyleBackColor = true;
-            this.GetPulseWidthBtn.Click += new System.EventHandler(this.GetPulseWidthBtn_Click);
-            // 
-            // PressureValue
-            // 
-            this.PressureValue.AutoSize = true;
-            this.PressureValue.Location = new System.Drawing.Point(113, 8);
-            this.PressureValue.Name = "PressureValue";
-            this.PressureValue.Size = new System.Drawing.Size(35, 13);
-            this.PressureValue.TabIndex = 2;
-            this.PressureValue.Text = "label1";
-            // 
-            // PulseWidthValue
-            // 
-            this.PulseWidthValue.AutoSize = true;
-            this.PulseWidthValue.Location = new System.Drawing.Point(113, 37);
-            this.PulseWidthValue.Name = "PulseWidthValue";
-            this.PulseWidthValue.Size = new System.Drawing.Size(35, 13);
-            this.PulseWidthValue.TabIndex = 3;
-            this.PulseWidthValue.Text = "label2";
-            // 
-            // StartContBtn
-            // 
-            this.StartContBtn.Location = new System.Drawing.Point(217, 32);
-            this.StartContBtn.Name = "StartContBtn";
-            this.StartContBtn.Size = new System.Drawing.Size(104, 23);
-            this.StartContBtn.TabIndex = 4;
-            this.StartContBtn.Text = "Start Cont";
-            this.StartContBtn.UseVisualStyleBackColor = true;
-            this.StartContBtn.Click += new System.EventHandler(this.StartContBtn_Click);
-            // 
-            // StopContBtn
-            // 
-            this.StopContBtn.Location = new System.Drawing.Point(327, 32);
-            this.StopContBtn.Name = "StopContBtn";
-            this.StopContBtn.Size = new System.Drawing.Size(104, 23);
-            this.StopContBtn.TabIndex = 5;
-            this.StopContBtn.Text = "Stop Cont";
-            this.StopContBtn.UseVisualStyleBackColor = true;
-            this.StopContBtn.Click += new System.EventHandler(this.StopContBtn_Click);
-            // 
             // ImportMPSProfileDialog
             // 
             this.ImportMPSProfileDialog.DefaultExt = "mps";
@@ -182,9 +118,6 @@
             // 
             // Tabs
             // 
-            this.Tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.Tabs.Controls.Add(this.DbPage);
             this.Tabs.Controls.Add(this.TunePage1);
             this.Tabs.Controls.Add(this.TunePage2);
@@ -195,10 +128,11 @@
             this.Tabs.Controls.Add(this.AddPage3);
             this.Tabs.Controls.Add(this.AddPage4);
             this.Tabs.Controls.Add(this.ChartPage);
-            this.Tabs.Location = new System.Drawing.Point(3, 61);
+            this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
-            this.Tabs.Size = new System.Drawing.Size(900, 438);
+            this.Tabs.Size = new System.Drawing.Size(906, 502);
             this.Tabs.TabIndex = 6;
             // 
             // DbPage
@@ -208,7 +142,7 @@
             this.DbPage.Location = new System.Drawing.Point(4, 22);
             this.DbPage.Name = "DbPage";
             this.DbPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DbPage.Size = new System.Drawing.Size(892, 412);
+            this.DbPage.Size = new System.Drawing.Size(898, 476);
             this.DbPage.TabIndex = 0;
             this.DbPage.Text = "DbPage";
             this.DbPage.Resize += new System.EventHandler(this.DbPage_Resize);
@@ -788,6 +722,7 @@
             // 
             // Chart
             // 
+            this.Chart.Database = null;
             this.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Chart.Location = new System.Drawing.Point(3, 3);
             this.Chart.Name = "Chart";
@@ -800,12 +735,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.Tabs);
-            this.Controls.Add(this.StopContBtn);
-            this.Controls.Add(this.StartContBtn);
-            this.Controls.Add(this.PulseWidthValue);
-            this.Controls.Add(this.PressureValue);
-            this.Controls.Add(this.GetPulseWidthBtn);
-            this.Controls.Add(this.GetPressureBtn);
             this.Name = "TuneOMaticUI";
             this.Size = new System.Drawing.Size(906, 502);
             this.Tabs.ResumeLayout(false);
@@ -825,18 +754,11 @@
             this.AddPage4.ResumeLayout(false);
             this.ChartPage.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.SaveFileDialog ExportCSVDialog;
-        private System.Windows.Forms.Button GetPressureBtn;
-        private System.Windows.Forms.Button GetPulseWidthBtn;
-        private System.Windows.Forms.Label PressureValue;
-        private System.Windows.Forms.Label PulseWidthValue;
-        private System.Windows.Forms.Button StartContBtn;
-        private System.Windows.Forms.Button StopContBtn;
         private TablessControl Tabs;
         private System.Windows.Forms.TabPage DbPage;
         private System.Windows.Forms.TabPage TunePage1;

@@ -585,8 +585,6 @@ namespace DJetronicStudio
                 return;
             }
 
-            PulseWidthValue.Text = string.Format("{0:N2}ms", PulseWidth / 1000.0);
-
             if (Recording)
             {
                 RecordingBuffer.Add(new Tuple<double, double, UInt16>((DateTime.Now - RecordingStartTime).TotalMilliseconds, LastPressure, PulseWidth));
@@ -615,8 +613,6 @@ namespace DJetronicStudio
                 BeginInvoke(new Action<object, double>(Tuner_OnReceivedPressure), sender, Pressure);
                 return;
             }
-
-            PressureValue.Text = string.Format("{0}", Pressure);
 
             if (OnSetStatusLabelText != null) OnSetStatusLabelText(this, AtmosphericPressureIndicator, string.Format("{0:N3} Pa ({1:N6} inHg)", Pressure, Pressure / 3386.3886666667));
 
@@ -668,55 +664,6 @@ namespace DJetronicStudio
             (
             )
         {
-        }
-
-        private void GetPressureBtn_Click(object sender, EventArgs e)
-        {
-            Tuner.RequestPressure();
-        }
-
-        private void GetPulseWidthBtn_Click(object sender, EventArgs e)
-        {
-            Tuner.RequestPulseWidth();
-        }
-
-        private void StartContBtn_Click(object sender, EventArgs e)
-        {
-            Tuner.RequestStartContinuousMeasurement();
-            RecordingBuffer.Clear();
-            LastPressure = 0;
-            LastPulseWidth = 0;
-            RecordingStartTime = DateTime.Now;
-            Recording = true;
-        }
-
-        private void StopContBtn_Click(object sender, EventArgs e)
-        {
-            Tuner.RequestStopContinuousMeasurement();
-            Recording = false;
-
-            if (ExportCSVDialog.ShowDialog() == DialogResult.OK)
-            {
-                StreamWriter CSVFile = new StreamWriter(ExportCSVDialog.FileName, false, Encoding.ASCII);
-
-                try
-                {
-                    CSVFile.WriteLine("\"Time (ms)\",\"Pressure (Pa)\",\"Pulse Width (ms)\"");
-
-                    foreach (Tuple<double, double, UInt16> DataPoint in RecordingBuffer)
-                    {
-                        CSVFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"",
-                            DataPoint.Item1.ToString(),
-                            DataPoint.Item2.ToString(CultureInfo.CreateSpecificCulture("en-US")),
-                            (DataPoint.Item3 / 1000.0).ToString(CultureInfo.CreateSpecificCulture("en-US"))
-                            ));
-                    }
-                }
-                finally
-                {
-                    CSVFile.Close();
-                }
-            }
         }
 
         /// <summary>

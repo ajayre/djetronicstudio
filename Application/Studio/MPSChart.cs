@@ -45,7 +45,11 @@ namespace DJetronicStudio
             set
             {
                 _Database = value;
-                BuildTree();
+                if (_Database != null)
+                {
+                    BuildTree();
+                    Clear();
+                }
             }
         }
 
@@ -118,6 +122,21 @@ namespace DJetronicStudio
                 MPSNode.Tag = Profile;
                 DatabaseTree.Nodes.Add(MPSNode);
             }
+        }
+
+        /// <summary>
+        /// Clears the data from the chart
+        /// </summary>
+        private void Clear
+            (
+            )
+        {
+            foreach (LineSeries<ObservablePoint> Ser in Series)
+            {
+                ((ObservableCollection<ObservablePoint>)Ser.Values).Clear();
+            }
+
+            Series.Clear();
         }
 
         /// <summary>
