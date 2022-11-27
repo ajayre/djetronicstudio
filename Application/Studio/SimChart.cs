@@ -30,8 +30,13 @@ namespace DJetronicStudio
 {
     public partial class SimChart : UserControl
     {
+        public delegate void OnRequestAddCustomDataHandler(object sender, string VectorName);
+        public event OnRequestAddCustomDataHandler OnRequestAddCustomData = null;
+
         private ObservableCollection<ISeries> Series { get; set; }
         private Random RandomGenerator = new Random();
+        private List<SimData> AvailableData = new List<SimData>();
+        private SimChartSettings ChartSettings = new SimChartSettings();
 
         public SimChart()
         {
@@ -56,8 +61,8 @@ namespace DJetronicStudio
                 new Axis
                 {
                     TextSize = 12,
-                    MinLimit = -16,
-                    MaxLimit = 12,
+                    MinLimit = -25,
+                    MaxLimit = 17,
                     NameTextSize = 16,
                     Name = "Voltage (V)",
                     Position = AxisPosition.Start,
@@ -76,6 +81,21 @@ namespace DJetronicStudio
                 Padding = new LiveChartsCore.Drawing.Padding(15),
                 Paint = new SolidColorPaint(SKColors.Black)
             };
+        }
+
+        /// <summary>
+        /// Sets the time range for the X axis
+        /// </summary>
+        /// <param name="StartTimeMs">Start time in ms</param>
+        /// <param name="EndTimeMs">End time in ms</param>
+        public void SetTimeRange
+            (
+            double StartTimeMs,
+            double EndTimeMs
+            )
+        {
+            Chart.XAxes.First().MinLimit = StartTimeMs;
+            Chart.XAxes.First().MaxLimit = EndTimeMs;
         }
 
         /// <summary>
@@ -116,32 +136,91 @@ namespace DJetronicStudio
         /// <summary>
         /// Adds data that the user can choose to display on the chart
         /// </summary>
-        /// <param name="SeriesName">Display name</param>
+        /// <param name="Name">Display name</param>
         /// <param name="VectorName">Simulation vector name</param>
+        /// <param name="DataSource">The source of the data</param>
         /// <param name="Data">Set of time-value data points</param>
         public void AddData
             (
-            string SeriesName,
+            string Name,
             string VectorName,
+            SimData.DataSources DataSource,
             List<NGSpice.SimDataPoint> Data
             )
         {
-            Color LineColor = Color.Red;
+            if (Data == null) return;
 
+            SimData SData = new SimData(Name, VectorName, DataSource, Data);
+            AvailableData.Add(SData);
+        }
+
+        /// <summary>
+        /// Finds simulation data by vector name
+        /// </summary>
+        /// <param name="VectorName">Vector name to search for</param>
+        /// <returns>Simulation data or null if not found</returns>
+        private SimData GetDataFromVectorName
+            (
+            string VectorName
+            )
+        {
+            foreach (SimData Data in AvailableData)
+            {
+                if (Data.VectorName == VectorName)
+                {
+                    return Data;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Finds simulation data by data source
+        /// </summary>
+        /// <param name="DataSource">Data source to search for</param>
+        /// <returns>Simulation data of null if not found</returns>
+        private SimData GetDataFromDataSource
+            (
+            SimData.DataSources DataSource
+            )
+        {
+            foreach (SimData Data in AvailableData)
+            {
+                if (Data.DataSource == DataSource)
+                {
+                    return Data;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Shows data on the chart
+        /// </summary>
+        /// <param name="VectorName">Name of the simulation vector to show</param>
+        /// <param name="LineColor">Color of line</param>
+        private void ShowData
+            (
+            SimData Data,
+            Color LineColor
+            )
+        {
             LineSeries<ObservablePoint> NewSeries = new LineSeries<ObservablePoint>();
-            NewSeries.Name = SeriesName;
+            NewSeries.Name = Data.Name;
             NewSeries.LineSmoothness = 0.0;
             NewSeries.Fill = null;
             NewSeries.GeometrySize = 0;
             NewSeries.GeometryStroke = new SolidColorPaint(new SKColor(LineColor.R, LineColor.G, LineColor.B, LineColor.A)) { StrokeThickness = 1.0F };
             NewSeries.Stroke = new SolidColorPaint(new SKColor(LineColor.R, LineColor.G, LineColor.B, LineColor.A)) { StrokeThickness = 2.0F };
             NewSeries.Values = new ObservableCollection<ObservablePoint>();
-            NewSeries.Tag = VectorName;
+            NewSeries.Tag = Data;
             Series.Add(NewSeries);
 
-            for (int p = 0; p < Data.Count; p++)
+            for (int p = 0; p < Data.Points.Count; p++)
             {
-                ObservablePoint NewData = new ObservablePoint(Data[p].Time * 1000, Data[p].Value);
+                ObservablePoint NewData = new ObservablePoint(Data.Points[p].Time * 1000, Data.Points[p].Value);
                 ((ObservableCollection<ObservablePoint>)NewSeries.Values).Add(NewData);
             }
 
@@ -163,60 +242,133 @@ namespace DJetronicStudio
             Series.Clear();
         }
 
-        /// <summary>
-        /// Adds a series to the chart
-        /// </summary>
-        /// <param name="Profile">Profile to show on chart</param>
-        /// <param name="TNode">Tree node associated with profile</param>
-        private void AddSeries
-            (
-            MPSProfile Profile,
-            TreeNode TNode
-            )
+        public class SimData
         {
-            Color LineColor = Color.FromArgb(RandomGenerator.Next(256), RandomGenerator.Next(256), RandomGenerator.Next(256));
+            public enum DataSources
+            {
+                Custom,
+                InjectorGroupI,
+                InjectorGroupII,
+                InjectorGroupIII,
+                InjectorGroupIV,
+                MPSPin7,
+                MPSPin8,
+                MPSPin10,
+                MPSPin15
+            }
 
-            LineSeries<ObservablePoint> NewSeries = new LineSeries<ObservablePoint>();
-            NewSeries.Name = Profile.Name;
-            NewSeries.LineSmoothness = 0.0;
-            NewSeries.Fill = null;
-            NewSeries.GeometrySize = 8.0;
-            NewSeries.GeometryStroke = new SolidColorPaint(new SKColor(LineColor.R, LineColor.G, LineColor.B, LineColor.A)) { StrokeThickness = 1.0F };
-            NewSeries.Stroke = new SolidColorPaint(new SKColor(LineColor.R, LineColor.G, LineColor.B, LineColor.A)) { StrokeThickness = 2.0F };
-            NewSeries.Values = new ObservableCollection<ObservablePoint>();
-            NewSeries.Tag = Profile;
-            Series.Add(NewSeries);
+            public string Name;
+            public string VectorName;
+            public List<NGSpice.SimDataPoint> Points;
+            public DataSources DataSource;
 
-            //for (int p = 0; p <= MPSProfile.MAX_VACUUM; p++)
-            //{
-            //    ObservablePoint NewData = new ObservablePoint(p, AdjPulseWidths[p] / 1000.0);
-            //    ((ObservableCollection<ObservablePoint>)NewSeries.Values).Add(NewData);
-            //}
-
-            Chart.CoreChart.Update(new LiveChartsCore.Kernel.ChartUpdateParams { IsAutomaticUpdate = false, Throttling = false });
-
-            TNode.ForeColor = LineColor;
+            public SimData
+                (
+                string Name,
+                string VectorName,
+                DataSources DataSource,
+                List<NGSpice.SimDataPoint> Points
+                )
+            {
+                this.Name = Name;
+                this.VectorName = VectorName;
+                this.DataSource = DataSource;
+                this.Points = Points;
+            }
         }
 
         /// <summary>
-        /// Removes a series from the chart
+        /// Called when user clicks on the edit button
+        /// Shows the settings form and applies new settings
         /// </summary>
-        /// <param name="Profile">Profile to remove from chart</param>
-        /// <param name="TNode">Tree node associated with profile</param>
-        private void RemoveSeries
-            (
-            MPSProfile Profile,
-            TreeNode TNode
-            )
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditBtn_Click(object sender, EventArgs e)
         {
-            foreach (LineSeries<ObservablePoint> Ser in Series)
+            SimChartSettingsForm SettingsForm = new SimChartSettingsForm();
+            SettingsForm.Settings = ChartSettings;
+            if (SettingsForm.ShowDialog() == DialogResult.OK)
             {
-                if (Ser.Tag == Profile)
+                Clear();
+
+                if (ChartSettings.ShowInjectorGroupI)
                 {
-                    ((ObservableCollection<ObservablePoint>)Ser.Values).Clear();
-                    Series.Remove(Ser);
-                    TNode.ForeColor = Color.Black;
-                    return;
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.InjectorGroupI);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.InjectorGroupIColor);
+                    }
+                }
+                if (ChartSettings.ShowInjectorGroupII)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.InjectorGroupII);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.InjectorGroupIIColor);
+                    }
+                }
+                if (ChartSettings.ShowInjectorGroupIII)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.InjectorGroupIII);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.InjectorGroupIIIColor);
+                    }
+                }
+                if (ChartSettings.ShowInjectorGroupIV)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.InjectorGroupIV);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.InjectorGroupIVColor);
+                    }
+                }
+
+                if (ChartSettings.ShowMPSPin7)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.MPSPin7);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.MPSPin7Color);
+                    }
+                }
+                if (ChartSettings.ShowMPSPin8)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.MPSPin8);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.MPSPin8Color);
+                    }
+                }
+                if (ChartSettings.ShowMPSPin10)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.MPSPin10);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.MPSPin10Color);
+                    }
+                }
+                if (ChartSettings.ShowMPSPin15)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.MPSPin15);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.MPSPin15Color);
+                    }
+                }
+                if (ChartSettings.ShowCustom)
+                {
+                    SimData Data = GetDataFromVectorName(ChartSettings.CustomVectorName);
+                    if (Data == null)
+                    {
+                        if (OnRequestAddCustomData != null) OnRequestAddCustomData(this, ChartSettings.CustomVectorName);
+                        Data = GetDataFromVectorName(ChartSettings.CustomVectorName);
+                    }
+
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.CustomColor);
+                    }
                 }
             }
         }

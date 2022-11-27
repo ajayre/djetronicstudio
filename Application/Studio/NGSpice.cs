@@ -48,8 +48,6 @@ namespace DJetronicStudio
         private SendData SendDataCallback;
         private SendInitData SendInitDataCallback;
         private BGThreadRunning BGThreadRunningCallback;
-        private bool TerminationRequested;
-        private bool Running;
 
         public class SimDataPoint
         {
@@ -89,6 +87,18 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Reinitalizes the module
+        /// </summary>
+        public void ReInit
+            (
+            )
+        {
+            ngSpice_Init(SendCharCallback, SendStatCallback, ControlledExitCallback, SendDataCallback, SendInitDataCallback, BGThreadRunningCallback, dummyIntPtr);
+
+            Reset();
+        }
+
+        /// <summary>
         /// Reset the module, call before each simulation run
         /// </summary>
         public void Reset
@@ -96,19 +106,7 @@ namespace DJetronicStudio
             )
         {
             CurrentCommand = Commands.None;
-            TerminationRequested = false;
-            Running = false;
             SimulationData.Clear();
-        }
-
-        /// <summary>
-        /// Stops the currently executing simulation
-        /// </summary>
-        public void Stop
-            (
-            )
-        {
-            TerminationRequested = true;
         }
 
         /// <summary>
@@ -144,8 +142,6 @@ namespace DJetronicStudio
             string[] Lines
             )
         {
-            Running = true;
-
             CommandError = false;
             ngSpice_Circ(Lines);
             return !CommandError;
@@ -225,8 +221,6 @@ namespace DJetronicStudio
         {
             if (simStatus == "--ready--")
             {
-                Running = false;
-
                 if (OnEnded != null) OnEnded(this);
             }
 
@@ -258,12 +252,6 @@ namespace DJetronicStudio
 
             SimulationData.Add(values);
 
-            if (TerminationRequested)
-            {
-                // fixme - to do
-                Running = false;
-            }
-
             return 0;
         }
 
@@ -277,11 +265,6 @@ namespace DJetronicStudio
             string VectorName
             )
         {
-            if (Running)
-            {
-                throw new Exception("Cannot get data while simulation is running");
-            }
-
             if (VectorName == "time")
             {
                 throw new Exception("Cannot get data for time vector");

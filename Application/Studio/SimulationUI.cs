@@ -44,6 +44,8 @@ namespace DJetronicStudio
             Sim.OnSimulationStarted += Sim_OnSimulationStarted;
             Sim.OnSimulationEnded += Sim_OnSimulationEnded;
 
+            SimChart.OnRequestAddCustomData += SimChart_OnRequestAddCustomData;
+
             string[] VersionInfo = Spice.GetVersion();
             foreach (string Line in VersionInfo)
             {
@@ -201,14 +203,33 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Called when chart wants to add custom simulation data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="VectorName">Name of simulation vector for data</param>
+        private void SimChart_OnRequestAddCustomData(object sender, string VectorName)
+        {
+            SimChart.AddData(VectorName, VectorName, SimChart.SimData.DataSources.Custom, Spice.GetData(VectorName));
+        }
+
+        /// <summary>
         /// Shows simulation data in the UI
         /// </summary>
         private void ShowData
             (
             )
         {
-            List<NGSpice.SimDataPoint> Values = Spice.GetData("E4-INJ4-8");
-            SimChart.AddData("Injector Group IV", "E4-INJ4-8", Values);
+            SimChart.SetTimeRange(0, 30);
+
+            SimChart.AddData("Injector Group I", "E3-INJ1-5", SimChart.SimData.DataSources.InjectorGroupI, Spice.GetData("E3-INJ1-5"));
+            SimChart.AddData("Injector Group II", "E5-INJ6-3", SimChart.SimData.DataSources.InjectorGroupII, Spice.GetData("E5-INJ6-3"));
+            SimChart.AddData("Injector Group III", "E4-INJ4-8", SimChart.SimData.DataSources.InjectorGroupIII, Spice.GetData("E4-INJ4-8"));
+            SimChart.AddData("Injector Group IV", "E6-INJ7-2", SimChart.SimData.DataSources.InjectorGroupIV, Spice.GetData("E6-INJ7-2"));
+
+            SimChart.AddData("MPS pin 7", "AUX9-BP", SimChart.SimData.DataSources.MPSPin7, Spice.GetData("AUX9-BP"));
+            SimChart.AddData("MPS pin 8", "E8-MPS", SimChart.SimData.DataSources.MPSPin8, Spice.GetData("E8-MPS"));
+            SimChart.AddData("MPS pin 10", "E10-MPS", SimChart.SimData.DataSources.MPSPin10, Spice.GetData("E10-MPS"));
+            SimChart.AddData("MPS pin 15", "E15-MPS", SimChart.SimData.DataSources.MPSPin15, Spice.GetData("E15-MPS"));
         }
 
         /// <summary>

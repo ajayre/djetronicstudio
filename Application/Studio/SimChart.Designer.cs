@@ -30,10 +30,10 @@
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.ExportImageBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.EditBtn = new System.Windows.Forms.ToolStripButton();
             this.Chart = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             this.ExportImageDialog = new System.Windows.Forms.SaveFileDialog();
-            this.EditBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +61,21 @@
             this.ExportImageBtn.Text = "Export image";
             this.ExportImageBtn.Click += new System.EventHandler(this.ExportImageBtn_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            // 
+            // EditBtn
+            // 
+            this.EditBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EditBtn.Image = global::DJetronicStudio.Properties.Resources.edit_32;
+            this.EditBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EditBtn.Name = "EditBtn";
+            this.EditBtn.Size = new System.Drawing.Size(36, 36);
+            this.EditBtn.Text = "Edit";
+            this.EditBtn.Click += new System.EventHandler(this.EditBtn_Click);
+            // 
             // Chart
             // 
             this.Chart.BackColor = System.Drawing.Color.White;
@@ -75,20 +90,6 @@
             this.ExportImageDialog.DefaultExt = "png";
             this.ExportImageDialog.Filter = "PNG Files (*.png)|*.png|JPEG Files (*.jpg)|*.jpg|All Files (*.*)|*.*";
             this.ExportImageDialog.Title = "Export Chart as Image";
-            // 
-            // EditBtn
-            // 
-            this.EditBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.EditBtn.Image = global::DJetronicStudio.Properties.Resources.edit_32;
-            this.EditBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EditBtn.Name = "EditBtn";
-            this.EditBtn.Size = new System.Drawing.Size(36, 36);
-            this.EditBtn.Text = "Edit";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // SimChart
             // 

@@ -143,7 +143,12 @@ namespace DJetronicStudio
         {
             if (SimThread != null)
             {
-                Spice.Stop();
+                SimThread.Abort();
+                while (SimThread != null)
+                {
+                    Thread.Sleep(10);
+                }
+                Spice.ReInit();
             }
 
             SimThread = null;

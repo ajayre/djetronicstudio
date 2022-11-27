@@ -171,6 +171,13 @@
     <Compile Include="SimChart.designer.cs">
       <DependentUpon>SimChart.cs</DependentUpon>
     </Compile>
+    <Compile Include="SimChartSettings.cs" />
+    <Compile Include="SimChartSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimChartSettingsForm.Designer.cs">
+      <DependentUpon>SimChartSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -271,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SimChart.resx">
       <DependentUpon>SimChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimChartSettingsForm.resx">
+      <DependentUpon>SimChartSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TuneOMaticUI.resx">
       <DependentUpon>TuneOMaticUI.cs</DependentUpon>
