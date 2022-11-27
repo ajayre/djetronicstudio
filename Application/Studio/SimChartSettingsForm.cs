@@ -80,6 +80,40 @@ namespace DJetronicStudio
                 MPSPin10ColorInput.BackColor = Settings.MPSPin10Color;
                 MPSPin15ColorInput.BackColor = Settings.MPSPin15Color;
 
+                PulseGeneratorGroupIInput.Checked = Settings.ShowPulseGeneratorGroupI;
+                PulseGeneratorGroupIIInput.Checked = Settings.ShowPulseGeneratorGroupII;
+                PulseGeneratorGroupIIIInput.Checked = Settings.ShowPulseGeneratorGroupIII;
+                PulseGeneratorGroupIVInput.Checked = Settings.ShowPulseGeneratorGroupIV;
+
+                PulseGeneratorGroupIColorInput.BackColor = Settings.PulseGeneratorGroupIColor;
+                PulseGeneratorGroupIIColorInput.BackColor = Settings.PulseGeneratorGroupIIColor;
+                PulseGeneratorGroupIIIColorInput.BackColor = Settings.PulseGeneratorGroupIIIColor;
+                PulseGeneratorGroupIVColorInput.BackColor = Settings.PulseGeneratorGroupIVColor;
+
+                TPSIdleInput.Checked = Settings.ShowTPSIdle;
+                TPSFullThrottleInput.Checked = Settings.ShowTPSFullThrottle;
+                TPSAcceleration1Input.Checked = Settings.ShowTPSAcceleration1;
+                TPSAcceleration2Input.Checked = Settings.ShowTPSAcceleration2;
+
+                TPSIdleColorInput.BackColor = Settings.TPSIdleColor;
+                TPSFullThrottleColorInput.BackColor = Settings.TPSFullThrottleColor;
+                TPSAcceleration1ColorInput.BackColor = Settings.TPSAcceleration1Color;
+                TPSAcceleration2ColorInput.BackColor = Settings.TPSAcceleration2Color;
+
+                StartInput.Checked = Settings.ShowStart;
+                FuelPumpRelayInput.Checked = Settings.ShowFuelPumpRelay;
+                DiagI_IIIInput.Checked = Settings.ShowDiagI_III;
+
+                StartColorInput.BackColor = Settings.StartColor;
+                FuelPumpRelayColorInput.BackColor = Settings.FuelPumpRelayColor;
+                DiagI_IIIColorInput.BackColor = Settings.DiagI_IIIColor;
+
+                AirTemperatureInput.Checked = Settings.ShowAirTemperature;
+                CoolantTemperatureInput.Checked = Settings.ShowCoolantTemperature;
+
+                AirTemperatureColorInput.BackColor = Settings.AirTemperatureColor;
+                CoolantTemperatureColorInput.BackColor = Settings.CoolantTemperatureColor;
+
                 CustomInput.Checked = Settings.ShowCustom;
                 CustomVectorNameInput.Text = Settings.CustomVectorName;
                 CustomColorInput.BackColor = Settings.CustomColor;
@@ -119,6 +153,42 @@ namespace DJetronicStudio
             Settings.MPSPin8Color = MPSPin8ColorInput.BackColor;
             Settings.MPSPin10Color = MPSPin10ColorInput.BackColor;
             Settings.MPSPin15Color = MPSPin15ColorInput.BackColor;
+
+            Settings.ShowPulseGeneratorGroupI = PulseGeneratorGroupIInput.Checked;
+            Settings.ShowPulseGeneratorGroupII = PulseGeneratorGroupIIInput.Checked;
+            Settings.ShowPulseGeneratorGroupIII = PulseGeneratorGroupIIIInput.Checked;
+            Settings.ShowPulseGeneratorGroupIV = PulseGeneratorGroupIVInput.Checked;
+
+            Settings.PulseGeneratorGroupIColor = PulseGeneratorGroupIColorInput.BackColor;
+            Settings.PulseGeneratorGroupIIColor = PulseGeneratorGroupIIColorInput.BackColor;
+            Settings.PulseGeneratorGroupIIIColor = PulseGeneratorGroupIIIColorInput.BackColor;
+            Settings.PulseGeneratorGroupIVColor = PulseGeneratorGroupIVColorInput.BackColor;
+
+            Settings.ShowTPSIdle = TPSIdleInput.Checked;
+            Settings.ShowTPSFullThrottle = TPSFullThrottleInput.Checked;
+            Settings.ShowTPSAcceleration1 = TPSAcceleration1Input.Checked;
+            Settings.ShowTPSAcceleration2 = TPSAcceleration2Input.Checked;
+
+            Settings.TPSIdleColor = TPSIdleColorInput.BackColor;
+            Settings.TPSFullThrottleColor = TPSFullThrottleColorInput.BackColor;
+            Settings.TPSAcceleration1Color = TPSAcceleration1ColorInput.BackColor;
+            Settings.TPSAcceleration2Color = TPSAcceleration2ColorInput.BackColor;
+
+            Settings.ShowAirTemperature = AirTemperatureInput.Checked;
+            Settings.ShowCoolantTemperature = CoolantTemperatureInput.Checked;
+
+            Settings.AirTemperatureColor = AirTemperatureColorInput.BackColor;
+            Settings.CoolantTemperatureColor = CoolantTemperatureColorInput.BackColor;
+
+            Settings.ShowDiagI_III = DiagI_IIIInput.Checked;
+
+            Settings.DiagI_IIIColor = DiagI_IIIColorInput.BackColor;
+
+            Settings.ShowStart = StartInput.Checked;
+            Settings.ShowFuelPumpRelay = FuelPumpRelayInput.Checked;
+
+            Settings.StartColor = StartColorInput.BackColor;
+            Settings.FuelPumpRelayColor = FuelPumpRelayColorInput.BackColor;
 
             Settings.ShowCustom = CustomInput.Checked;
             Settings.CustomVectorName = CustomVectorNameInput.Text;

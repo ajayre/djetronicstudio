@@ -221,15 +221,33 @@ namespace DJetronicStudio
         {
             SimChart.SetTimeRange(0, 30);
 
-            SimChart.AddData("Injector Group I", "E3-INJ1-5", SimChart.SimData.DataSources.InjectorGroupI, Spice.GetData("E3-INJ1-5"));
-            SimChart.AddData("Injector Group II", "E5-INJ6-3", SimChart.SimData.DataSources.InjectorGroupII, Spice.GetData("E5-INJ6-3"));
-            SimChart.AddData("Injector Group III", "E4-INJ4-8", SimChart.SimData.DataSources.InjectorGroupIII, Spice.GetData("E4-INJ4-8"));
-            SimChart.AddData("Injector Group IV", "E6-INJ7-2", SimChart.SimData.DataSources.InjectorGroupIV, Spice.GetData("E6-INJ7-2"));
+            SimChart.AddData("Injector group I", "E3-INJ1-5", SimChart.SimData.DataSources.InjectorGroupI, Spice.GetData("E3-INJ1-5"));
+            SimChart.AddData("Injector group II", "E5-INJ6-3", SimChart.SimData.DataSources.InjectorGroupII, Spice.GetData("E5-INJ6-3"));
+            SimChart.AddData("Injector group III", "E4-INJ4-8", SimChart.SimData.DataSources.InjectorGroupIII, Spice.GetData("E4-INJ4-8"));
+            SimChart.AddData("Injector group IV", "E6-INJ7-2", SimChart.SimData.DataSources.InjectorGroupIV, Spice.GetData("E6-INJ7-2"));
 
             SimChart.AddData("MPS pin 7", "AUX9-BP", SimChart.SimData.DataSources.MPSPin7, Spice.GetData("AUX9-BP"));
             SimChart.AddData("MPS pin 8", "E8-MPS", SimChart.SimData.DataSources.MPSPin8, Spice.GetData("E8-MPS"));
             SimChart.AddData("MPS pin 10", "E10-MPS", SimChart.SimData.DataSources.MPSPin10, Spice.GetData("E10-MPS"));
             SimChart.AddData("MPS pin 15", "E15-MPS", SimChart.SimData.DataSources.MPSPin15, Spice.GetData("E15-MPS"));
+
+            SimChart.AddData("Air temperature", "E1-T1", SimChart.SimData.DataSources.AirTemperature, Spice.GetData("E1-T1"));
+            SimChart.AddData("Coolant temperature", "E23-T2", SimChart.SimData.DataSources.CoolantTemperature, Spice.GetData("E23-T2"));
+
+            SimChart.AddData("TPS full throttle (diag II and IV)", "E2-TPS", SimChart.SimData.DataSources.TPSFullThrottle_DiagII_IV, Spice.GetData("E2-TPS"));
+            SimChart.AddData("TPS idle", "AUX2-IDL", SimChart.SimData.DataSources.TPSIdle, Spice.GetData("AUX2-IDL"));
+            SimChart.AddData("TPS acceleration 1", "AUX3-AE9", SimChart.SimData.DataSources.TPSAcceleration1, Spice.GetData("AUX3-AE9"));
+            SimChart.AddData("TPS acceleration 2", "AUX5-AE20", SimChart.SimData.DataSources.TPSAcceleration2, Spice.GetData("AUX5-AE20"));
+
+            SimChart.AddData("Diag I and III", "E25-DIAG1", SimChart.SimData.DataSources.DiagI_III, Spice.GetData("E25-DIAG1"));
+
+            SimChart.AddData("Pulse generator group I", "E21-PG", SimChart.SimData.DataSources.PulseGeneratorGroupI, Spice.GetData("E21-PG"));
+            SimChart.AddData("Pulse generator group II", "E13-PG", SimChart.SimData.DataSources.PulseGeneratorGroupII, Spice.GetData("E13-PG"));
+            SimChart.AddData("Pulse generator group III", "E22-PG", SimChart.SimData.DataSources.PulseGeneratorGroupIII, Spice.GetData("E22-PG"));
+            SimChart.AddData("Pulse generator group IV", "E14-PG", SimChart.SimData.DataSources.PulseGeneratorGroupIV, Spice.GetData("E14-PG"));
+
+            SimChart.AddData("Start", "E18-START", SimChart.SimData.DataSources.Start, Spice.GetData("E18-START"));
+            SimChart.AddData("Fuel pump relay", "E19-FPR", SimChart.SimData.DataSources.FuelPumpRelay, Spice.GetData("E19-FPR"));
         }
 
         /// <summary>

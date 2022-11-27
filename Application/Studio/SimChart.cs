@@ -254,7 +254,20 @@ namespace DJetronicStudio
                 MPSPin7,
                 MPSPin8,
                 MPSPin10,
-                MPSPin15
+                MPSPin15,
+                AirTemperature,
+                CoolantTemperature,
+                TPSFullThrottle_DiagII_IV,
+                TPSIdle,
+                TPSAcceleration1,
+                TPSAcceleration2,
+                PulseGeneratorGroupI,
+                PulseGeneratorGroupII,
+                PulseGeneratorGroupIII,
+                PulseGeneratorGroupIV,
+                Start,
+                FuelPumpRelay,
+                DiagI_III
             }
 
             public string Name;
@@ -356,6 +369,7 @@ namespace DJetronicStudio
                         ShowData(Data, ChartSettings.MPSPin15Color);
                     }
                 }
+
                 if (ChartSettings.ShowCustom)
                 {
                     SimData Data = GetDataFromVectorName(ChartSettings.CustomVectorName);
@@ -368,6 +382,115 @@ namespace DJetronicStudio
                     if (Data != null)
                     {
                         ShowData(Data, ChartSettings.CustomColor);
+                    }
+                }
+
+                if (ChartSettings.ShowPulseGeneratorGroupI)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.PulseGeneratorGroupI);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.PulseGeneratorGroupIColor);
+                    }
+                }
+                if (ChartSettings.ShowPulseGeneratorGroupII)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.PulseGeneratorGroupII);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.PulseGeneratorGroupIIColor);
+                    }
+                }
+                if (ChartSettings.ShowPulseGeneratorGroupIII)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.PulseGeneratorGroupIII);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.PulseGeneratorGroupIIIColor);
+                    }
+                }
+                if (ChartSettings.ShowPulseGeneratorGroupIV)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.PulseGeneratorGroupIV);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.PulseGeneratorGroupIVColor);
+                    }
+                }
+
+                if (ChartSettings.ShowTPSIdle)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.TPSIdle);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.TPSIdleColor);
+                    }
+                }
+                if (ChartSettings.ShowTPSFullThrottle)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.TPSFullThrottle_DiagII_IV);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.TPSFullThrottleColor);
+                    }
+                }
+                if (ChartSettings.ShowTPSAcceleration1)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.TPSAcceleration1);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.TPSAcceleration1Color);
+                    }
+                }
+                if (ChartSettings.ShowTPSAcceleration2)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.TPSAcceleration2);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.TPSAcceleration2Color);
+                    }
+                }
+
+                if (ChartSettings.ShowAirTemperature)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.AirTemperature);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.AirTemperatureColor);
+                    }
+                }
+                if (ChartSettings.ShowCoolantTemperature)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.CoolantTemperature);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.CoolantTemperatureColor);
+                    }
+                }
+
+                if (ChartSettings.ShowDiagI_III)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.DiagI_III);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.DiagI_IIIColor);
+                    }
+                }
+
+                if (ChartSettings.ShowStart)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.Start);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.StartColor);
+                    }
+                }
+                if (ChartSettings.ShowFuelPumpRelay)
+                {
+                    SimData Data = GetDataFromDataSource(SimData.DataSources.FuelPumpRelay);
+                    if (Data != null)
+                    {
+                        ShowData(Data, ChartSettings.FuelPumpRelayColor);
                     }
                 }
             }
