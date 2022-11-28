@@ -17,6 +17,7 @@ namespace DJetronicStudio
     {
         public event Action<object, ToolbarButton, bool> OnSetToolbarButtonState = null;
         public event Action<object, StatusLabel, string> OnSetStatusLabelText = null;
+        public event Action<object, double> OnPercentageCompleted = null;
 
         private const int MPS_DATABASE_LAYOUT_PADDING = 10;
         // range of tuning gauge in milliseconds

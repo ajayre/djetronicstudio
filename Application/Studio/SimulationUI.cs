@@ -15,6 +15,7 @@ namespace DJetronicStudio
     {
         public event Action<object, ToolbarButton, bool> OnSetToolbarButtonState = null;
         public event Action<object, StatusLabel, string> OnSetStatusLabelText = null;
+        public event Action<object, double> OnPercentageCompleted = null;
 
         private List<ToolbarButton> ToolbarButtons = new List<ToolbarButton>();
         private List<StatusLabel> StatusLabels = new List<StatusLabel>();
@@ -23,6 +24,7 @@ namespace DJetronicStudio
         private ToolbarButton RunSimButton;
         private ToolbarButton StopSimButton;
         private bool Running = false;
+        private SimSettings SimulationSettings = new SimSettings();
 
         public SimulationUI
             (
@@ -40,6 +42,7 @@ namespace DJetronicStudio
 
             Sim.Spice = Spice;
             Spice.OnShowMessage += Spice_OnShowMessage;
+            Spice.OnPercentageCompleted += Sim_OnPercentageCompleted;
 
             Sim.OnSimulationStarted += Sim_OnSimulationStarted;
             Sim.OnSimulationEnded += Sim_OnSimulationEnded;
@@ -56,7 +59,92 @@ namespace DJetronicStudio
 
             ShowInitialSettings();
 
+            ShowSimSettings();
+
             UpdateUI();
+        }
+
+        /// <summary>
+        /// Called during simulation to show progress
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="PercentageCompleted"></param>
+        private void Sim_OnPercentageCompleted(object sender, double PercentageCompleted)
+        {
+            if (OnPercentageCompleted != null) OnPercentageCompleted(this, PercentageCompleted);
+        }
+
+        /// <summary>
+        /// Shows the current simulation settings
+        /// </summary>
+        private void ShowSimSettings
+            (
+            )
+        {
+            TimePeriod.Text = SimulationSettings.TotalTimeMs.ToString();
+            ResolutionInput.Text = SimulationSettings.Resolution.ToString();
+            StartSpeedInput.Text = SimulationSettings.StartEngineSpeedRpm.ToString();
+            EndSpeedInput.Text = SimulationSettings.EndEngineSpeedRpm.ToString();
+            StartAirTempInput.Text = SimulationSettings.StartAirTemperatureF.ToString();
+            EndAirTempInput.Text = SimulationSettings.EndAirTemperatureF.ToString();
+            StartCoolantTempInput.Text = SimulationSettings.StartCoolantTemperatureF.ToString();
+            EndCoolantTempInput.Text = SimulationSettings.EndCoolantTemperatureF.ToString();
+            StartStarterInput.Text = SimulationSettings.StarterMotorOnMs.ToString();
+            EndStarterInput.Text = SimulationSettings.StarterMotorOffMs.ToString();
+            StartThrottleInput.Text = SimulationSettings.StartThrottlePcent.ToString();
+            EndThrottleInput.Text = SimulationSettings.EndThrottlePcent.ToString();
+            StartManifoldVacuumInput.Text = SimulationSettings.StartManifoldVacuumInhg.ToString();
+            EndManifoldVacuumInput.Text = SimulationSettings.EndManifoldVacuumInhg.ToString();
+            if (SimulationSettings.ResolutionUnit == SimSettings.ResolutionUnits.Milliseconds)
+                ResolutionUnitsSelector.SelectedItem = "ms";
+            else
+                ResolutionUnitsSelector.SelectedItem = "us";
+        }
+
+        /// <summary>
+        /// Gets the current simulation settings
+        /// </summary>
+        private void GetSimSettings
+            (
+            )
+        {
+            if (!uint.TryParse(TimePeriod.Text, out SimulationSettings.TotalTimeMs))
+            {
+                throw new Exception("Invalid total time for simulation");
+            }
+
+            if (!uint.TryParse(ResolutionInput.Text, out SimulationSettings.Resolution))
+            {
+                throw new Exception("Invalid resolution for simulation");
+            }
+
+            if ((string)ResolutionUnitsSelector.SelectedItem == "ms")
+                SimulationSettings.ResolutionUnit = SimSettings.ResolutionUnits.Milliseconds;
+            else
+                SimulationSettings.ResolutionUnit = SimSettings.ResolutionUnits.Microseconds;
+
+            if (!uint.TryParse(StartSpeedInput.Text, out SimulationSettings.StartEngineSpeedRpm)) throw new Exception("Invalid start value for engine speed");
+            if (!uint.TryParse(EndSpeedInput.Text, out SimulationSettings.EndEngineSpeedRpm)) throw new Exception("Invalid end value for engine speed");
+
+            if (!double.TryParse(StartAirTempInput.Text, out SimulationSettings.StartAirTemperatureF)) throw new Exception("Invalid start value for air temperature");
+            if (!double.TryParse(EndAirTempInput.Text, out SimulationSettings.EndAirTemperatureF)) throw new Exception("Invalid end value for air temperature");
+
+            if (!double.TryParse(StartCoolantTempInput.Text, out SimulationSettings.StartCoolantTemperatureF)) throw new Exception("Invalid start value for coolant temperature");
+            if (!double.TryParse(EndCoolantTempInput.Text, out SimulationSettings.EndCoolantTemperatureF)) throw new Exception("Invalid end value for coolant temperature");
+
+            if (!uint.TryParse(StartStarterInput.Text, out SimulationSettings.StarterMotorOnMs)) throw new Exception("Invalid start value for starter motor");
+            if (!uint.TryParse(EndStarterInput.Text, out SimulationSettings.StarterMotorOffMs)) throw new Exception("Invalid end value for starter motor");
+
+            if (SimulationSettings.StarterMotorOffMs > SimulationSettings.StarterMotorOnMs)
+            {
+                throw new Exception("Starter motor off time must be later than the on time");
+            }
+
+            if (!uint.TryParse(StartThrottleInput.Text, out SimulationSettings.StartThrottlePcent)) throw new Exception("Invalid start value for throttle");
+            if (!uint.TryParse(EndThrottleInput.Text, out SimulationSettings.EndThrottlePcent)) throw new Exception("Invalid end value for throttle");
+
+            if (!uint.TryParse(StartManifoldVacuumInput.Text, out SimulationSettings.StartManifoldVacuumInhg)) throw new Exception("Invalid start value for manifold vacuum");
+            if (!uint.TryParse(EndManifoldVacuumInput.Text, out SimulationSettings.EndManifoldVacuumInhg)) throw new Exception("Invalid end value for manifold vacuum");
         }
 
         /// <summary>
@@ -193,7 +281,15 @@ namespace DJetronicStudio
             {
                 OutputBox.Clear();
                 ClearData();
-                Sim.Run(0, 30, 8);
+                GetSimSettings();
+                uint StepUs = SimulationSettings.Resolution;
+                if (SimulationSettings.ResolutionUnit == SimSettings.ResolutionUnits.Milliseconds)
+                    StepUs = StepUs * 1000;
+                Sim.Run(SimulationSettings);
+            }
+            catch (Exception Exc)
+            {
+                MessageBox.Show("Failed to start simulation. " + Exc.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             finally
             {
@@ -219,7 +315,7 @@ namespace DJetronicStudio
             (
             )
         {
-            SimChart.SetTimeRange(0, 30);
+            SimChart.SetTimeRange(0, SimulationSettings.TotalTimeMs);
 
             SimChart.AddData("Injector group I", "E3-INJ1-5", SimChart.SimData.DataSources.InjectorGroupI, Spice.GetData("E3-INJ1-5"));
             SimChart.AddData("Injector group II", "E5-INJ6-3", SimChart.SimData.DataSources.InjectorGroupII, Spice.GetData("E5-INJ6-3"));

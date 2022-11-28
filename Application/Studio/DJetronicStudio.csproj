@@ -178,6 +178,7 @@
     <Compile Include="SimChartSettingsForm.Designer.cs">
       <DependentUpon>SimChartSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SimSettings.cs" />
     <Compile Include="TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>

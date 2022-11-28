@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
@@ -18,6 +19,9 @@ namespace DJetronicStudio
         public delegate void OnEndedHandler(object sender);
         public event OnEndedHandler OnEnded = null;
 
+        public delegate void OnPercentageCompletedHandler(object sender, double PercentageCompleted);
+        public event OnPercentageCompletedHandler OnPercentageCompleted = null;
+
         // define the delegates required to interface with Ngspice.dll
         public delegate int SendChar(string callerOut, int idNum, IntPtr pointer);                              
         public delegate int SendStat(string simStatus, int idNum, IntPtr pointer);
@@ -25,6 +29,8 @@ namespace DJetronicStudio
         public delegate int SendData(IntPtr pvecvaluesall, int structNum, int idNum, IntPtr pointer);
         public delegate int SendInitData(IntPtr pvecinfoall, int idNum, IntPtr pointer);
         public delegate int BGThreadRunning(bool backgroundThreadRunning, int idNum, IntPtr pointer);
+
+        public double TotalTimeMs;
 
         [DllImport("ngspice.dll")] private static extern int ngSpice_Init(SendChar aa, SendStat bb, ControlledExit cc, SendData dd, SendInitData ee, BGThreadRunning ff, IntPtr pointer);    //define external dll functions (aa, bb, cc, dd, ee, ff are random variable names)
         [DllImport("ngspice.dll")] private static extern int ngSpice_Command(string commandString);
@@ -40,6 +46,8 @@ namespace DJetronicStudio
         private List<string> OutputLines = new List<string>();
         private bool CommandError;
         private List<vecValue[]> SimulationData = new List<vecValue[]>();
+        private Regex ReferenceValueRegEx;
+        private Regex NumDataRowsRegEx;
 
         // references to keep callbacks in memory
         private SendChar SendCharCallback;
@@ -81,6 +89,9 @@ namespace DJetronicStudio
             SendInitDataCallback = new SendInitData(SendInitDataReceive);
             BGThreadRunningCallback = new BGThreadRunning(BGThreadRunningReceive);
 
+            ReferenceValueRegEx = new Regex(@"^\s*Reference\s+value\s*\:\s*([0-9\.\-eE]+)\s*$", RegexOptions.IgnoreCase);
+            NumDataRowsRegEx = new Regex(@"^\s*No\. of Data Rows\s*\:.*$", RegexOptions.IgnoreCase);
+
             ngSpice_Init(SendCharCallback, SendStatCallback, ControlledExitCallback, SendDataCallback, SendInitDataCallback, BGThreadRunningCallback, dummyIntPtr);
 
             Reset();
@@ -107,6 +118,7 @@ namespace DJetronicStudio
         {
             CurrentCommand = Commands.None;
             SimulationData.Clear();
+            if (OnPercentageCompleted != null) OnPercentageCompleted(this, 0);
         }
 
         /// <summary>
@@ -210,6 +222,18 @@ namespace DJetronicStudio
                     break;
 
                 default:
+                    Match RefValMatch = ReferenceValueRegEx.Match(Line);
+                    if (RefValMatch.Success)
+                    {
+                        double RefVal = double.Parse(RefValMatch.Groups[1].Value);
+                        double PercentCompleted = (RefVal * 1000) / TotalTimeMs * 100;
+                        if (OnPercentageCompleted != null) OnPercentageCompleted(this, PercentCompleted);
+                    }
+                    Match NoDataRowsMatch = NumDataRowsRegEx.Match(Line);
+                    if (NoDataRowsMatch.Success)
+                    {
+                        if (OnPercentageCompleted != null) OnPercentageCompleted(this, 100);
+                    }
                     if (OnShowMessage != null) OnShowMessage(this, Line);
                     break;
             }

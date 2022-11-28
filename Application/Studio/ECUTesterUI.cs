@@ -31,6 +31,7 @@ namespace DJetronicStudio
 
         public event Action<object, ToolbarButton, bool> OnSetToolbarButtonState = null;
         public event Action<object, StatusLabel, string> OnSetStatusLabelText = null;
+        public event Action<object, double> OnPercentageCompleted = null;
 
         public ECUTesterUI
             (

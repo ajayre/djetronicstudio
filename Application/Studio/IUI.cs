@@ -10,6 +10,7 @@ namespace DJetronicStudio
     {
         event Action<object, ToolbarButton, bool> OnSetToolbarButtonState;
         event Action<object, StatusLabel, string> OnSetStatusLabelText;
+        event Action<object, double> OnPercentageCompleted;
 
         IEnumerable<ToolbarButton> GetToolbarButtons();
         IEnumerable<StatusLabel> GetStatusLabels();

@@ -22,6 +22,7 @@ namespace DJetronicStudio
 
         private Color Orange = Color.FromArgb(202, 81, 0);
         private List<ToolStripItem> UIToolStripItems = new List<ToolStripItem>();
+        private ToolStripProgressBar ProgressBar = null;
 
         private bool IsConnected
         {
@@ -166,6 +167,12 @@ namespace DJetronicStudio
             (
             )
         {
+            IUI UI = UIPanel.Tag as IUI;
+
+            UI.OnSetToolbarButtonState -= UI_OnSetToolbarButtonState;
+            UI.OnSetStatusLabelText -= UI_OnSetStatusLabelText;
+            UI.OnPercentageCompleted -= UI_OnPercentageCompleted;
+
             if (UIPanel.Controls.Count > 0)
             {
                 UIPanel.Controls.RemoveAt(0);
@@ -178,6 +185,8 @@ namespace DJetronicStudio
             UIToolStripItems.Clear();
 
             UIPanel.BackColor = SystemColors.ControlDark;
+
+            ProgressBar = null;
         }
 
         /// <summary>
@@ -195,6 +204,7 @@ namespace DJetronicStudio
 
             UI.OnSetToolbarButtonState += UI_OnSetToolbarButtonState;
             UI.OnSetStatusLabelText += UI_OnSetStatusLabelText;
+            UI.OnPercentageCompleted += UI_OnPercentageCompleted;
 
             bool First = true;
             foreach (ToolbarButton Btn in UI.GetToolbarButtons())
@@ -211,9 +221,40 @@ namespace DJetronicStudio
                 UIToolStripItems.Add(AddStatusLabel(Label));
             }
 
+            ToolStripStatusLabel Spacer = new ToolStripStatusLabel() { Spring = true, Text = "" };
+            UIToolStripItems.Add(Spacer);
+            StatusStrip.Items.Add(Spacer);
+
+            ProgressBar = new ToolStripProgressBar();
+            ProgressBar.Minimum = 0;
+            ProgressBar.Maximum = 100;
+            ProgressBar.Style = ProgressBarStyle.Continuous;
+            UIToolStripItems.Add(ProgressBar);
+            StatusStrip.Items.Add(ProgressBar);
+
             UIPanel.BackColor = SystemColors.Control;
+            UIPanel.Tag = UI;
 
             UI.UIReady();
+        }
+
+        /// <summary>
+        /// Called when a user interface wants to indicate progress
+        /// </summary>
+        /// <param name="arg1">User interface</param>
+        /// <param name="arg2">Percentage of progress</param>
+        private void UI_OnPercentageCompleted(object sender, double PercentageCompleted)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<object, double>(UI_OnPercentageCompleted), sender, PercentageCompleted);
+                return;
+            }
+
+            if (ProgressBar != null)
+            {
+                ProgressBar.Value = (int)PercentageCompleted;
+            }
         }
 
         /// <summary>

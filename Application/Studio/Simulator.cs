@@ -32,6 +32,7 @@ namespace DJetronicStudio
         private int EndTimeMs;
         private int StepUs;
         private Thread SimThread;
+        private SimSettings Settings;
 
         private NGSpice _Spice;
         public NGSpice Spice
@@ -109,14 +110,10 @@ namespace DJetronicStudio
         /// <summary>
         /// Runs a simulation
         /// </summary>
-        /// <param name="StartTimeMs">Time of simulation start in ms</param>
-        /// <param name="EndTimeMs">Time of simulation end in ms</param>
-        /// <param name="StepUs">Simulation step time in us</param>
+        /// <param name="Settings">Settings to use for simulation</param>
         public void Run
             (
-            int StartTimeMs,
-            int EndTimeMs,
-            int StepUs
+            SimSettings Settings
             )
         {
             if (SimThread != null)
@@ -125,9 +122,7 @@ namespace DJetronicStudio
                 SimThread = null;
             }
 
-            this.StartTimeMs = StartTimeMs;
-            this.EndTimeMs = EndTimeMs;
-            this.StepUs = StepUs;
+            this.Settings = Settings;
 
             SimThread = new Thread(new ThreadStart(RunSim));
             SimThread.Name = "Simulation";
@@ -165,9 +160,18 @@ namespace DJetronicStudio
         {
             if (OnSimulationStarted != null) OnSimulationStarted(this);
 
+            uint StepUs = Settings.Resolution;
+            if (Settings.ResolutionUnit == SimSettings.ResolutionUnits.Milliseconds)
+                StepUs = StepUs * 1000;
+
+            this.StartTimeMs = 0;
+            this.EndTimeMs = (int)Settings.TotalTimeMs;
+            this.StepUs = (int)StepUs;
+
             try
             {
                 Spice.Reset();
+                Spice.TotalTimeMs = EndTimeMs - StartTimeMs;
 
                 if (!Spice.RunCommand("set ngbehavior=ps"))
                 {
@@ -199,24 +203,6 @@ namespace DJetronicStudio
                 }
 
                 Spice.SpecifyCircuit(ProcessedNetList.ToArray());
-
-                /*foreach (string Line in NetListLines)
-                {
-                    string TrimmedLine = Line.Trim();
-
-                    if (TrimmedLine.Length > 0)
-                    {
-                        if (TrimmedLine.StartsWith(".tran"))
-                        {
-                            TrimmedLine = string.Format(".tran {0}us {1}ms {2}ms", StepUs, EndTimeMs, StartTimeMs);
-                        }
-
-                        if (!Spice.RunCommand("circbyline " + TrimmedLine))
-                        {
-                            return;
-                        }
-                    }
-                }*/
             }
             finally
             {
