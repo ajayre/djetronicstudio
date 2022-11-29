@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
@@ -202,6 +203,8 @@ namespace DJetronicStudio
                     }
                 }
 
+                ApplySettings(ProcessedNetList);
+
                 Spice.SpecifyCircuit(ProcessedNetList.ToArray());
             }
             finally
@@ -209,6 +212,150 @@ namespace DJetronicStudio
                 SimThread = null;
                 if (OnSimulationEnded != null) OnSimulationEnded(this);
             }
+        }
+
+        private const string THROTTLE_VOLTAGE_SOURCE = "V4";
+        private const string ENGINE_VACUUM_VOLTAGE_SOURCE = "V5";
+        private const string RHEOSTAT_POSITION_VOLTAGE_SOURCE = "V6";
+        private const string START_VOLTAGE_SOURCE = "V7";
+        private const string BATTERY_VOLTAGE_SOURCE_1 = "V16";
+        private const string BATTERY_VOLTAGE_SOURCE_2 = "V24";
+
+        /// <summary>
+        /// Applies the current settings to a netlist
+        /// </summary>
+        /// <param name="NetList">Netlist to change</param>
+        private void ApplySettings
+            (
+            List<string> NetList
+            )
+        {
+            // V16 AUX7-12V 0 dc 13.5
+            Regex BatteryVoltage1Rx = new Regex(@"^(" + BATTERY_VOLTAGE_SOURCE_1 + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex BatteryVoltage2Rx = new Regex(@"^(" + BATTERY_VOLTAGE_SOURCE_2 + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex EngineVacuumRx = new Regex(@"^(" + ENGINE_VACUUM_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex RheostatRx = new Regex(@"^(" + RHEOSTAT_POSITION_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex StartRx = new Regex(@"^(" + START_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex ThrottleRx = new Regex(@"^(" + THROTTLE_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+
+            for (int i = 0; i < NetList.Count; i++)
+            {
+                Match BatteryVoltage1Ma = BatteryVoltage1Rx.Match(NetList[i]);
+                if (BatteryVoltage1Ma.Success)
+                {
+                    string Spec;
+                    if (Settings.StartBatteryVoltage != Settings.EndBatteryVoltage)
+                    {
+                        Spec = string.Format("pwl(0m {0} {1}m {2})", Settings.StartBatteryVoltage, Settings.TotalTimeMs, Settings.EndBatteryVoltage);
+                    }
+                    else
+                    {
+                        Spec = string.Format("dc({0})", Settings.StartBatteryVoltage);
+                    }
+                    NetList[i] = string.Format("{0} {1}", BatteryVoltage1Ma.Groups[1], Spec);
+                    continue;
+                }
+
+                Match BatteryVoltage2Ma = BatteryVoltage2Rx.Match(NetList[i]);
+                if (BatteryVoltage2Ma.Success)
+                {
+                    string Spec;
+                    if (Settings.StartBatteryVoltage != Settings.EndBatteryVoltage)
+                    {
+                        Spec = string.Format("pwl(0m {0} {1}m {2})", Settings.StartBatteryVoltage, Settings.TotalTimeMs, Settings.EndBatteryVoltage);
+                    }
+                    else
+                    {
+                        Spec = string.Format("dc({0})", Settings.StartBatteryVoltage);
+                    }
+                    NetList[i] = string.Format("{0} {1}", BatteryVoltage2Ma.Groups[1], Spec);
+                    continue;
+                }
+
+                Match EngineVacuumMa = EngineVacuumRx.Match(NetList[i]);
+                if (EngineVacuumMa.Success)
+                {
+                    string Spec;
+                    if (Settings.StartManifoldVacuumInhg != Settings.EndManifoldVacuumInhg)
+                    {
+                        Spec = string.Format("pwl(0m {0} {1}m {2})", Settings.StartManifoldVacuumInhg, Settings.TotalTimeMs, Settings.EndManifoldVacuumInhg);
+                    }
+                    else
+                    {
+                        Spec = string.Format("dc({0})", Settings.StartManifoldVacuumInhg);
+                    }
+                    NetList[i] = string.Format("{0} {1}", EngineVacuumMa.Groups[1], Spec);
+                    continue;
+                }
+
+                Match RheostatMa = RheostatRx.Match(NetList[i]);
+                if (RheostatMa.Success)
+                {
+                    string Spec;
+                    if (Settings.StartRheostat != Settings.EndRheostat)
+                    {
+                        Spec = string.Format("pwl(0m {0} {1}m {2})", Settings.StartRheostat, Settings.TotalTimeMs, Settings.EndRheostat);
+                    }
+                    else
+                    {
+                        Spec = string.Format("dc({0})", Settings.StartRheostat);
+                    }
+                    NetList[i] = string.Format("{0} {1}", RheostatMa.Groups[1], Spec);
+                    continue;
+                }
+
+                Match StartMa = StartRx.Match(NetList[i]);
+                if (StartMa.Success)
+                {
+                    string Spec;
+                    if (Settings.StarterMotorOffMs > 0)
+                    {
+                        Spec = string.Format("pwl({0}m 12 {1}m 12 {2}m 0)", Settings.StarterMotorOnMs, Settings.StarterMotorOffMs - 1, Settings.StarterMotorOffMs);
+                    }
+                    else
+                    {
+                        Spec = "dc(0)";
+                    }
+                    NetList[i] = string.Format("{0} {1}", StartMa.Groups[1], Spec);
+                    continue;
+                }
+
+                Match ThrottleMa = ThrottleRx.Match(NetList[i]);
+                if (ThrottleMa.Success)
+                {
+                    string Spec;
+                    if (Settings.StartThrottlePcent != Settings.EndThrottlePcent)
+                    {
+                        Spec = string.Format("pwl(0m {0:N2} {1}m {2:N2})", Settings.StartThrottlePcent / 100.0, Settings.TotalTimeMs, Settings.EndThrottlePcent / 100.0);
+                    }
+                    else
+                    {
+                        Spec = string.Format("dc({0:N2})", Settings.StartThrottlePcent / 100.0);
+                    }
+                    NetList[i] = string.Format("{0} {1}", ThrottleMa.Groups[1], Spec);
+                    continue;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Constructs a spice voltage source that ramps the voltage over time
+        /// </summary>
+        /// <param name="StartTime">Start time in ms</param>
+        /// <param name="StartValue">Start value in volts</param>
+        /// <param name="EndTime">End time in ms</param>
+        /// <param name="EndValue">End value in volts</param>
+        /// <returns></returns>
+        private string ConstructRamp
+            (
+            uint StartTime,
+            double StartValue,
+            uint EndTime,
+            double EndValue
+            )
+        {
+            return string.Format("pwl({0}m {1} {2}m {3})", StartTime, StartValue, EndTime, EndValue);
         }
     }
 }

@@ -29,5 +29,9 @@ namespace DJetronicStudio
         public uint EndThrottlePcent = 0;
         public uint StartManifoldVacuumInhg = 15;
         public uint EndManifoldVacuumInhg = 15;
+        public uint StartRheostat = 11;
+        public uint EndRheostat = 11;
+        public double StartBatteryVoltage = 13.5;
+        public double EndBatteryVoltage = 13.5;
     }
 }

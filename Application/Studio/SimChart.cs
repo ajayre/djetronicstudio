@@ -61,8 +61,8 @@ namespace DJetronicStudio
                 new Axis
                 {
                     TextSize = 12,
-                    MinLimit = -25,
-                    MaxLimit = 17,
+                    //MinLimit = -25,
+                    //MaxLimit = 17,
                     NameTextSize = 16,
                     Name = "Voltage (V)",
                     Position = AxisPosition.Start,
@@ -73,7 +73,6 @@ namespace DJetronicStudio
 
             Chart.Series = Series;
             Chart.AnimationsSpeed = TimeSpan.FromMilliseconds(300);
-            Chart.EasingFunction = null;
             Chart.Title = new LabelVisual
             {
                 Text = "Simulation Data",
@@ -81,6 +80,7 @@ namespace DJetronicStudio
                 Padding = new LiveChartsCore.Drawing.Padding(15),
                 Paint = new SolidColorPaint(SKColors.Black)
             };
+            Chart.ZoomMode = ZoomAndPanMode.Both;
         }
 
         /// <summary>

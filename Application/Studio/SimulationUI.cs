@@ -83,6 +83,10 @@ namespace DJetronicStudio
         {
             TimePeriod.Text = SimulationSettings.TotalTimeMs.ToString();
             ResolutionInput.Text = SimulationSettings.Resolution.ToString();
+            if (SimulationSettings.ResolutionUnit == SimSettings.ResolutionUnits.Milliseconds)
+                ResolutionUnitsSelector.SelectedItem = "ms";
+            else
+                ResolutionUnitsSelector.SelectedItem = "us";
             StartSpeedInput.Text = SimulationSettings.StartEngineSpeedRpm.ToString();
             EndSpeedInput.Text = SimulationSettings.EndEngineSpeedRpm.ToString();
             StartAirTempInput.Text = SimulationSettings.StartAirTemperatureF.ToString();
@@ -95,10 +99,10 @@ namespace DJetronicStudio
             EndThrottleInput.Text = SimulationSettings.EndThrottlePcent.ToString();
             StartManifoldVacuumInput.Text = SimulationSettings.StartManifoldVacuumInhg.ToString();
             EndManifoldVacuumInput.Text = SimulationSettings.EndManifoldVacuumInhg.ToString();
-            if (SimulationSettings.ResolutionUnit == SimSettings.ResolutionUnits.Milliseconds)
-                ResolutionUnitsSelector.SelectedItem = "ms";
-            else
-                ResolutionUnitsSelector.SelectedItem = "us";
+            StartRheostatInput.Text = SimulationSettings.StartRheostat.ToString();
+            EndRheostatInput.Text = SimulationSettings.EndRheostat.ToString();
+            StartBatteryVoltageInput.Text = SimulationSettings.StartBatteryVoltage.ToString();
+            EndBatteryVoltageInput.Text = SimulationSettings.EndBatteryVoltage.ToString();
         }
 
         /// <summary>
@@ -113,10 +117,14 @@ namespace DJetronicStudio
                 throw new Exception("Invalid total time for simulation");
             }
 
+            if (SimulationSettings.TotalTimeMs <= 0) throw new Exception("Simulation total time must be greater than zero");
+
             if (!uint.TryParse(ResolutionInput.Text, out SimulationSettings.Resolution))
             {
                 throw new Exception("Invalid resolution for simulation");
             }
+
+            if (SimulationSettings.Resolution <= 0) throw new Exception("Simulation resolution must be greater than zero");
 
             if ((string)ResolutionUnitsSelector.SelectedItem == "ms")
                 SimulationSettings.ResolutionUnit = SimSettings.ResolutionUnits.Milliseconds;
@@ -125,6 +133,9 @@ namespace DJetronicStudio
 
             if (!uint.TryParse(StartSpeedInput.Text, out SimulationSettings.StartEngineSpeedRpm)) throw new Exception("Invalid start value for engine speed");
             if (!uint.TryParse(EndSpeedInput.Text, out SimulationSettings.EndEngineSpeedRpm)) throw new Exception("Invalid end value for engine speed");
+
+            if ((SimulationSettings.StartEngineSpeedRpm < 0) || (SimulationSettings.StartEngineSpeedRpm > 6500)) throw new Exception("Start engine speed must be in the range 0 to 6500");
+            if ((SimulationSettings.EndEngineSpeedRpm < 0) || (SimulationSettings.EndEngineSpeedRpm > 6500)) throw new Exception("End engine speed must be in the range 0 to 6500");
 
             if (!double.TryParse(StartAirTempInput.Text, out SimulationSettings.StartAirTemperatureF)) throw new Exception("Invalid start value for air temperature");
             if (!double.TryParse(EndAirTempInput.Text, out SimulationSettings.EndAirTemperatureF)) throw new Exception("Invalid end value for air temperature");
@@ -135,16 +146,41 @@ namespace DJetronicStudio
             if (!uint.TryParse(StartStarterInput.Text, out SimulationSettings.StarterMotorOnMs)) throw new Exception("Invalid start value for starter motor");
             if (!uint.TryParse(EndStarterInput.Text, out SimulationSettings.StarterMotorOffMs)) throw new Exception("Invalid end value for starter motor");
 
-            if (SimulationSettings.StarterMotorOffMs > SimulationSettings.StarterMotorOnMs)
+            if (SimulationSettings.StarterMotorOffMs < SimulationSettings.StarterMotorOnMs)
             {
                 throw new Exception("Starter motor off time must be later than the on time");
             }
+            if ((SimulationSettings.StarterMotorOffMs == SimulationSettings.StarterMotorOnMs) && (SimulationSettings.StarterMotorOffMs > 0))
+            {
+                throw new Exception("Starter motor on and off times cannot be the same (unless they are both zero)");
+            }
+
+            if ((SimulationSettings.StarterMotorOnMs < 0) || (SimulationSettings.StarterMotorOnMs > SimulationSettings.TotalTimeMs)) throw new Exception("Starter motor on time must be in the range 0 to Total Time");
+            if ((SimulationSettings.StarterMotorOffMs < 0) || (SimulationSettings.StarterMotorOffMs > SimulationSettings.TotalTimeMs)) throw new Exception("Starter motor off time must be in the range 0 to Total Time");
 
             if (!uint.TryParse(StartThrottleInput.Text, out SimulationSettings.StartThrottlePcent)) throw new Exception("Invalid start value for throttle");
             if (!uint.TryParse(EndThrottleInput.Text, out SimulationSettings.EndThrottlePcent)) throw new Exception("Invalid end value for throttle");
 
+            if ((SimulationSettings.StartThrottlePcent < 0) || (SimulationSettings.StartThrottlePcent > 100)) throw new Exception("Start throttle must be in the range 0 to 100");
+            if ((SimulationSettings.EndThrottlePcent < 0) || (SimulationSettings.EndThrottlePcent > 100)) throw new Exception("End throttle must be in the range 0 to 100");
+
             if (!uint.TryParse(StartManifoldVacuumInput.Text, out SimulationSettings.StartManifoldVacuumInhg)) throw new Exception("Invalid start value for manifold vacuum");
             if (!uint.TryParse(EndManifoldVacuumInput.Text, out SimulationSettings.EndManifoldVacuumInhg)) throw new Exception("Invalid end value for manifold vacuum");
+
+            if ((SimulationSettings.StartManifoldVacuumInhg < 0) || (SimulationSettings.StartManifoldVacuumInhg > 15)) throw new Exception("Start manifold vacuum must be in the range 0 to 15");
+            if ((SimulationSettings.EndManifoldVacuumInhg < 0) || (SimulationSettings.EndManifoldVacuumInhg > 15)) throw new Exception("End manifold vacuum must be in the range 0 to 15");
+
+            if (!uint.TryParse(StartRheostatInput.Text, out SimulationSettings.StartRheostat)) throw new Exception("Invalid start value for rheostat");
+            if (!uint.TryParse(EndRheostatInput.Text, out SimulationSettings.EndRheostat)) throw new Exception("Invalid end value for rheostat");
+
+            if ((SimulationSettings.StartRheostat < 0) || (SimulationSettings.StartRheostat > 22)) throw new Exception("Start rheostat value must be in the range 0 to 22");
+            if ((SimulationSettings.EndRheostat < 0) || (SimulationSettings.EndRheostat > 22)) throw new Exception("End rheostat value must be in the range 0 to 22");
+
+            if (!double.TryParse(StartBatteryVoltageInput.Text, out SimulationSettings.StartBatteryVoltage)) throw new Exception("Invalid start value for battery voltage");
+            if (!double.TryParse(EndBatteryVoltageInput.Text, out SimulationSettings.EndBatteryVoltage)) throw new Exception("Invalid end value for battery voltage");
+
+            if (SimulationSettings.StartBatteryVoltage < 0) throw new Exception("Start battery voltage cannot be less than zero");
+            if (SimulationSettings.EndBatteryVoltage < 0) throw new Exception("End battery voltage cannot be less than zero");
         }
 
         /// <summary>

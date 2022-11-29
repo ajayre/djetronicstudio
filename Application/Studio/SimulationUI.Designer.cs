@@ -31,8 +31,30 @@
             this.OutputBox = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.SettingsPage = new System.Windows.Forms.TabPage();
-            this.ChartPage = new System.Windows.Forms.TabPage();
-            this.SimChart = new DJetronicStudio.SimChart();
+            this.label16 = new System.Windows.Forms.Label();
+            this.StartRheostatInput = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.EndRheostatInput = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.StartManifoldVacuumInput = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.EndManifoldVacuumInput = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ResolutionUnitsSelector = new System.Windows.Forms.ComboBox();
+            this.StartThrottleInput = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.EndThrottleInput = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.ResolutionInput = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.TimePeriod = new System.Windows.Forms.TextBox();
@@ -62,25 +84,21 @@
             this.StartCoolantTempLabel2 = new System.Windows.Forms.Label();
             this.EndCoolantTempInput = new System.Windows.Forms.TextBox();
             this.EndCoolantTempLabel2 = new System.Windows.Forms.Label();
-            this.StartThrottleInput = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.EndThrottleInput = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.ResolutionUnitsSelector = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.StartManifoldVacuumInput = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.EndManifoldVacuumInput = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
+            this.ChartPage = new System.Windows.Forms.TabPage();
+            this.SimChart = new DJetronicStudio.SimChart();
+            this.label20 = new System.Windows.Forms.Label();
+            this.StartBatteryVoltageInput = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.EndBatteryVoltageInput = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.SettingsPage.SuspendLayout();
             this.ChartPage.SuspendLayout();
@@ -109,6 +127,24 @@
             // 
             // SettingsPage
             // 
+            this.SettingsPage.Controls.Add(this.label31);
+            this.SettingsPage.Controls.Add(this.label30);
+            this.SettingsPage.Controls.Add(this.label29);
+            this.SettingsPage.Controls.Add(this.label28);
+            this.SettingsPage.Controls.Add(this.label27);
+            this.SettingsPage.Controls.Add(this.label26);
+            this.SettingsPage.Controls.Add(this.label25);
+            this.SettingsPage.Controls.Add(this.label24);
+            this.SettingsPage.Controls.Add(this.EndBatteryVoltageInput);
+            this.SettingsPage.Controls.Add(this.label23);
+            this.SettingsPage.Controls.Add(this.label20);
+            this.SettingsPage.Controls.Add(this.StartBatteryVoltageInput);
+            this.SettingsPage.Controls.Add(this.label21);
+            this.SettingsPage.Controls.Add(this.label16);
+            this.SettingsPage.Controls.Add(this.StartRheostatInput);
+            this.SettingsPage.Controls.Add(this.label19);
+            this.SettingsPage.Controls.Add(this.EndRheostatInput);
+            this.SettingsPage.Controls.Add(this.label22);
             this.SettingsPage.Controls.Add(this.label10);
             this.SettingsPage.Controls.Add(this.StartManifoldVacuumInput);
             this.SettingsPage.Controls.Add(this.label11);
@@ -165,24 +201,212 @@
             this.SettingsPage.Text = "Settings";
             this.SettingsPage.UseVisualStyleBackColor = true;
             // 
-            // ChartPage
+            // label16
             // 
-            this.ChartPage.Controls.Add(this.SimChart);
-            this.ChartPage.Location = new System.Drawing.Point(4, 22);
-            this.ChartPage.Name = "ChartPage";
-            this.ChartPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ChartPage.Size = new System.Drawing.Size(898, 281);
-            this.ChartPage.TabIndex = 1;
-            this.ChartPage.Text = "Chart";
-            this.ChartPage.UseVisualStyleBackColor = true;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 217);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(90, 13);
+            this.label16.TabIndex = 118;
+            this.label16.Text = "Rheostat Position";
             // 
-            // SimChart
+            // StartRheostatInput
             // 
-            this.SimChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SimChart.Location = new System.Drawing.Point(3, 3);
-            this.SimChart.Name = "SimChart";
-            this.SimChart.Size = new System.Drawing.Size(892, 275);
-            this.SimChart.TabIndex = 0;
+            this.StartRheostatInput.Location = new System.Drawing.Point(178, 214);
+            this.StartRheostatInput.Name = "StartRheostatInput";
+            this.StartRheostatInput.Size = new System.Drawing.Size(100, 20);
+            this.StartRheostatInput.TabIndex = 112;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(140, 217);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(32, 13);
+            this.label19.TabIndex = 113;
+            this.label19.Text = "Start:";
+            // 
+            // EndRheostatInput
+            // 
+            this.EndRheostatInput.Location = new System.Drawing.Point(364, 214);
+            this.EndRheostatInput.Name = "EndRheostatInput";
+            this.EndRheostatInput.Size = new System.Drawing.Size(100, 20);
+            this.EndRheostatInput.TabIndex = 115;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(329, 217);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(29, 13);
+            this.label22.TabIndex = 116;
+            this.label22.Text = "End:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 191);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(89, 13);
+            this.label10.TabIndex = 111;
+            this.label10.Text = "Manifold Vacuum";
+            // 
+            // StartManifoldVacuumInput
+            // 
+            this.StartManifoldVacuumInput.Location = new System.Drawing.Point(178, 188);
+            this.StartManifoldVacuumInput.Name = "StartManifoldVacuumInput";
+            this.StartManifoldVacuumInput.Size = new System.Drawing.Size(100, 20);
+            this.StartManifoldVacuumInput.TabIndex = 105;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(140, 191);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 106;
+            this.label11.Text = "Start:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(284, 191);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(29, 13);
+            this.label13.TabIndex = 107;
+            this.label13.Text = "inHg";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(470, 191);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(29, 13);
+            this.label14.TabIndex = 110;
+            this.label14.Text = "inHg";
+            // 
+            // EndManifoldVacuumInput
+            // 
+            this.EndManifoldVacuumInput.Location = new System.Drawing.Point(364, 188);
+            this.EndManifoldVacuumInput.Name = "EndManifoldVacuumInput";
+            this.EndManifoldVacuumInput.Size = new System.Drawing.Size(100, 20);
+            this.EndManifoldVacuumInput.TabIndex = 108;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(329, 191);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(29, 13);
+            this.label15.TabIndex = 109;
+            this.label15.Text = "End:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 165);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(40, 13);
+            this.label9.TabIndex = 104;
+            this.label9.Text = "Thottle";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 139);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(68, 13);
+            this.label8.TabIndex = 103;
+            this.label8.Text = "Starter Motor";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 113);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(106, 13);
+            this.label7.TabIndex = 102;
+            this.label7.Text = "Coolant Temperature";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 87);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(82, 13);
+            this.label6.TabIndex = 101;
+            this.label6.Text = "Air Temperature";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 13);
+            this.label5.TabIndex = 100;
+            this.label5.Text = "Engine Speed";
+            // 
+            // ResolutionUnitsSelector
+            // 
+            this.ResolutionUnitsSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ResolutionUnitsSelector.FormattingEnabled = true;
+            this.ResolutionUnitsSelector.Items.AddRange(new object[] {
+            "ms",
+            "us"});
+            this.ResolutionUnitsSelector.Location = new System.Drawing.Point(287, 29);
+            this.ResolutionUnitsSelector.Name = "ResolutionUnitsSelector";
+            this.ResolutionUnitsSelector.Size = new System.Drawing.Size(41, 21);
+            this.ResolutionUnitsSelector.TabIndex = 99;
+            // 
+            // StartThrottleInput
+            // 
+            this.StartThrottleInput.Location = new System.Drawing.Point(178, 162);
+            this.StartThrottleInput.Name = "StartThrottleInput";
+            this.StartThrottleInput.Size = new System.Drawing.Size(100, 20);
+            this.StartThrottleInput.TabIndex = 93;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(140, 165);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 94;
+            this.label1.Text = "Start:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(284, 165);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(15, 13);
+            this.label2.TabIndex = 95;
+            this.label2.Text = "%";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(470, 165);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(15, 13);
+            this.label3.TabIndex = 98;
+            this.label3.Text = "%";
+            // 
+            // EndThrottleInput
+            // 
+            this.EndThrottleInput.Location = new System.Drawing.Point(364, 162);
+            this.EndThrottleInput.Name = "EndThrottleInput";
+            this.EndThrottleInput.Size = new System.Drawing.Size(100, 20);
+            this.EndThrottleInput.TabIndex = 96;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(329, 165);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 13);
+            this.label4.TabIndex = 97;
+            this.label4.Text = "End:";
             // 
             // ResolutionInput
             // 
@@ -425,171 +649,137 @@
             this.EndCoolantTempLabel2.TabIndex = 80;
             this.EndCoolantTempLabel2.Text = "°F";
             // 
-            // StartThrottleInput
+            // ChartPage
             // 
-            this.StartThrottleInput.Location = new System.Drawing.Point(178, 162);
-            this.StartThrottleInput.Name = "StartThrottleInput";
-            this.StartThrottleInput.Size = new System.Drawing.Size(100, 20);
-            this.StartThrottleInput.TabIndex = 93;
+            this.ChartPage.Controls.Add(this.SimChart);
+            this.ChartPage.Location = new System.Drawing.Point(4, 22);
+            this.ChartPage.Name = "ChartPage";
+            this.ChartPage.Padding = new System.Windows.Forms.Padding(3);
+            this.ChartPage.Size = new System.Drawing.Size(898, 281);
+            this.ChartPage.TabIndex = 1;
+            this.ChartPage.Text = "Chart";
+            this.ChartPage.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // SimChart
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(140, 165);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 94;
-            this.label1.Text = "Start:";
+            this.SimChart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SimChart.Location = new System.Drawing.Point(3, 3);
+            this.SimChart.Name = "SimChart";
+            this.SimChart.Size = new System.Drawing.Size(892, 275);
+            this.SimChart.TabIndex = 0;
             // 
-            // label2
+            // label20
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(284, 165);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(15, 13);
-            this.label2.TabIndex = 95;
-            this.label2.Text = "%";
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 243);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(79, 13);
+            this.label20.TabIndex = 121;
+            this.label20.Text = "Battery Voltage";
             // 
-            // label3
+            // StartBatteryVoltageInput
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(470, 165);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(15, 13);
-            this.label3.TabIndex = 98;
-            this.label3.Text = "%";
+            this.StartBatteryVoltageInput.Location = new System.Drawing.Point(178, 240);
+            this.StartBatteryVoltageInput.Name = "StartBatteryVoltageInput";
+            this.StartBatteryVoltageInput.Size = new System.Drawing.Size(100, 20);
+            this.StartBatteryVoltageInput.TabIndex = 119;
             // 
-            // EndThrottleInput
+            // label21
             // 
-            this.EndThrottleInput.Location = new System.Drawing.Point(364, 162);
-            this.EndThrottleInput.Name = "EndThrottleInput";
-            this.EndThrottleInput.Size = new System.Drawing.Size(100, 20);
-            this.EndThrottleInput.TabIndex = 96;
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(140, 243);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(32, 13);
+            this.label21.TabIndex = 120;
+            this.label21.Text = "Start:";
             // 
-            // label4
+            // EndBatteryVoltageInput
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(329, 165);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 13);
-            this.label4.TabIndex = 97;
-            this.label4.Text = "End:";
+            this.EndBatteryVoltageInput.Location = new System.Drawing.Point(364, 240);
+            this.EndBatteryVoltageInput.Name = "EndBatteryVoltageInput";
+            this.EndBatteryVoltageInput.Size = new System.Drawing.Size(100, 20);
+            this.EndBatteryVoltageInput.TabIndex = 122;
             // 
-            // ResolutionUnitsSelector
+            // label23
             // 
-            this.ResolutionUnitsSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ResolutionUnitsSelector.FormattingEnabled = true;
-            this.ResolutionUnitsSelector.Items.AddRange(new object[] {
-            "ms",
-            "us"});
-            this.ResolutionUnitsSelector.Location = new System.Drawing.Point(287, 29);
-            this.ResolutionUnitsSelector.Name = "ResolutionUnitsSelector";
-            this.ResolutionUnitsSelector.Size = new System.Drawing.Size(41, 21);
-            this.ResolutionUnitsSelector.TabIndex = 99;
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(329, 243);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(29, 13);
+            this.label23.TabIndex = 123;
+            this.label23.Text = "End:";
             // 
-            // label5
+            // label24
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 61);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 13);
-            this.label5.TabIndex = 100;
-            this.label5.Text = "Engine Speed";
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(284, 243);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(14, 13);
+            this.label24.TabIndex = 124;
+            this.label24.Text = "V";
             // 
-            // label6
+            // label25
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 87);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 13);
-            this.label6.TabIndex = 101;
-            this.label6.Text = "Air Temperature";
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(470, 243);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(14, 13);
+            this.label25.TabIndex = 125;
+            this.label25.Text = "V";
             // 
-            // label7
+            // label26
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 113);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 13);
-            this.label7.TabIndex = 102;
-            this.label7.Text = "Coolant Temperature";
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(509, 217);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(46, 13);
+            this.label26.TabIndex = 126;
+            this.label26.Text = "(0 to 22)";
             // 
-            // label8
+            // label27
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 139);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(68, 13);
-            this.label8.TabIndex = 103;
-            this.label8.Text = "Starter Motor";
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(509, 191);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(46, 13);
+            this.label27.TabIndex = 127;
+            this.label27.Text = "(0 to 15)";
             // 
-            // label9
+            // label28
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 165);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 13);
-            this.label9.TabIndex = 104;
-            this.label9.Text = "Thottle";
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(509, 61);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(58, 13);
+            this.label28.TabIndex = 128;
+            this.label28.Text = "(0 to 6500)";
             // 
-            // label10
+            // label29
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 191);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(89, 13);
-            this.label10.TabIndex = 111;
-            this.label10.Text = "Manifold Vacuum";
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(509, 165);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(52, 13);
+            this.label29.TabIndex = 129;
+            this.label29.Text = "(0 to 100)";
             // 
-            // StartManifoldVacuumInput
+            // label30
             // 
-            this.StartManifoldVacuumInput.Location = new System.Drawing.Point(178, 188);
-            this.StartManifoldVacuumInput.Name = "StartManifoldVacuumInput";
-            this.StartManifoldVacuumInput.Size = new System.Drawing.Size(100, 20);
-            this.StartManifoldVacuumInput.TabIndex = 105;
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(509, 243);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(25, 13);
+            this.label30.TabIndex = 130;
+            this.label30.Text = "(0+)";
             // 
-            // label11
+            // label31
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(140, 191);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 13);
-            this.label11.TabIndex = 106;
-            this.label11.Text = "Start:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(284, 191);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(29, 13);
-            this.label13.TabIndex = 107;
-            this.label13.Text = "inHg";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(470, 191);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(29, 13);
-            this.label14.TabIndex = 110;
-            this.label14.Text = "inHg";
-            // 
-            // EndManifoldVacuumInput
-            // 
-            this.EndManifoldVacuumInput.Location = new System.Drawing.Point(364, 188);
-            this.EndManifoldVacuumInput.Name = "EndManifoldVacuumInput";
-            this.EndManifoldVacuumInput.Size = new System.Drawing.Size(100, 20);
-            this.EndManifoldVacuumInput.TabIndex = 108;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(329, 191);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(29, 13);
-            this.label15.TabIndex = 109;
-            this.label15.Text = "End:";
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(509, 139);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(84, 13);
+            this.label31.TabIndex = 131;
+            this.label31.Text = "(0 to Total Time)";
             // 
             // SimulationUI
             // 
@@ -662,5 +852,23 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox EndManifoldVacuumInput;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox StartRheostatInput;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox EndRheostatInput;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox EndBatteryVoltageInput;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox StartBatteryVoltageInput;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label31;
     }
 }

@@ -54,7 +54,7 @@
             // 
             this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ConnectionStatus});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 525);
+            this.StatusStrip.Location = new System.Drawing.Point(0, 589);
             this.StatusStrip.Name = "StatusStrip";
             this.StatusStrip.Size = new System.Drawing.Size(902, 22);
             this.StatusStrip.TabIndex = 3;
@@ -172,14 +172,14 @@
             this.UIPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UIPanel.Location = new System.Drawing.Point(0, 63);
             this.UIPanel.Name = "UIPanel";
-            this.UIPanel.Size = new System.Drawing.Size(902, 462);
+            this.UIPanel.Size = new System.Drawing.Size(902, 526);
             this.UIPanel.TabIndex = 8;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 547);
+            this.ClientSize = new System.Drawing.Size(902, 611);
             this.Controls.Add(this.UIPanel);
             this.Controls.Add(this.MainToolStrip);
             this.Controls.Add(this.StatusStrip);
