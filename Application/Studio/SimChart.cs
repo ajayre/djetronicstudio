@@ -228,7 +228,7 @@ namespace DJetronicStudio
         }
 
         /// <summary>
-        /// Clears the data from the chart
+        /// Clears the displayed data from the chart
         /// </summary>
         public void Clear
             (
@@ -240,6 +240,17 @@ namespace DJetronicStudio
             }
 
             Series.Clear();
+        }
+
+        /// <summary>
+        /// Clears the displayed data and the available data from the chart
+        /// </summary>
+        public void ClearAll
+            (
+            )
+        {
+            Clear();
+            AvailableData.Clear();
         }
 
         public class SimData

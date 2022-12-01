@@ -87,8 +87,7 @@ namespace DJetronicStudio
                 ResolutionUnitsSelector.SelectedItem = "ms";
             else
                 ResolutionUnitsSelector.SelectedItem = "us";
-            StartSpeedInput.Text = SimulationSettings.StartEngineSpeedRpm.ToString();
-            EndSpeedInput.Text = SimulationSettings.EndEngineSpeedRpm.ToString();
+            EngineSpeedInput.Text = SimulationSettings.EngineSpeedRpm.ToString();
             StartAirTempInput.Text = SimulationSettings.StartAirTemperatureF.ToString();
             EndAirTempInput.Text = SimulationSettings.EndAirTemperatureF.ToString();
             StartCoolantTempInput.Text = SimulationSettings.StartCoolantTemperatureF.ToString();
@@ -103,6 +102,7 @@ namespace DJetronicStudio
             EndRheostatInput.Text = SimulationSettings.EndRheostat.ToString();
             StartBatteryVoltageInput.Text = SimulationSettings.StartBatteryVoltage.ToString();
             EndBatteryVoltageInput.Text = SimulationSettings.EndBatteryVoltage.ToString();
+            DwellAngleInput.Text = SimulationSettings.DwellAngle.ToString();
         }
 
         /// <summary>
@@ -131,11 +131,9 @@ namespace DJetronicStudio
             else
                 SimulationSettings.ResolutionUnit = SimSettings.ResolutionUnits.Microseconds;
 
-            if (!uint.TryParse(StartSpeedInput.Text, out SimulationSettings.StartEngineSpeedRpm)) throw new Exception("Invalid start value for engine speed");
-            if (!uint.TryParse(EndSpeedInput.Text, out SimulationSettings.EndEngineSpeedRpm)) throw new Exception("Invalid end value for engine speed");
+            if (!uint.TryParse(EngineSpeedInput.Text, out SimulationSettings.EngineSpeedRpm)) throw new Exception("Invalid value for engine speed");
 
-            if ((SimulationSettings.StartEngineSpeedRpm < 0) || (SimulationSettings.StartEngineSpeedRpm > 6500)) throw new Exception("Start engine speed must be in the range 0 to 6500");
-            if ((SimulationSettings.EndEngineSpeedRpm < 0) || (SimulationSettings.EndEngineSpeedRpm > 6500)) throw new Exception("End engine speed must be in the range 0 to 6500");
+            if ((SimulationSettings.EngineSpeedRpm < 0) || (SimulationSettings.EngineSpeedRpm > 6500)) throw new Exception("Engine speed must be in the range 0 to 6500");
 
             if (!double.TryParse(StartAirTempInput.Text, out SimulationSettings.StartAirTemperatureF)) throw new Exception("Invalid start value for air temperature");
             if (!double.TryParse(EndAirTempInput.Text, out SimulationSettings.EndAirTemperatureF)) throw new Exception("Invalid end value for air temperature");
@@ -181,6 +179,10 @@ namespace DJetronicStudio
 
             if (SimulationSettings.StartBatteryVoltage < 0) throw new Exception("Start battery voltage cannot be less than zero");
             if (SimulationSettings.EndBatteryVoltage < 0) throw new Exception("End battery voltage cannot be less than zero");
+
+            if (!uint.TryParse(DwellAngleInput.Text, out SimulationSettings.DwellAngle)) throw new Exception("Invalid value for dwell angle");
+
+            if ((SimulationSettings.DwellAngle < 100) || (SimulationSettings.DwellAngle > 180)) throw new Exception("Dwell angle must be in the range 100 to 180");
         }
 
         /// <summary>
@@ -389,7 +391,7 @@ namespace DJetronicStudio
             (
             )
         {
-            SimChart.Clear();
+            SimChart.ClearAll();
         }
     }
 }

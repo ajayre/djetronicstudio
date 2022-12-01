@@ -27,6 +27,25 @@ namespace DJetronicStudio
         public delegate void OnSimulationEndedHandler(object sender);
         public event OnSimulationEndedHandler OnSimulationEnded = null;
 
+        private const string AIR_TEMPERATURE_VOLTAGE_SOURCE = "V1";
+        private const string THROTTLE_ENRICHMENT_VOLTAGE_SOURCE = "V3";
+        private const string THROTTLE_VOLTAGE_SOURCE = "V4";
+        private const string ENGINE_VACUUM_VOLTAGE_SOURCE = "V5";
+        private const string RHEOSTAT_POSITION_VOLTAGE_SOURCE = "V6";
+        private const string START_VOLTAGE_SOURCE = "V7";
+        private const string PG13_VOLTAGE_SOURCE = "V13";
+        private const string PG14_VOLTAGE_SOURCE = "V14";
+        private const string BATTERY_VOLTAGE_SOURCE_1 = "V16";
+        private const string PG21_VOLTAGE_SOURCE = "V21";
+        private const string PG22_VOLTAGE_SOURCE = "V22";
+        private const string COOLANT_TEMPERATURE_VOLTAGE_SOURCE = "V23";
+        private const string BATTERY_VOLTAGE_SOURCE_2 = "V24";
+
+        private const int PG_SPEC_INDEX_E13 = 0;
+        private const int PG_SPEC_INDEX_E14 = 1;
+        private const int PG_SPEC_INDEX_E21 = 2;
+        private const int PG_SPEC_INDEX_E22 = 3;
+
         private bool Connected = false;
         private string SpiceFolder;
         private int StartTimeMs;
@@ -214,13 +233,6 @@ namespace DJetronicStudio
             }
         }
 
-        private const string THROTTLE_VOLTAGE_SOURCE = "V4";
-        private const string ENGINE_VACUUM_VOLTAGE_SOURCE = "V5";
-        private const string RHEOSTAT_POSITION_VOLTAGE_SOURCE = "V6";
-        private const string START_VOLTAGE_SOURCE = "V7";
-        private const string BATTERY_VOLTAGE_SOURCE_1 = "V16";
-        private const string BATTERY_VOLTAGE_SOURCE_2 = "V24";
-
         /// <summary>
         /// Applies the current settings to a netlist
         /// </summary>
@@ -230,13 +242,21 @@ namespace DJetronicStudio
             List<string> NetList
             )
         {
-            // V16 AUX7-12V 0 dc 13.5
             Regex BatteryVoltage1Rx = new Regex(@"^(" + BATTERY_VOLTAGE_SOURCE_1 + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
             Regex BatteryVoltage2Rx = new Regex(@"^(" + BATTERY_VOLTAGE_SOURCE_2 + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
             Regex EngineVacuumRx = new Regex(@"^(" + ENGINE_VACUUM_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
             Regex RheostatRx = new Regex(@"^(" + RHEOSTAT_POSITION_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
             Regex StartRx = new Regex(@"^(" + START_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
             Regex ThrottleRx = new Regex(@"^(" + THROTTLE_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex PG13Rx = new Regex(@"^(" + PG13_VOLTAGE_SOURCE + @"\s.+\s+)dc\s+[0-9]+\s+(pulse\s*[mu\ \(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex PG14Rx = new Regex(@"^(" + PG14_VOLTAGE_SOURCE + @"\s.+\s+)dc\s+[0-9]+\s+(pulse\s*[mu\ \(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex PG21Rx = new Regex(@"^(" + PG21_VOLTAGE_SOURCE + @"\s.+\s+)dc\s+[0-9]+\s+(pulse\s*[mu\ \(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex PG22Rx = new Regex(@"^(" + PG22_VOLTAGE_SOURCE + @"\s.+\s+)dc\s+[0-9]+\s+(pulse\s*[mu\ \(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex ThrottleEnrichmentRx = new Regex(@"^(" + THROTTLE_ENRICHMENT_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex AirTempRx = new Regex(@"^(" + AIR_TEMPERATURE_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+            Regex CoolantTempRx = new Regex(@"^(" + COOLANT_TEMPERATURE_VOLTAGE_SOURCE + @"\s.+\s+)(dc\s*[\(\)0-9\.]+)\s*$", RegexOptions.IgnoreCase);
+
+            string[] PGSpecs = ConstructPulseGenerator(Settings.EngineSpeedRpm, Settings.DwellAngle);
 
             for (int i = 0; i < NetList.Count; i++)
             {
@@ -336,26 +356,114 @@ namespace DJetronicStudio
                     continue;
                 }
 
+                Match ThrottleEnrichmentMa = ThrottleEnrichmentRx.Match(NetList[i]);
+                if (ThrottleEnrichmentMa.Success)
+                {
+                    string Spec;
+                    if (Settings.StartThrottlePcent < Settings.EndThrottlePcent)
+                    {
+                        Spec = "dc(4)";
+                    }
+                    else
+                    {
+                        Spec = "dc(0)";
+                    }
+                    NetList[i] = string.Format("{0} {1}", ThrottleEnrichmentMa.Groups[1], Spec);
+                    continue;
+                }
+
+                Match PG13Ma = PG13Rx.Match(NetList[i]);
+                if (PG13Ma.Success)
+                {
+                    NetList[i] = string.Format("{0} {1}", PG13Ma.Groups[1], PGSpecs[PG_SPEC_INDEX_E13]);
+                    continue;
+                }
+                Match PG14Ma = PG14Rx.Match(NetList[i]);
+                if (PG14Ma.Success)
+                {
+                    NetList[i] = string.Format("{0} {1}", PG14Ma.Groups[1], PGSpecs[PG_SPEC_INDEX_E14]);
+                    continue;
+                }
+                Match PG21Ma = PG21Rx.Match(NetList[i]);
+                if (PG21Ma.Success)
+                {
+                    NetList[i] = string.Format("{0} {1}", PG21Ma.Groups[1], PGSpecs[PG_SPEC_INDEX_E21]);
+                    continue;
+                }
+                Match PG22Ma = PG22Rx.Match(NetList[i]);
+                if (PG22Ma.Success)
+                {
+                    NetList[i] = string.Format("{0} {1}", PG22Ma.Groups[1], PGSpecs[PG_SPEC_INDEX_E22]);
+                    continue;
+                }
+
+                Match AirTempMa = AirTempRx.Match(NetList[i]);
+                if (AirTempMa.Success)
+                {
+                    string Spec;
+                    if (Settings.StartAirTemperatureF != Settings.EndAirTemperatureF)
+                    {
+                        Spec = string.Format("pwl(0m {0} {1}m {2})", (int)((Settings.StartAirTemperatureF - 32.0) * (5.0 / 9.0)), Settings.TotalTimeMs, (int)((Settings.EndAirTemperatureF - 32.0) * (5.0 / 9.0)));
+                    }
+                    else
+                    {
+                        Spec = string.Format("dc({0})", (int)((Settings.StartAirTemperatureF - 32.0) * (5.0 / 9.0)));
+                    }
+                    NetList[i] = string.Format("{0} {1}", AirTempMa.Groups[1], Spec);
+                    continue;
+                }
+
+                Match CoolantTempMa = CoolantTempRx.Match(NetList[i]);
+                if (CoolantTempMa.Success)
+                {
+                    string Spec;
+                    if (Settings.StartCoolantTemperatureF != Settings.EndCoolantTemperatureF)
+                    {
+                        Spec = string.Format("pwl(0m {0} {1}m {2})", (int)((Settings.StartCoolantTemperatureF - 32.0) * (5.0 / 9.0)), Settings.TotalTimeMs, (int)((Settings.EndCoolantTemperatureF - 32.0) * (5.0 / 9.0)));
+                    }
+                    else
+                    {
+                        Spec = string.Format("dc({0})", (int)((Settings.StartCoolantTemperatureF - 32.0) * (5.0 / 9.0)));
+                    }
+                    NetList[i] = string.Format("{0} {1}", CoolantTempMa.Groups[1], Spec);
+                    continue;
+                }
             }
         }
 
         /// <summary>
-        /// Constructs a spice voltage source that ramps the voltage over time
+        /// Creates the pulse generator spice statements
         /// </summary>
-        /// <param name="StartTime">Start time in ms</param>
-        /// <param name="StartValue">Start value in volts</param>
-        /// <param name="EndTime">End time in ms</param>
-        /// <param name="EndValue">End value in volts</param>
-        /// <returns></returns>
-        private string ConstructRamp
+        /// <param name="EngineSpeedRpm">Speed of engine in RPM</param>
+        /// <param name="DwellAngle">Dwell angle of pulse generator</param>
+        /// <returns>Set of four spice statements E13, E14, E21, E22</returns>
+        private string[] ConstructPulseGenerator
             (
-            uint StartTime,
-            double StartValue,
-            uint EndTime,
-            double EndValue
+            uint EngineSpeedRpm,
+            uint DwellAngle
             )
         {
-            return string.Format("pwl({0}m {1} {2}m {3})", StartTime, StartValue, EndTime, EndValue);
+            string[] Signals = new string[4];
+
+            string RiseFallTime = "100u";
+            double Distributor_RPM = EngineSpeedRpm / 2.0;
+            double RotationsPerSec = Distributor_RPM / 60.0;
+            double MillisecondsPerRotation = 1.0 / RotationsPerSec * 1000.0;
+            double NegDwellPcentPeriod = DwellAngle / 360.0;
+            double NegDwell_ms = MillisecondsPerRotation * NegDwellPcentPeriod;
+            double DwellPcentPeriod = (360.0 - DwellAngle) / 360.0;
+            double Dwell_ms = MillisecondsPerRotation * DwellPcentPeriod;
+            double PG1StartOffset = MillisecondsPerRotation * 0.5;
+            double PG2StartOffset = MillisecondsPerRotation * 0.25;
+            double PG3StartOffset = 0;
+            double PG4StartOffset = NegDwell_ms - PG2StartOffset;
+
+            Signals[PG_SPEC_INDEX_E22] = "dc 5 pulse(0 5 " + PG3StartOffset.ToString() + "m " + RiseFallTime + " " + RiseFallTime + " " + NegDwell_ms.ToString() + "m " + MillisecondsPerRotation.ToString() + "m)";
+            Signals[PG_SPEC_INDEX_E21] = "dc 5 pulse(0 5 " + PG1StartOffset.ToString() + "m " + RiseFallTime + " " + RiseFallTime + " " + NegDwell_ms.ToString() + "m " + MillisecondsPerRotation.ToString() + "m)";
+            Signals[PG_SPEC_INDEX_E14] = "dc 5 pulse(0 5 " + PG4StartOffset.ToString() + "m " + RiseFallTime + " " + RiseFallTime + " " + Dwell_ms.ToString() + "m " + MillisecondsPerRotation.ToString() + "m)";
+            Signals[PG_SPEC_INDEX_E13] = "dc 5 pulse(5 0 " + PG2StartOffset.ToString() + "m " + RiseFallTime + " " + RiseFallTime + " " + NegDwell_ms.ToString() + "m " + MillisecondsPerRotation.ToString() + "m)";
+
+            return Signals;
         }
     }
 }

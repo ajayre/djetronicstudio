@@ -17,8 +17,7 @@ namespace DJetronicStudio
         public uint TotalTimeMs = 200;
         public uint Resolution = 8;
         public ResolutionUnits ResolutionUnit = ResolutionUnits.Microseconds;
-        public uint StartEngineSpeedRpm = 1200;
-        public uint EndEngineSpeedRpm = 1200;
+        public uint EngineSpeedRpm = 1200;
         public double StartAirTemperatureF = 32;
         public double EndAirTemperatureF = 32;
         public double StartCoolantTemperatureF = 100;
@@ -33,5 +32,6 @@ namespace DJetronicStudio
         public uint EndRheostat = 11;
         public double StartBatteryVoltage = 13.5;
         public double EndBatteryVoltage = 13.5;
+        public uint DwellAngle = 135;
     }
 }
