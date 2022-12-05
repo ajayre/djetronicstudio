@@ -25,6 +25,108 @@ namespace DJetronicStudio
         private ToolbarButton StopSimButton;
         private bool Running = false;
         private SimSettings SimulationSettings = new SimSettings();
+        private enum Blocks { ECU, AirTemp, CoolantTemp, TPS, MPS, FuelPumpRelay, PulseGenerator, Inj1, Inj2, Inj3, Inj4, Inj5, Inj6, Inj7, Inj8 }
+
+        private class WiringDiagramPin
+        {
+            public Blocks Block;
+            public int Number;
+            public Point Location;
+
+            public WiringDiagramPin
+                (
+                Blocks Block,
+                int Number,
+                int X,
+                int Y
+                )
+            {
+                this.Block = Block;
+                this.Number = Number;
+                this.Location = new Point(X, Y);
+            }
+        }
+
+        /// <summary>
+        /// Definitons of all clickable pins on the wiring diagram
+        /// </summary>
+        private WiringDiagramPin[] WiringDiagramPins = new WiringDiagramPin[]
+        {
+            new WiringDiagramPin(Blocks.ECU, 1, 211, 170),
+            new WiringDiagramPin(Blocks.ECU, 2, 230, 170),
+            new WiringDiagramPin(Blocks.ECU, 3, 251, 170),
+            new WiringDiagramPin(Blocks.ECU, 4, 272, 172),
+            new WiringDiagramPin(Blocks.ECU, 5, 290, 172),
+            new WiringDiagramPin(Blocks.ECU, 6, 310, 171),
+            new WiringDiagramPin(Blocks.ECU, 7, 328, 171),
+            new WiringDiagramPin(Blocks.ECU, 8, 347, 171),
+            new WiringDiagramPin(Blocks.ECU, 9, 368, 171),
+            new WiringDiagramPin(Blocks.ECU, 10, 389, 171),
+            new WiringDiagramPin(Blocks.ECU, 11, 407, 170),
+            new WiringDiagramPin(Blocks.ECU, 12, 429, 170),
+            new WiringDiagramPin(Blocks.ECU, 13, 450, 170),
+            new WiringDiagramPin(Blocks.ECU, 14, 469, 171),
+            new WiringDiagramPin(Blocks.ECU, 15, 489, 170),
+            new WiringDiagramPin(Blocks.ECU, 16, 507, 170),
+            new WiringDiagramPin(Blocks.ECU, 17, 529, 170),
+            new WiringDiagramPin(Blocks.ECU, 18, 549, 170),
+            new WiringDiagramPin(Blocks.ECU, 19, 567, 170),
+            new WiringDiagramPin(Blocks.ECU, 20, 589, 170),
+            new WiringDiagramPin(Blocks.ECU, 21, 606, 171),
+            new WiringDiagramPin(Blocks.ECU, 22, 627, 171),
+            new WiringDiagramPin(Blocks.ECU, 23, 647, 171),
+            new WiringDiagramPin(Blocks.ECU, 24, 669, 171),
+            new WiringDiagramPin(Blocks.ECU, 25, 689, 171),
+
+            new WiringDiagramPin(Blocks.AirTemp, 1, 101, 481),
+            new WiringDiagramPin(Blocks.AirTemp, 2, 81, 480),
+
+            new WiringDiagramPin(Blocks.CoolantTemp, 1, 1179, 480),
+            new WiringDiagramPin(Blocks.CoolantTemp, 2, 1198, 481),
+
+            new WiringDiagramPin(Blocks.Inj1, 1, 240, 482),
+            new WiringDiagramPin(Blocks.Inj1, 2, 218, 480),
+
+            new WiringDiagramPin(Blocks.Inj2, 1, 491, 481),
+            new WiringDiagramPin(Blocks.Inj2, 2, 472, 480),
+
+            new WiringDiagramPin(Blocks.Inj3, 1, 408, 483),
+            new WiringDiagramPin(Blocks.Inj3, 2, 390, 482),
+
+            new WiringDiagramPin(Blocks.Inj4, 1, 328, 480),
+            new WiringDiagramPin(Blocks.Inj4, 2, 310, 481),
+
+            new WiringDiagramPin(Blocks.Inj5, 1, 249, 659),
+            new WiringDiagramPin(Blocks.Inj5, 2, 230, 659),
+
+            new WiringDiagramPin(Blocks.Inj6, 1, 411, 662),
+            new WiringDiagramPin(Blocks.Inj6, 2, 390, 661),
+
+            new WiringDiagramPin(Blocks.Inj7, 1, 490, 661),
+            new WiringDiagramPin(Blocks.Inj7, 2, 471, 661),
+
+            new WiringDiagramPin(Blocks.Inj8, 1, 330, 661),
+            new WiringDiagramPin(Blocks.Inj8, 2, 310, 660),
+
+            new WiringDiagramPin(Blocks.MPS, 7, 559, 482),
+            new WiringDiagramPin(Blocks.MPS, 8, 579, 481),
+            new WiringDiagramPin(Blocks.MPS, 10, 628, 481),
+            new WiringDiagramPin(Blocks.MPS, 15, 650, 480),
+
+            new WiringDiagramPin(Blocks.TPS, 2, 750, 482),
+            new WiringDiagramPin(Blocks.TPS, 17, 781, 480),
+            new WiringDiagramPin(Blocks.TPS, 12, 812, 481),
+            new WiringDiagramPin(Blocks.TPS, 20, 841, 482),
+            new WiringDiagramPin(Blocks.TPS, 9, 870, 481),
+
+            new WiringDiagramPin(Blocks.PulseGenerator, 13, 948, 481),
+            new WiringDiagramPin(Blocks.PulseGenerator, 14, 981, 480),
+            new WiringDiagramPin(Blocks.PulseGenerator, 12, 1011, 481),
+            new WiringDiagramPin(Blocks.PulseGenerator, 21, 1041, 482),
+            new WiringDiagramPin(Blocks.PulseGenerator, 22, 1073, 481),
+
+            new WiringDiagramPin(Blocks.FuelPumpRelay, 85, 634, 637)
+        };
 
         public SimulationUI
             (
@@ -57,11 +159,55 @@ namespace DJetronicStudio
 
             Running = false;
 
+            WiringDiagram.MouseDown += WiringDiagram_MouseDown;
+
             ShowInitialSettings();
 
             ShowSimSettings();
 
             UpdateUI();
+        }
+
+        string Coords = "";
+
+        /// <summary>
+        /// Called when the wiring diagram is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WiringDiagram_MouseDown(object sender, MouseEventArgs e)
+        {
+            Point PxPoint = GetMousePixelPosition(e.X, e.Y);
+
+            Coords += " " + PxPoint.ToString();
+        }
+
+        /// <summary>
+        /// Gets the pixel position of the mouse regardless of scroll bars or centering of image
+        /// </summary>
+        /// <param name="MouseX">Mouse X position</param>
+        /// <param name="MouseY">Mouse Y position</param>
+        /// <returns>Pixel position</returns>
+        private Point GetMousePixelPosition
+            (
+            int MouseX,
+            int MouseY
+            )
+        {
+            int LeftPadding = 0;
+            if (WiringDiagram.Width > WiringDiagram.BackgroundImage.Width)
+            {
+                LeftPadding = (WiringDiagram.Width - WiringDiagram.BackgroundImage.Width) / 2;
+            }
+            int TopPadding = 0;
+            if (WiringDiagram.Height > WiringDiagram.BackgroundImage.Height)
+            {
+                TopPadding = (WiringDiagram.Height - WiringDiagram.BackgroundImage.Height) / 2;
+            }
+
+            Point PxPoint = new Point(MouseX - WiringDiagram.AutoScrollPosition.X - LeftPadding, MouseY - WiringDiagram.AutoScrollPosition.Y - TopPadding);
+
+            return PxPoint;
         }
 
         /// <summary>

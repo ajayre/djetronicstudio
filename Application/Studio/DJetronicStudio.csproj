@@ -338,6 +338,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\WiringDiagram.png" />
     <None Include="Graphics\run_72.png" />
     <None Include="Graphics\run_64.png" />
     <None Include="Graphics\run_48.png" />

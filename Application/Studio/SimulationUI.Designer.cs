@@ -98,10 +98,13 @@
             this.EndCoolantTempInput = new System.Windows.Forms.TextBox();
             this.EndCoolantTempLabel2 = new System.Windows.Forms.Label();
             this.ChartPage = new System.Windows.Forms.TabPage();
+            this.WiringDiagramPage = new System.Windows.Forms.TabPage();
+            this.WiringDiagram = new System.Windows.Forms.Panel();
             this.SimChart = new DJetronicStudio.SimChart();
             this.tabControl1.SuspendLayout();
             this.SettingsPage.SuspendLayout();
             this.ChartPage.SuspendLayout();
+            this.WiringDiagramPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // OutputBox
@@ -118,6 +121,7 @@
             // 
             this.tabControl1.Controls.Add(this.SettingsPage);
             this.tabControl1.Controls.Add(this.ChartPage);
+            this.tabControl1.Controls.Add(this.WiringDiagramPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -773,6 +777,29 @@
             this.ChartPage.Text = "Chart";
             this.ChartPage.UseVisualStyleBackColor = true;
             // 
+            // WiringDiagramPage
+            // 
+            this.WiringDiagramPage.BackColor = System.Drawing.Color.White;
+            this.WiringDiagramPage.Controls.Add(this.WiringDiagram);
+            this.WiringDiagramPage.Location = new System.Drawing.Point(4, 22);
+            this.WiringDiagramPage.Name = "WiringDiagramPage";
+            this.WiringDiagramPage.Padding = new System.Windows.Forms.Padding(3);
+            this.WiringDiagramPage.Size = new System.Drawing.Size(898, 310);
+            this.WiringDiagramPage.TabIndex = 2;
+            this.WiringDiagramPage.Text = "Wiring Diagram";
+            // 
+            // WiringDiagram
+            // 
+            this.WiringDiagram.AutoScroll = true;
+            this.WiringDiagram.AutoScrollMinSize = new System.Drawing.Size(1314, 761);
+            this.WiringDiagram.BackgroundImage = global::DJetronicStudio.Properties.Resources.WiringDiagram;
+            this.WiringDiagram.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.WiringDiagram.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WiringDiagram.Location = new System.Drawing.Point(3, 3);
+            this.WiringDiagram.Name = "WiringDiagram";
+            this.WiringDiagram.Size = new System.Drawing.Size(892, 304);
+            this.WiringDiagram.TabIndex = 1;
+            // 
             // SimChart
             // 
             this.SimChart.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -793,6 +820,7 @@
             this.SettingsPage.ResumeLayout(false);
             this.SettingsPage.PerformLayout();
             this.ChartPage.ResumeLayout(false);
+            this.WiringDiagramPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -870,5 +898,7 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.TextBox DwellAngleInput;
+        private System.Windows.Forms.TabPage WiringDiagramPage;
+        private System.Windows.Forms.Panel WiringDiagram;
     }
 }
