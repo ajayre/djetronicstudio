@@ -20,8 +20,8 @@ namespace DJetronicStudio
         {
             InitializeComponent();
 
-            //SimulationBtn.Enabled = false;
-            //SimulationBtn.BackColor = Color.Gray;
+            SimulationBtn.Enabled = false;
+            SimulationBtn.BackColor = Color.Gray;
         }
 
         private void TesterBtn_Click(object sender, EventArgs e)

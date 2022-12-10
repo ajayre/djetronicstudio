@@ -3,6 +3,13 @@ D-JETRONIC STUDIO RELEASE NOTES
 Attribution-NonCommercial-ShareAlike 4.0 International
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
+
+Version 1.1.0.0
+---------------
+
+- Added support for MPS Tune-o-Matic.
+
+
 Version 1.0.0.0
 ---------------
 

@@ -21,7 +21,9 @@ namespace DJetronicStudio
 
         private const int MPS_DATABASE_LAYOUT_PADDING = 10;
         // range of tuning gauge in milliseconds
-        private const int GAUGE_RANGE_MS = 3;
+        private const int GAUGE_RANGE_MS = 1;
+        // the vacuum setting to use for tuning
+        private const int TUNING_VACUUM_SETTING = 5;
 
         private List<ToolbarButton> ToolbarButtons = new List<ToolbarButton>();
         private List<StatusLabel> StatusLabels = new List<StatusLabel>();
@@ -38,7 +40,6 @@ namespace DJetronicStudio
         private int CurrentMPSDatabaseLayoutMaxColumns;
         private MPSDatabase Database = null;
         private MPSProfile TuningReference = null;
-        private int TuningVacuumSetting = 5;
         private StatusLabel AtmosphericPressureIndicator;
         private StatusLabel PulseWidthIndicator;
         private MPSProfile NewMPSProfile;
@@ -82,7 +83,7 @@ namespace DJetronicStudio
 
             Database = new MPSDatabase();
 
-            TunePage2WizardText.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the vacuum to " + TuningVacuumSetting.ToString() + " in Hg. When done click on Next.";
+            TunePage2WizardText.Body = "Attach a MityVac (or similar) to the vacuum port on the back of the MPS. Set the vacuum to " + TUNING_VACUUM_SETTING.ToString() + " in Hg. When done click on Next.";
 
             ShowInitialSettings();
 
@@ -181,7 +182,7 @@ namespace DJetronicStudio
             {
                 ShowPage(TunePage4);
                 TuningReference = ReferenceSelector.SelectedItem as MPSProfile;
-                ConfigureTuningGauge(TuningReference, TuningVacuumSetting);
+                ConfigureTuningGauge(TuningReference, TUNING_VACUUM_SETTING);
             }
             else if (Tabs.SelectedTab == TunePage4)
             {
@@ -215,7 +216,7 @@ namespace DJetronicStudio
                 else if (((string)AddCalibrationSelector.SelectedItem) == "Tune-o-Matic")
                     NewMPSProfile.CalibrationType = MPSProfile.CalibrationTypes.TuneOMatic;
                 else
-                    NewMPSProfile.CalibrationType = MPSProfile.CalibrationTypes.TuneOMatic;
+                    NewMPSProfile.CalibrationType = MPSProfile.CalibrationTypes.None;
 
                 ShowPage(AddPage2);
             }
