@@ -224,6 +224,9 @@ namespace DJetronicStudio
 
                 ApplySettings(ProcessedNetList);
 
+                // fixme - remove
+                //File.WriteAllLines(@"D:\dump.txt", ProcessedNetList);
+
                 Spice.SpecifyCircuit(ProcessedNetList.ToArray());
             }
             finally

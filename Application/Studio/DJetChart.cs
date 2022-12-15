@@ -213,64 +213,97 @@ namespace DJetronicStudio
             ((Axis)((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[1]).NamePaint = new SolidColorPaint(new SKColor(Settings.SecondYAxisColor.R, Settings.SecondYAxisColor.G, Settings.SecondYAxisColor.B, Settings.SecondYAxisColor.A));
             ((Axis)((CartesianChart<SkiaSharpDrawingContext>)Chart.CoreChart).YAxes[1]).LabelsPaint = new SolidColorPaint(new SKColor(Settings.SecondYAxisColor.R, Settings.SecondYAxisColor.G, Settings.SecondYAxisColor.B, Settings.SecondYAxisColor.A));
 
-            foreach (ISeries Ser in Series)
+            for (int s = 0; s < Series.Count; s++)
             {
-                LineSeries<ObservablePoint> SerObj = Ser as LineSeries<ObservablePoint>;
+                LineSeries<ObservablePoint> SerObj = Series[s] as LineSeries<ObservablePoint>;
 
-                if ((SerObj.Name == "Pulse Width I") && Settings.SecondYAxisShowPulseWidthI && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Pulse Width I")
+                {
+                    if (Settings.SecondYAxisShowPulseWidthI && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Pulse Width II") && Settings.SecondYAxisShowPulseWidthII && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Pulse Width II")
+                {
+                    if (Settings.SecondYAxisShowPulseWidthII && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Pulse Width III") && Settings.SecondYAxisShowPulseWidthIII && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Pulse Width III")
+                {
+                    if (Settings.SecondYAxisShowPulseWidthIII && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Pulse Width IV") && Settings.SecondYAxisShowPulseWidthIV && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Pulse Width IV")
+                {
+                    if (Settings.SecondYAxisShowPulseWidthIV && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Fuel Pump") && Settings.SecondYAxisShowFuelPump && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Fuel Pump")
+                {
+                    if (Settings.SecondYAxisShowFuelPump && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Engine Speed") && Settings.SecondYAxisShowEngineSpeed && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Engine Speed")
+                {
+                    if (Settings.SecondYAxisShowEngineSpeed && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Throttle") && Settings.SecondYAxisShowThrottle && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Throttle")
+                {
+                    if (Settings.SecondYAxisShowThrottle && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Coolant Temperature") && Settings.SecondYAxisShowCoolantTemperature && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Coolant Temperature")
+                {
+                    if (Settings.SecondYAxisShowCoolantTemperature && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Air Temperature") && Settings.SecondYAxisShowAirTemperature && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Air Temperature")
+                {
+                    if (Settings.SecondYAxisShowAirTemperature && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Vacuum") && Settings.SecondYAxisShowVacuum && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Vacuum")
+                {
+                    if (Settings.SecondYAxisShowVacuum && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
 
-                if ((SerObj.Name == "Starter Motor") && Settings.SecondYAxisShowStaterMotor && Settings.EnableSecondYAxis)
-                    SerObj.ScalesYAt = 1;
-                else
-                    SerObj.ScalesYAt = 0;
+                if (SerObj.Name == "Starter Motor")
+                {
+                    if (Settings.SecondYAxisShowStaterMotor && Settings.EnableSecondYAxis)
+                        SerObj.ScalesYAt = 1;
+                    else
+                        SerObj.ScalesYAt = 0;
+                }
             }
 
             Chart.Invalidate();
@@ -368,6 +401,12 @@ namespace DJetronicStudio
             {
                 ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.StarterMotorOn ? 12 : 0);
                 ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.StarterMotor].Values).Add(NewData);
+            }
+
+            if (SeriesDescriptions[(int)SeriesIndices.Throttle].CheckBox.Checked)
+            {
+                ObservablePoint NewData = new ObservablePoint((int)(NewPoint.Timestamp), NewPoint.Data.Throttle);
+                ((ObservableCollection<ObservablePoint>)Series[(int)SeriesIndices.Throttle].Values).Add(NewData);
             }
         }
 

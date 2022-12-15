@@ -63,7 +63,7 @@
             // CloseBtn
             // 
             this.CloseBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CloseBtn.Location = new System.Drawing.Point(384, 127);
+            this.CloseBtn.Location = new System.Drawing.Point(407, 127);
             this.CloseBtn.Name = "CloseBtn";
             this.CloseBtn.Size = new System.Drawing.Size(75, 23);
             this.CloseBtn.TabIndex = 2;
@@ -114,9 +114,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(92, 71);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(213, 13);
+            this.label5.Size = new System.Drawing.Size(393, 13);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Simulation by Brad Cushman and Andy Ayre";
+            this.label5.Text = "Simulation by Brad Cushman and Andy Ayre based on a schematic by CaptainSLC";
             // 
             // label6
             // 
@@ -132,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(471, 162);
+            this.ClientSize = new System.Drawing.Size(494, 162);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
