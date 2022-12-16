@@ -232,6 +232,12 @@
     <Compile Include="TunerGauge.Designer.cs">
       <DependentUpon>TunerGauge.cs</DependentUpon>
     </Compile>
+    <Compile Include="WiringDiagramChartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WiringDiagramChartForm.Designer.cs">
+      <DependentUpon>WiringDiagramChartForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardBanner.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -308,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TunerGauge.resx">
       <DependentUpon>TunerGauge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WiringDiagramChartForm.resx">
+      <DependentUpon>WiringDiagramChartForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardBanner.resx">
       <DependentUpon>WizardBanner.cs</DependentUpon>

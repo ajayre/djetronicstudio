@@ -29,21 +29,79 @@ namespace DJetronicStudio
 
         private class WiringDiagramPin
         {
+            // size of the click box in pixels
+            private const int CLICK_BOX_SIZE_PX = 16;
+
             public Blocks Block;
             public int Number;
             public Point Location;
+            public string VectorName;
 
             public WiringDiagramPin
                 (
                 Blocks Block,
                 int Number,
                 int X,
-                int Y
+                int Y,
+                string VectorName
                 )
             {
                 this.Block = Block;
                 this.Number = Number;
                 this.Location = new Point(X, Y);
+                this.VectorName = VectorName;
+            }
+
+            /// <summary>
+            /// Checks if a point is inside the clickable area for the pin
+            /// </summary>
+            /// <param name="TargetPoint">Point to check</param>
+            /// <returns>true if inside clickable area</returns>
+            public bool Contains
+                (
+                Point TargetPoint
+                )
+            {
+                if ((TargetPoint.X >= (Location.X - (CLICK_BOX_SIZE_PX / 2))) && (TargetPoint.X <= (Location.X + (CLICK_BOX_SIZE_PX / 2))))
+                {
+                    if ((TargetPoint.Y >= (Location.Y - (CLICK_BOX_SIZE_PX / 2))) && (TargetPoint.Y <= (Location.Y + (CLICK_BOX_SIZE_PX / 2))))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            /// <summary>
+            /// Gets the name of a block
+            /// </summary>
+            /// <param name="Block">Block to search for</param>
+            /// <returns>User-friendly name</returns>
+            public static string GetBlockName
+                (
+                Blocks Block
+                )
+            {
+                switch (Block)
+                {
+                    case Blocks.AirTemp: return "Air Temperature Sensor";
+                    case Blocks.CoolantTemp: return "Coolant Temperature Sensor";
+                    case Blocks.ECU: return "Engine Control Unit (ECU)";
+                    case Blocks.FuelPumpRelay: return "Fuel Pump Relay";
+                    case Blocks.Inj1: return "Injector #1";
+                    case Blocks.Inj2: return "Injector #2";
+                    case Blocks.Inj3: return "Injector #3";
+                    case Blocks.Inj4: return "Injector #4";
+                    case Blocks.Inj5: return "Injector #5";
+                    case Blocks.Inj6: return "Injector #6";
+                    case Blocks.Inj7: return "Injector #7";
+                    case Blocks.Inj8: return "Injector #8";
+                    case Blocks.MPS: return "Manifold Pressure Sensor (MPS)";
+                    case Blocks.PulseGenerator: return "Pulse Generator (Trigger Points)";
+                    case Blocks.TPS: return "Throttle Position Sensor (TPS)";
+                    default: return "Unknown";
+                }
             }
         }
 
@@ -52,80 +110,80 @@ namespace DJetronicStudio
         /// </summary>
         private WiringDiagramPin[] WiringDiagramPins = new WiringDiagramPin[]
         {
-            new WiringDiagramPin(Blocks.ECU, 1, 211, 170),
-            new WiringDiagramPin(Blocks.ECU, 2, 230, 170),
-            new WiringDiagramPin(Blocks.ECU, 3, 251, 170),
-            new WiringDiagramPin(Blocks.ECU, 4, 272, 172),
-            new WiringDiagramPin(Blocks.ECU, 5, 290, 172),
-            new WiringDiagramPin(Blocks.ECU, 6, 310, 171),
-            new WiringDiagramPin(Blocks.ECU, 7, 328, 171),
-            new WiringDiagramPin(Blocks.ECU, 8, 347, 171),
-            new WiringDiagramPin(Blocks.ECU, 9, 368, 171),
-            new WiringDiagramPin(Blocks.ECU, 10, 389, 171),
-            new WiringDiagramPin(Blocks.ECU, 11, 407, 170),
-            new WiringDiagramPin(Blocks.ECU, 12, 429, 170),
-            new WiringDiagramPin(Blocks.ECU, 13, 450, 170),
-            new WiringDiagramPin(Blocks.ECU, 14, 469, 171),
-            new WiringDiagramPin(Blocks.ECU, 15, 489, 170),
-            new WiringDiagramPin(Blocks.ECU, 16, 507, 170),
-            new WiringDiagramPin(Blocks.ECU, 17, 529, 170),
-            new WiringDiagramPin(Blocks.ECU, 18, 549, 170),
-            new WiringDiagramPin(Blocks.ECU, 19, 567, 170),
-            new WiringDiagramPin(Blocks.ECU, 20, 589, 170),
-            new WiringDiagramPin(Blocks.ECU, 21, 606, 171),
-            new WiringDiagramPin(Blocks.ECU, 22, 627, 171),
-            new WiringDiagramPin(Blocks.ECU, 23, 647, 171),
-            new WiringDiagramPin(Blocks.ECU, 24, 669, 171),
-            new WiringDiagramPin(Blocks.ECU, 25, 689, 171),
+            new WiringDiagramPin(Blocks.ECU, 1, 211, 170, "E1-T1"),
+            new WiringDiagramPin(Blocks.ECU, 2, 230, 170, "E2-TPS"),
+            new WiringDiagramPin(Blocks.ECU, 3, 251, 170, "E3-INJ1-5"),
+            new WiringDiagramPin(Blocks.ECU, 4, 272, 172, "E4-INJ4-8"),
+            new WiringDiagramPin(Blocks.ECU, 5, 290, 172, "E5-INJ6-3"),
+            new WiringDiagramPin(Blocks.ECU, 6, 310, 171, "E6-INJ7-2"),
+            new WiringDiagramPin(Blocks.ECU, 7, 328, 171, "AUX9-BP"),
+            new WiringDiagramPin(Blocks.ECU, 8, 347, 171, "E8-MPS"),
+            new WiringDiagramPin(Blocks.ECU, 9, 368, 171, "AUX3-AE9"),
+            new WiringDiagramPin(Blocks.ECU, 10, 389, 171, "E10-MPS"),
+            new WiringDiagramPin(Blocks.ECU, 11, 407, 170, "0"),
+            new WiringDiagramPin(Blocks.ECU, 12, 429, 170, "0"),
+            new WiringDiagramPin(Blocks.ECU, 13, 450, 170, "E13-PG"),
+            new WiringDiagramPin(Blocks.ECU, 14, 469, 171, "E14-PG"),
+            new WiringDiagramPin(Blocks.ECU, 15, 489, 170, "E15-MPS"),
+            new WiringDiagramPin(Blocks.ECU, 16, 507, 170, "AUX7-12V"),
+            new WiringDiagramPin(Blocks.ECU, 17, 529, 170, "AUX2-IDL"),
+            new WiringDiagramPin(Blocks.ECU, 18, 549, 170, "E18-START"),
+            new WiringDiagramPin(Blocks.ECU, 19, 567, 170, "E19-FPR"),
+            new WiringDiagramPin(Blocks.ECU, 20, 589, 170, "AUX5-AE20"),
+            new WiringDiagramPin(Blocks.ECU, 21, 606, 171, "E21-PG"),
+            new WiringDiagramPin(Blocks.ECU, 22, 627, 171, "E22-PG"),
+            new WiringDiagramPin(Blocks.ECU, 23, 647, 171, "E23-T2"),
+            new WiringDiagramPin(Blocks.ECU, 24, 669, 171, "E24-12V"),
+            new WiringDiagramPin(Blocks.ECU, 25, 689, 171, "E25-DIAG1"),
 
-            new WiringDiagramPin(Blocks.AirTemp, 1, 101, 481),
-            new WiringDiagramPin(Blocks.AirTemp, 2, 81, 480),
+            new WiringDiagramPin(Blocks.AirTemp, 1, 101, 481, "E1-T1"),
+            new WiringDiagramPin(Blocks.AirTemp, 2, 81, 480, "0"),
 
-            new WiringDiagramPin(Blocks.CoolantTemp, 1, 1179, 480),
-            new WiringDiagramPin(Blocks.CoolantTemp, 2, 1198, 481),
+            new WiringDiagramPin(Blocks.CoolantTemp, 1, 1179, 480, "E23-T2"),
+            new WiringDiagramPin(Blocks.CoolantTemp, 2, 1198, 481, "0"),
 
-            new WiringDiagramPin(Blocks.Inj1, 1, 240, 482),
-            new WiringDiagramPin(Blocks.Inj1, 2, 218, 480),
+            new WiringDiagramPin(Blocks.Inj1, 1, 240, 482, "E3-INJ1-5"),
+            new WiringDiagramPin(Blocks.Inj1, 2, 218, 480, "0"),
 
-            new WiringDiagramPin(Blocks.Inj2, 1, 491, 481),
-            new WiringDiagramPin(Blocks.Inj2, 2, 472, 480),
+            new WiringDiagramPin(Blocks.Inj2, 1, 491, 481, "E6-INJ7-2"),
+            new WiringDiagramPin(Blocks.Inj2, 2, 472, 480, "0"),
 
-            new WiringDiagramPin(Blocks.Inj3, 1, 408, 483),
-            new WiringDiagramPin(Blocks.Inj3, 2, 390, 482),
+            new WiringDiagramPin(Blocks.Inj3, 1, 408, 483, "E5-INJ6-3"),
+            new WiringDiagramPin(Blocks.Inj3, 2, 390, 482, "0"),
 
-            new WiringDiagramPin(Blocks.Inj4, 1, 328, 480),
-            new WiringDiagramPin(Blocks.Inj4, 2, 310, 481),
+            new WiringDiagramPin(Blocks.Inj4, 1, 328, 480, "E4-INJ4-8"),
+            new WiringDiagramPin(Blocks.Inj4, 2, 310, 481, "0"),
 
-            new WiringDiagramPin(Blocks.Inj5, 1, 249, 659),
-            new WiringDiagramPin(Blocks.Inj5, 2, 230, 659),
+            new WiringDiagramPin(Blocks.Inj5, 1, 249, 659, "E3-INJ1-5"),
+            new WiringDiagramPin(Blocks.Inj5, 2, 230, 659, "0"),
 
-            new WiringDiagramPin(Blocks.Inj6, 1, 411, 662),
-            new WiringDiagramPin(Blocks.Inj6, 2, 390, 661),
+            new WiringDiagramPin(Blocks.Inj6, 1, 411, 662, "E5-INJ6-3"),
+            new WiringDiagramPin(Blocks.Inj6, 2, 390, 661, "0"),
 
-            new WiringDiagramPin(Blocks.Inj7, 1, 490, 661),
-            new WiringDiagramPin(Blocks.Inj7, 2, 471, 661),
+            new WiringDiagramPin(Blocks.Inj7, 1, 490, 661, "E6-INJ7-2"),
+            new WiringDiagramPin(Blocks.Inj7, 2, 471, 661, "0"),
 
-            new WiringDiagramPin(Blocks.Inj8, 1, 330, 661),
-            new WiringDiagramPin(Blocks.Inj8, 2, 310, 660),
+            new WiringDiagramPin(Blocks.Inj8, 1, 330, 661, "E4-INJ4-8"),
+            new WiringDiagramPin(Blocks.Inj8, 2, 310, 660, "0"),
 
-            new WiringDiagramPin(Blocks.MPS, 7, 559, 482),
-            new WiringDiagramPin(Blocks.MPS, 8, 579, 481),
-            new WiringDiagramPin(Blocks.MPS, 10, 628, 481),
-            new WiringDiagramPin(Blocks.MPS, 15, 650, 480),
+            new WiringDiagramPin(Blocks.MPS, 7, 559, 482, "AUX9-BP"),
+            new WiringDiagramPin(Blocks.MPS, 8, 579, 481, "E8-MPS"),
+            new WiringDiagramPin(Blocks.MPS, 10, 628, 481, "E10-MPS"),
+            new WiringDiagramPin(Blocks.MPS, 15, 650, 480, "E15-MPS"),
 
-            new WiringDiagramPin(Blocks.TPS, 2, 750, 482),
-            new WiringDiagramPin(Blocks.TPS, 17, 781, 480),
-            new WiringDiagramPin(Blocks.TPS, 12, 812, 481),
-            new WiringDiagramPin(Blocks.TPS, 20, 841, 482),
-            new WiringDiagramPin(Blocks.TPS, 9, 870, 481),
+            new WiringDiagramPin(Blocks.TPS, 2, 750, 482, "E2-TPS"),
+            new WiringDiagramPin(Blocks.TPS, 17, 781, 480, "AUX2-IDL"),
+            new WiringDiagramPin(Blocks.TPS, 12, 812, 481, "0"),
+            new WiringDiagramPin(Blocks.TPS, 20, 841, 482, "AUX5-AE20"),
+            new WiringDiagramPin(Blocks.TPS, 9, 870, 481, "AUX3-AE9"),
 
-            new WiringDiagramPin(Blocks.PulseGenerator, 13, 948, 481),
-            new WiringDiagramPin(Blocks.PulseGenerator, 14, 981, 480),
-            new WiringDiagramPin(Blocks.PulseGenerator, 12, 1011, 481),
-            new WiringDiagramPin(Blocks.PulseGenerator, 21, 1041, 482),
-            new WiringDiagramPin(Blocks.PulseGenerator, 22, 1073, 481),
+            new WiringDiagramPin(Blocks.PulseGenerator, 13, 948, 481, "E13-PG"),
+            new WiringDiagramPin(Blocks.PulseGenerator, 14, 981, 480, "E14-PG"),
+            new WiringDiagramPin(Blocks.PulseGenerator, 12, 1011, 481, "0"),
+            new WiringDiagramPin(Blocks.PulseGenerator, 21, 1041, 482, "E21-PG"),
+            new WiringDiagramPin(Blocks.PulseGenerator, 22, 1073, 481, "E22-PG"),
 
-            new WiringDiagramPin(Blocks.FuelPumpRelay, 85, 634, 637)
+            new WiringDiagramPin(Blocks.FuelPumpRelay, 85, 634, 637, "E19-FPR")
         };
 
         public SimulationUI
@@ -160,6 +218,7 @@ namespace DJetronicStudio
             Running = false;
 
             WiringDiagram.MouseDown += WiringDiagram_MouseDown;
+            WiringDiagram.MouseMove += WiringDiagram_MouseMove;
 
             ShowInitialSettings();
 
@@ -168,7 +227,32 @@ namespace DJetronicStudio
             UpdateUI();
         }
 
-        string Coords = "";
+        /// <summary>
+        /// Called when mouse moved over wiring diagram
+        /// Changes cursor to show where diagram can be clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WiringDiagram_MouseMove(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                Point PxPoint = new Point(e.X, e.Y);
+
+                Cursor = Cursors.Default;
+                foreach (WiringDiagramPin Pin in WiringDiagramPins)
+                {
+                    if (Pin.Contains(PxPoint))
+                    {
+                        Cursor = Cursors.Hand;
+                    }
+                }
+            }
+            catch
+            {
+                Cursor = Cursors.Default;
+            }
+        }
 
         /// <summary>
         /// Called when the wiring diagram is clicked
@@ -177,37 +261,33 @@ namespace DJetronicStudio
         /// <param name="e"></param>
         private void WiringDiagram_MouseDown(object sender, MouseEventArgs e)
         {
-            Point PxPoint = GetMousePixelPosition(e.X, e.Y);
+            Point PxPoint = new Point(e.X, e.Y);
 
-            Coords += " " + PxPoint.ToString();
+            foreach (WiringDiagramPin Pin in WiringDiagramPins)
+            {
+                if (Pin.Contains(PxPoint))
+                {
+                    ShowWiringDiagramChart(Pin);
+                }
+            }
         }
 
         /// <summary>
-        /// Gets the pixel position of the mouse regardless of scroll bars or centering of image
+        /// Shows the chart for a pin on the wiring diagram
         /// </summary>
-        /// <param name="MouseX">Mouse X position</param>
-        /// <param name="MouseY">Mouse Y position</param>
-        /// <returns>Pixel position</returns>
-        private Point GetMousePixelPosition
+        /// <param name="Pin">Pin to show chart for</param>
+        private void ShowWiringDiagramChart
             (
-            int MouseX,
-            int MouseY
+            WiringDiagramPin Pin
             )
         {
-            int LeftPadding = 0;
-            if (WiringDiagram.Width > WiringDiagram.BackgroundImage.Width)
-            {
-                LeftPadding = (WiringDiagram.Width - WiringDiagram.BackgroundImage.Width) / 2;
-            }
-            int TopPadding = 0;
-            if (WiringDiagram.Height > WiringDiagram.BackgroundImage.Height)
-            {
-                TopPadding = (WiringDiagram.Height - WiringDiagram.BackgroundImage.Height) / 2;
-            }
+            WiringDiagramChartForm ChartForm = new WiringDiagramChartForm();
+            ChartForm.Title = string.Format("Chart for {0} pin {1}", WiringDiagramPin.GetBlockName(Pin.Block), Pin.Number);
 
-            Point PxPoint = new Point(MouseX - WiringDiagram.AutoScrollPosition.X - LeftPadding, MouseY - WiringDiagram.AutoScrollPosition.Y - TopPadding);
+            ChartForm.SetTimeRange(0, SimulationSettings.TotalTimeMs);
+            ChartForm.AddData(string.Format("{0} pin {1}", Pin.Block, Pin.Number), Spice.GetData(Pin.VectorName));
 
-            return PxPoint;
+            ChartForm.ShowDialog();
         }
 
         /// <summary>
