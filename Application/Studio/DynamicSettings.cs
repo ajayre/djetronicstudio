@@ -17,6 +17,7 @@ namespace DJetronicStudio
         public bool UseAirTemp;
         public bool UseCoolantTemp;
         public bool UseStarter;
+        public bool UseThrottle;
 
         public uint StartSpeed;
         public uint EndSpeed;
@@ -26,6 +27,8 @@ namespace DJetronicStudio
         public int EndCoolantTemp;
         public uint StartStarter;
         public uint EndStarter;
+        public uint StartThrottle;
+        public uint EndThrottle;
 
         /// <summary>
         /// Converts the settings into a lookup table
@@ -39,6 +42,7 @@ namespace DJetronicStudio
             int SpeedStep = 0;
             int AirTempStep = 0;
             int CoolantTempStep = 0;
+            int ThrottleStep = 0;
 
             if (UseSpeed)
             {
@@ -76,39 +80,85 @@ namespace DJetronicStudio
                 }
             }
 
+            if (UseThrottle)
+            {
+                if (EndThrottle > StartThrottle)
+                {
+                    ThrottleStep = (int)(((double)EndThrottle - (double)StartThrottle + 1) * 100 / Steps);
+                }
+                else if (StartThrottle > EndThrottle)
+                {
+                    ThrottleStep = -(int)(((double)StartThrottle - (double)EndThrottle + 1) * 100 / Steps);
+                }
+            }
+
             if (!UseStarter)
             {
                 StartStarter = INVALID_STARTER_TIME;
                 EndStarter = INVALID_STARTER_TIME;
             }
 
-            byte[] Table = new byte[20];
+            byte[] Table = new byte[48];
 
-            Table[0]  = (byte)(Steps & 0xFF);
-            Table[1]  = (byte)((Steps >> 8) & 0xFF);
+            Table[0] = (byte)(Steps & 0x7F);
+            Table[1] = (byte)((Steps >> 7) & 0x01);
+            Table[2] = (byte)((Steps >> 8) & 0x7F);
+            Table[3] = (byte)((Steps >> 15) & 0x01);
 
-            Table[2]  = (byte)(Resolution & 0xFF);
-            Table[3]  = (byte)((Resolution >> 8) & 0xFF);
+            Table[4] = (byte)(Resolution & 0x7F);
+            Table[5] = (byte)((Resolution >> 7) & 0x01);
+            Table[6] = (byte)((Resolution >> 8) & 0x7F);
+            Table[7] = (byte)((Resolution >> 15) & 0x01);
 
-            Table[4]  = (byte)(StartSpeed & 0xFF);
-            Table[5]  = (byte)((StartSpeed >> 8) & 0xFF);
-            Table[6]  = (byte)(SpeedStep & 0xFF);
-            Table[7]  = (byte)((SpeedStep >> 8) & 0xFF);
+            Table[8] = (byte)(StartSpeed & 0x7F);
+            Table[9] = (byte)((StartSpeed >> 7) & 0x01);
+            Table[10] = (byte)((StartSpeed >> 8) & 0x7F);
+            Table[11] = (byte)((StartSpeed >> 15) & 0x01);
 
-            Table[8]  = (byte)(StartAirTemp & 0xFF);
-            Table[9]  = (byte)((StartAirTemp >> 8) & 0xFF);
-            Table[10] = (byte)(AirTempStep & 0xFF);
-            Table[11] = (byte)((AirTempStep >> 8) & 0xFF);
+            Table[12] = (byte)(SpeedStep & 0x7F);
+            Table[13] = (byte)((SpeedStep >> 7) & 0x01);
+            Table[14] = (byte)((SpeedStep >> 8) & 0x7F);
+            Table[15] = (byte)((SpeedStep >> 15) & 0x01);
 
-            Table[12] = (byte)(StartCoolantTemp & 0xFF);
-            Table[13] = (byte)((StartCoolantTemp >> 8) & 0xFF);
-            Table[14] = (byte)(CoolantTempStep & 0xFF);
-            Table[15] = (byte)((CoolantTempStep >> 8) & 0xFF);
+            Table[16] = (byte)(StartAirTemp & 0x7F);
+            Table[17] = (byte)((StartAirTemp >> 7) & 0x01);
+            Table[18] = (byte)((StartAirTemp >> 8) & 0x7F);
+            Table[19] = (byte)((StartAirTemp >> 15) & 0x01);
 
-            Table[16] = (byte)(StartStarter & 0xFF);
-            Table[17] = (byte)((StartStarter >> 8) & 0xFF);
-            Table[18] = (byte)(EndStarter & 0xFF);
-            Table[19] = (byte)((EndStarter >> 8) & 0xFF);
+            Table[20] = (byte)(AirTempStep & 0x7F);
+            Table[21] = (byte)((AirTempStep >> 7) & 0x01);
+            Table[22] = (byte)((AirTempStep >> 8) & 0x7F);
+            Table[23] = (byte)((AirTempStep >> 15) & 0x01);
+
+            Table[24] = (byte)(StartCoolantTemp & 0x7F);
+            Table[25] = (byte)((StartCoolantTemp >> 7) & 0x01);
+            Table[26] = (byte)((StartCoolantTemp >> 8) & 0x7F);
+            Table[27] = (byte)((StartCoolantTemp >> 15) & 0x01);
+
+            Table[28] = (byte)(CoolantTempStep & 0x7F);
+            Table[29] = (byte)((CoolantTempStep >> 7) & 0x01);
+            Table[30] = (byte)((CoolantTempStep >> 8) & 0x7F);
+            Table[31] = (byte)((CoolantTempStep >> 15) & 0x01);
+
+            Table[32] = (byte)(StartStarter & 0x7F);
+            Table[33] = (byte)((StartStarter >> 7) & 0x01);
+            Table[34] = (byte)((StartStarter >> 8) & 0x7F);
+            Table[35] = (byte)((StartStarter >> 15) & 0x01);
+
+            Table[36] = (byte)(EndStarter & 0x7F);
+            Table[37] = (byte)((EndStarter >> 7) & 0x01);
+            Table[38] = (byte)((EndStarter >> 8) & 0x7F);
+            Table[39] = (byte)((EndStarter >> 15) & 0x01);
+
+            Table[40] = (byte)(StartThrottle & 0x7F);
+            Table[41] = (byte)((StartThrottle >> 7) & 0x01);
+            Table[42] = (byte)((StartThrottle >> 8) & 0x7F);
+            Table[43] = (byte)((StartThrottle >> 15) & 0x01);
+
+            Table[44] = (byte)(ThrottleStep & 0x7F);
+            Table[45] = (byte)((ThrottleStep >> 7) & 0x01);
+            Table[46] = (byte)((ThrottleStep >> 8) & 0x7F);
+            Table[47] = (byte)((ThrottleStep >> 15) & 0x01);
 
             return Table;
         }

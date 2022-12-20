@@ -331,7 +331,6 @@ namespace DJetronicStudio
             }
         }
 
-
         /// <summary>
         /// Called when the tester wants to show a message to the user
         /// </summary>
@@ -376,6 +375,13 @@ namespace DJetronicStudio
             StartCoolantTempLabel2.Enabled = CoolantTempEnable.Checked;
             EndCoolantTempLabel2.Enabled = CoolantTempEnable.Checked;
 
+            StartThrottleInput.Enabled = ThrottleEnable.Checked;
+            EndThrottleInput.Enabled = ThrottleEnable.Checked;
+            StartThrottleLabel1.Enabled = ThrottleEnable.Checked;
+            EndThrottleLabel1.Enabled = ThrottleEnable.Checked;
+            StartThrottleLabel2.Enabled = ThrottleEnable.Checked;
+            EndThrottleLabel2.Enabled = ThrottleEnable.Checked;
+
             StartStarterInput.Enabled = StarterEnable.Checked;
             EndStarterInput.Enabled = StarterEnable.Checked;
             StartStarterLabel1.Enabled = StarterEnable.Checked;
@@ -384,6 +390,51 @@ namespace DJetronicStudio
             EndStarterLabel2.Enabled = StarterEnable.Checked;
 
             DynamicProgressBar.Style = ProgressBarStyle.Continuous;
+        }
+
+        /// <summary>
+        /// Reverses the dynamic settings
+        /// </summary>
+        private void ReverseDynamicSettings
+            (
+            )
+        {
+            string Temp = StartCoolantTempInput.Text;
+            StartCoolantTempInput.Text = EndCoolantTempInput.Text;
+            EndCoolantTempInput.Text = Temp;
+
+            Temp = StartAirTempInput.Text;
+            StartAirTempInput.Text = EndAirTempInput.Text;
+            EndAirTempInput.Text = Temp;
+
+            Temp = StartThrottleInput.Text;
+            StartThrottleInput.Text = EndThrottleInput.Text;
+            EndThrottleInput.Text = Temp;
+
+            Temp = StartSpeedInput.Text;
+            StartSpeedInput.Text = EndSpeedInput.Text;
+            EndSpeedInput.Text = Temp;
+
+            Temp = StartStarterInput.Text;
+            StartStarterInput.Text = EndStarterInput.Text;
+            EndStarterInput.Text = Temp;
+        }
+
+        /// <summary>
+        /// Inserts the current tester settings into the static custom fields
+        /// </summary>
+        private void InsertCurrentSettings
+            (
+            )
+        {
+            Status CurrentStatus = Tester.GetCurrentStatus();
+
+            CoolantTempInput.Text = CurrentStatus.CoolantTemperature.ToString();
+            AirTempInput.Text = CurrentStatus.AirTemperature.ToString();
+            ThrottlePositionInput.Text = CurrentStatus.Throttle.ToString();
+            DwellAngleInput.Text = CurrentStatus.DwellAngle.ToString();
+            EngineSpeedInput.Text = CurrentStatus.EngineSpeed.ToString();
+            StarterMotorInput.Checked = CurrentStatus.StarterMotorOn;
         }
 
         /// <summary>
@@ -488,6 +539,7 @@ namespace DJetronicStudio
             Settings.UseAirTemp = AirTempEnable.Checked;
             Settings.UseCoolantTemp = CoolantTempEnable.Checked;
             Settings.UseStarter = StarterEnable.Checked;
+            Settings.UseThrottle = ThrottleEnable.Checked;
 
             Settings.StartSpeed = 0;
             Settings.EndSpeed = 0;
@@ -497,6 +549,8 @@ namespace DJetronicStudio
             Settings.EndCoolantTemp = 0;
             Settings.StartStarter = 0;
             Settings.EndStarter = 0;
+            Settings.StartThrottle = 0;
+            Settings.EndThrottle = 0;
 
             if (SpeedEnable.Checked)
             {
@@ -516,6 +570,12 @@ namespace DJetronicStudio
                 if (!int.TryParse(EndCoolantTempInput.Text, out Settings.EndCoolantTemp)) Settings.UseCoolantTemp = false;
             }
 
+            if (ThrottleEnable.Checked)
+            {
+                if (!uint.TryParse(StartThrottleInput.Text, out Settings.StartThrottle)) Settings.UseThrottle = false;
+                if (!uint.TryParse(EndThrottleInput.Text, out Settings.EndThrottle)) Settings.UseThrottle = false;
+            }
+
             if (StarterEnable.Checked)
             {
                 if (!uint.TryParse(StartStarterInput.Text, out Settings.StartStarter)) Settings.UseStarter = false;
@@ -526,6 +586,20 @@ namespace DJetronicStudio
             {
                 MessageBox.Show("Starter motor off time must be later than the on time", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
+            }
+
+            if (ThrottleEnable.Checked)
+            {
+                Status CurrentStatus = Tester.GetCurrentStatus();
+                if (Settings.StartThrottle != CurrentStatus.Throttle)
+                {
+                    DialogResult Result = MessageBox.Show("The starting throttle is not the same as the current throttle. This could produce unrealistic behavior. Are you sure?",
+                        Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                    if (Result != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
             }
 
             Tester.StartDynamicTest(Settings);
@@ -571,6 +645,32 @@ namespace DJetronicStudio
         private void StarterEnable_CheckedChanged(object sender, EventArgs e)
         {
             UpdateUI();
+        }
+
+        private void ThrottleEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateUI();
+        }
+
+        /// <summary>
+        /// Called when user clicks on the button to insert the current settings
+        /// into the static custom fields
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InsertCurrentSettingsBtn_Click(object sender, EventArgs e)
+        {
+            InsertCurrentSettings();
+        }
+
+        /// <summary>
+        /// Called when user clicks on the button to reverse the dynamic settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReverseBtn_Click(object sender, EventArgs e)
+        {
+            ReverseDynamicSettings();
         }
     }
 }

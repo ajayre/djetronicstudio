@@ -394,6 +394,12 @@ namespace DJetronicStudio
                 if (Settings.EndCoolantTemp > MAX_COOLANT_TEMP_F) Settings.EndCoolantTemp = MAX_COOLANT_TEMP_F;
             }
 
+            if (Settings.UseThrottle)
+            {
+                if (Settings.StartThrottle > 100) Settings.StartThrottle = 100;
+                if (Settings.EndThrottle > 100) Settings.EndThrottle = 100;
+            }
+
             if (Settings.UseStarter)
             {
                 if (Settings.StartStarter > Settings.Duration) Settings.StartStarter = Settings.Duration;
@@ -467,6 +473,16 @@ namespace DJetronicStudio
         /// Sets engine to hard acceleration
         /// </summary>
         public void UsePreset_HardAcceleration() { UsePreset(MessageIds.HardAcceleration); }
+
+        /// <summary>
+        /// Gets the current tester status
+        /// </summary>
+        public Status GetCurrentStatus
+            (
+            )
+        {
+            return CurrentStatus;
+        }
 
         /// <summary>
         /// Called when a message is received from the tester
