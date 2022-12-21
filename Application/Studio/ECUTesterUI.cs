@@ -375,12 +375,13 @@ namespace DJetronicStudio
             StartCoolantTempLabel2.Enabled = CoolantTempEnable.Checked;
             EndCoolantTempLabel2.Enabled = CoolantTempEnable.Checked;
 
-            StartThrottleInput.Enabled = ThrottleEnable.Checked;
-            EndThrottleInput.Enabled = ThrottleEnable.Checked;
-            StartThrottleLabel1.Enabled = ThrottleEnable.Checked;
-            EndThrottleLabel1.Enabled = ThrottleEnable.Checked;
-            StartThrottleLabel2.Enabled = ThrottleEnable.Checked;
-            EndThrottleLabel2.Enabled = ThrottleEnable.Checked;
+            ThrottleRemoveFoot.Enabled = ThrottleEnable.Checked;
+            StartThrottleInput.Enabled = ThrottleEnable.Checked && !ThrottleRemoveFoot.Checked;
+            EndThrottleInput.Enabled = ThrottleEnable.Checked && !ThrottleRemoveFoot.Checked;
+            StartThrottleLabel1.Enabled = ThrottleEnable.Checked && !ThrottleRemoveFoot.Checked;
+            EndThrottleLabel1.Enabled = ThrottleEnable.Checked && !ThrottleRemoveFoot.Checked;
+            StartThrottleLabel2.Enabled = ThrottleEnable.Checked && !ThrottleRemoveFoot.Checked;
+            EndThrottleLabel2.Enabled = ThrottleEnable.Checked && !ThrottleRemoveFoot.Checked;
 
             StartStarterInput.Enabled = StarterEnable.Checked;
             EndStarterInput.Enabled = StarterEnable.Checked;
@@ -572,8 +573,21 @@ namespace DJetronicStudio
 
             if (ThrottleEnable.Checked)
             {
-                if (!uint.TryParse(StartThrottleInput.Text, out Settings.StartThrottle)) Settings.UseThrottle = false;
-                if (!uint.TryParse(EndThrottleInput.Text, out Settings.EndThrottle)) Settings.UseThrottle = false;
+                if (ThrottleRemoveFoot.Checked)
+                {
+                    Settings.ThrottleRemoveFoot = true;
+
+                    Status CurrentStatus = Tester.GetCurrentStatus();
+                    Settings.StartThrottle = CurrentStatus.Throttle;
+                    Settings.EndThrottle = 0;
+                }
+                else
+                {
+                    Settings.ThrottleRemoveFoot = false;
+
+                    if (!uint.TryParse(StartThrottleInput.Text, out Settings.StartThrottle)) Settings.UseThrottle = false;
+                    if (!uint.TryParse(EndThrottleInput.Text, out Settings.EndThrottle)) Settings.UseThrottle = false;
+                }
             }
 
             if (StarterEnable.Checked)
@@ -590,14 +604,19 @@ namespace DJetronicStudio
 
             if (ThrottleEnable.Checked)
             {
-                Status CurrentStatus = Tester.GetCurrentStatus();
-                if (Settings.StartThrottle != CurrentStatus.Throttle)
+                if (!ThrottleRemoveFoot.Checked)
                 {
-                    DialogResult Result = MessageBox.Show("The starting throttle is not the same as the current throttle. This could produce unrealistic behavior. Are you sure?",
-                        Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
-                    if (Result != DialogResult.Yes)
+                    Settings.ThrottleRemoveFoot = false;
+
+                    Status CurrentStatus = Tester.GetCurrentStatus();
+                    if (Settings.StartThrottle != CurrentStatus.Throttle)
                     {
-                        return;
+                        DialogResult Result = MessageBox.Show("The starting throttle is not the same as the current throttle. This could produce unrealistic behavior. Are you sure?",
+                            Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                        if (Result != DialogResult.Yes)
+                        {
+                            return;
+                        }
                     }
                 }
             }
@@ -671,6 +690,16 @@ namespace DJetronicStudio
         private void ReverseBtn_Click(object sender, EventArgs e)
         {
             ReverseDynamicSettings();
+        }
+
+        /// <summary>
+        /// Called when user clicks on the remove foot from throttle option
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThrottleRemoveFoot_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateUI();
         }
     }
 }

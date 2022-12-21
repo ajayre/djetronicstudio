@@ -31,6 +31,7 @@
             this.Tabs = new System.Windows.Forms.TabControl();
             this.StaticPage = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.InsertCurrentSettingsBtn = new System.Windows.Forms.Button();
             this.StarterMotorInput = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -54,6 +55,14 @@
             this.PresetSelector = new System.Windows.Forms.ComboBox();
             this.DynamicPage = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ReverseBtn = new System.Windows.Forms.Button();
+            this.EndThrottleLabel1 = new System.Windows.Forms.Label();
+            this.EndThrottleInput = new System.Windows.Forms.TextBox();
+            this.EndThrottleLabel2 = new System.Windows.Forms.Label();
+            this.StartThrottleLabel2 = new System.Windows.Forms.Label();
+            this.StartThrottleLabel1 = new System.Windows.Forms.Label();
+            this.StartThrottleInput = new System.Windows.Forms.TextBox();
+            this.ThrottleEnable = new System.Windows.Forms.CheckBox();
             this.DynamicProgressBar = new System.Windows.Forms.ProgressBar();
             this.DynamicResolutionInput = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -104,17 +113,9 @@
             this.CopyInfoBtn = new System.Windows.Forms.Button();
             this.TesterInfoBox = new System.Windows.Forms.TextBox();
             this.ExportCSVDialog = new System.Windows.Forms.SaveFileDialog();
-            this.InsertCurrentSettingsBtn = new System.Windows.Forms.Button();
-            this.EndThrottleLabel1 = new System.Windows.Forms.Label();
-            this.EndThrottleInput = new System.Windows.Forms.TextBox();
-            this.EndThrottleLabel2 = new System.Windows.Forms.Label();
-            this.StartThrottleLabel2 = new System.Windows.Forms.Label();
-            this.StartThrottleLabel1 = new System.Windows.Forms.Label();
-            this.StartThrottleInput = new System.Windows.Forms.TextBox();
-            this.ThrottleEnable = new System.Windows.Forms.CheckBox();
+            this.ThrottleRemoveFoot = new System.Windows.Forms.CheckBox();
             this.Chart = new DJetronicStudio.DJetChart();
             this.Gallery = new DJetronicStudio.Gallery();
-            this.ReverseBtn = new System.Windows.Forms.Button();
             this.Tabs.SuspendLayout();
             this.StaticPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -183,6 +184,17 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Customize";
+            // 
+            // InsertCurrentSettingsBtn
+            // 
+            this.InsertCurrentSettingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.InsertCurrentSettingsBtn.Location = new System.Drawing.Point(654, 103);
+            this.InsertCurrentSettingsBtn.Name = "InsertCurrentSettingsBtn";
+            this.InsertCurrentSettingsBtn.Size = new System.Drawing.Size(141, 23);
+            this.InsertCurrentSettingsBtn.TabIndex = 18;
+            this.InsertCurrentSettingsBtn.Text = "Insert Current Settings";
+            this.InsertCurrentSettingsBtn.UseVisualStyleBackColor = true;
+            this.InsertCurrentSettingsBtn.Click += new System.EventHandler(this.InsertCurrentSettingsBtn_Click);
             // 
             // StarterMotorInput
             // 
@@ -401,6 +413,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.ThrottleRemoveFoot);
             this.groupBox3.Controls.Add(this.ReverseBtn);
             this.groupBox3.Controls.Add(this.EndThrottleLabel1);
             this.groupBox3.Controls.Add(this.EndThrottleInput);
@@ -447,16 +460,88 @@
             this.groupBox3.Controls.Add(this.EndCoolantTempLabel2);
             this.groupBox3.Location = new System.Drawing.Point(8, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(884, 206);
+            this.groupBox3.Size = new System.Drawing.Size(884, 279);
             this.groupBox3.TabIndex = 55;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Linear";
+            // 
+            // ReverseBtn
+            // 
+            this.ReverseBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ReverseBtn.Location = new System.Drawing.Point(803, 219);
+            this.ReverseBtn.Name = "ReverseBtn";
+            this.ReverseBtn.Size = new System.Drawing.Size(75, 23);
+            this.ReverseBtn.TabIndex = 66;
+            this.ReverseBtn.Text = "Reverse";
+            this.ReverseBtn.UseVisualStyleBackColor = true;
+            this.ReverseBtn.Click += new System.EventHandler(this.ReverseBtn_Click);
+            // 
+            // EndThrottleLabel1
+            // 
+            this.EndThrottleLabel1.AutoSize = true;
+            this.EndThrottleLabel1.Location = new System.Drawing.Point(329, 178);
+            this.EndThrottleLabel1.Name = "EndThrottleLabel1";
+            this.EndThrottleLabel1.Size = new System.Drawing.Size(29, 13);
+            this.EndThrottleLabel1.TabIndex = 63;
+            this.EndThrottleLabel1.Text = "End:";
+            // 
+            // EndThrottleInput
+            // 
+            this.EndThrottleInput.Location = new System.Drawing.Point(364, 175);
+            this.EndThrottleInput.Name = "EndThrottleInput";
+            this.EndThrottleInput.Size = new System.Drawing.Size(100, 20);
+            this.EndThrottleInput.TabIndex = 62;
+            // 
+            // EndThrottleLabel2
+            // 
+            this.EndThrottleLabel2.AutoSize = true;
+            this.EndThrottleLabel2.Location = new System.Drawing.Point(470, 178);
+            this.EndThrottleLabel2.Name = "EndThrottleLabel2";
+            this.EndThrottleLabel2.Size = new System.Drawing.Size(15, 13);
+            this.EndThrottleLabel2.TabIndex = 64;
+            this.EndThrottleLabel2.Text = "%";
+            // 
+            // StartThrottleLabel2
+            // 
+            this.StartThrottleLabel2.AutoSize = true;
+            this.StartThrottleLabel2.Location = new System.Drawing.Point(284, 178);
+            this.StartThrottleLabel2.Name = "StartThrottleLabel2";
+            this.StartThrottleLabel2.Size = new System.Drawing.Size(15, 13);
+            this.StartThrottleLabel2.TabIndex = 61;
+            this.StartThrottleLabel2.Text = "%";
+            // 
+            // StartThrottleLabel1
+            // 
+            this.StartThrottleLabel1.AutoSize = true;
+            this.StartThrottleLabel1.Location = new System.Drawing.Point(140, 178);
+            this.StartThrottleLabel1.Name = "StartThrottleLabel1";
+            this.StartThrottleLabel1.Size = new System.Drawing.Size(32, 13);
+            this.StartThrottleLabel1.TabIndex = 60;
+            this.StartThrottleLabel1.Text = "Start:";
+            // 
+            // StartThrottleInput
+            // 
+            this.StartThrottleInput.Location = new System.Drawing.Point(178, 175);
+            this.StartThrottleInput.Name = "StartThrottleInput";
+            this.StartThrottleInput.Size = new System.Drawing.Size(100, 20);
+            this.StartThrottleInput.TabIndex = 59;
+            // 
+            // ThrottleEnable
+            // 
+            this.ThrottleEnable.AutoSize = true;
+            this.ThrottleEnable.Location = new System.Drawing.Point(9, 177);
+            this.ThrottleEnable.Name = "ThrottleEnable";
+            this.ThrottleEnable.Size = new System.Drawing.Size(62, 17);
+            this.ThrottleEnable.TabIndex = 65;
+            this.ThrottleEnable.Text = "Throttle";
+            this.ThrottleEnable.UseVisualStyleBackColor = true;
+            this.ThrottleEnable.CheckedChanged += new System.EventHandler(this.ThrottleEnable_CheckedChanged);
             // 
             // DynamicProgressBar
             // 
             this.DynamicProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DynamicProgressBar.Enabled = false;
-            this.DynamicProgressBar.Location = new System.Drawing.Point(655, 178);
+            this.DynamicProgressBar.Location = new System.Drawing.Point(655, 251);
             this.DynamicProgressBar.Name = "DynamicProgressBar";
             this.DynamicProgressBar.Size = new System.Drawing.Size(142, 19);
             this.DynamicProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -497,7 +582,7 @@
             // DynamicStartStopBtn
             // 
             this.DynamicStartStopBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DynamicStartStopBtn.Location = new System.Drawing.Point(803, 175);
+            this.DynamicStartStopBtn.Location = new System.Drawing.Point(803, 248);
             this.DynamicStartStopBtn.Name = "DynamicStartStopBtn";
             this.DynamicStartStopBtn.Size = new System.Drawing.Size(75, 23);
             this.DynamicStartStopBtn.TabIndex = 26;
@@ -925,77 +1010,16 @@
             this.ExportCSVDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
             this.ExportCSVDialog.Title = "Export Data to CSV";
             // 
-            // InsertCurrentSettingsBtn
+            // ThrottleRemoveFoot
             // 
-            this.InsertCurrentSettingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.InsertCurrentSettingsBtn.Location = new System.Drawing.Point(654, 103);
-            this.InsertCurrentSettingsBtn.Name = "InsertCurrentSettingsBtn";
-            this.InsertCurrentSettingsBtn.Size = new System.Drawing.Size(141, 23);
-            this.InsertCurrentSettingsBtn.TabIndex = 18;
-            this.InsertCurrentSettingsBtn.Text = "Insert Current Settings";
-            this.InsertCurrentSettingsBtn.UseVisualStyleBackColor = true;
-            this.InsertCurrentSettingsBtn.Click += new System.EventHandler(this.InsertCurrentSettingsBtn_Click);
-            // 
-            // EndThrottleLabel1
-            // 
-            this.EndThrottleLabel1.AutoSize = true;
-            this.EndThrottleLabel1.Location = new System.Drawing.Point(329, 178);
-            this.EndThrottleLabel1.Name = "EndThrottleLabel1";
-            this.EndThrottleLabel1.Size = new System.Drawing.Size(29, 13);
-            this.EndThrottleLabel1.TabIndex = 63;
-            this.EndThrottleLabel1.Text = "End:";
-            // 
-            // EndThrottleInput
-            // 
-            this.EndThrottleInput.Location = new System.Drawing.Point(364, 175);
-            this.EndThrottleInput.Name = "EndThrottleInput";
-            this.EndThrottleInput.Size = new System.Drawing.Size(100, 20);
-            this.EndThrottleInput.TabIndex = 62;
-            // 
-            // EndThrottleLabel2
-            // 
-            this.EndThrottleLabel2.AutoSize = true;
-            this.EndThrottleLabel2.Location = new System.Drawing.Point(470, 178);
-            this.EndThrottleLabel2.Name = "EndThrottleLabel2";
-            this.EndThrottleLabel2.Size = new System.Drawing.Size(15, 13);
-            this.EndThrottleLabel2.TabIndex = 64;
-            this.EndThrottleLabel2.Text = "%";
-            // 
-            // StartThrottleLabel2
-            // 
-            this.StartThrottleLabel2.AutoSize = true;
-            this.StartThrottleLabel2.Location = new System.Drawing.Point(284, 178);
-            this.StartThrottleLabel2.Name = "StartThrottleLabel2";
-            this.StartThrottleLabel2.Size = new System.Drawing.Size(15, 13);
-            this.StartThrottleLabel2.TabIndex = 61;
-            this.StartThrottleLabel2.Text = "%";
-            // 
-            // StartThrottleLabel1
-            // 
-            this.StartThrottleLabel1.AutoSize = true;
-            this.StartThrottleLabel1.Location = new System.Drawing.Point(140, 178);
-            this.StartThrottleLabel1.Name = "StartThrottleLabel1";
-            this.StartThrottleLabel1.Size = new System.Drawing.Size(32, 13);
-            this.StartThrottleLabel1.TabIndex = 60;
-            this.StartThrottleLabel1.Text = "Start:";
-            // 
-            // StartThrottleInput
-            // 
-            this.StartThrottleInput.Location = new System.Drawing.Point(178, 175);
-            this.StartThrottleInput.Name = "StartThrottleInput";
-            this.StartThrottleInput.Size = new System.Drawing.Size(100, 20);
-            this.StartThrottleInput.TabIndex = 59;
-            // 
-            // ThrottleEnable
-            // 
-            this.ThrottleEnable.AutoSize = true;
-            this.ThrottleEnable.Location = new System.Drawing.Point(9, 177);
-            this.ThrottleEnable.Name = "ThrottleEnable";
-            this.ThrottleEnable.Size = new System.Drawing.Size(62, 17);
-            this.ThrottleEnable.TabIndex = 65;
-            this.ThrottleEnable.Text = "Throttle";
-            this.ThrottleEnable.UseVisualStyleBackColor = true;
-            this.ThrottleEnable.CheckedChanged += new System.EventHandler(this.ThrottleEnable_CheckedChanged);
+            this.ThrottleRemoveFoot.AutoSize = true;
+            this.ThrottleRemoveFoot.Location = new System.Drawing.Point(143, 201);
+            this.ThrottleRemoveFoot.Name = "ThrottleRemoveFoot";
+            this.ThrottleRemoveFoot.Size = new System.Drawing.Size(90, 17);
+            this.ThrottleRemoveFoot.TabIndex = 67;
+            this.ThrottleRemoveFoot.Text = "Remove Foot";
+            this.ThrottleRemoveFoot.UseVisualStyleBackColor = true;
+            this.ThrottleRemoveFoot.CheckedChanged += new System.EventHandler(this.ThrottleRemoveFoot_CheckedChanged);
             // 
             // Chart
             // 
@@ -1013,17 +1037,6 @@
             this.Gallery.Name = "Gallery";
             this.Gallery.Size = new System.Drawing.Size(892, 432);
             this.Gallery.TabIndex = 0;
-            // 
-            // ReverseBtn
-            // 
-            this.ReverseBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ReverseBtn.Location = new System.Drawing.Point(803, 146);
-            this.ReverseBtn.Name = "ReverseBtn";
-            this.ReverseBtn.Size = new System.Drawing.Size(75, 23);
-            this.ReverseBtn.TabIndex = 66;
-            this.ReverseBtn.Text = "Reverse";
-            this.ReverseBtn.UseVisualStyleBackColor = true;
-            this.ReverseBtn.Click += new System.EventHandler(this.ReverseBtn_Click);
             // 
             // ECUTesterUI
             // 
@@ -1142,5 +1155,6 @@
         private System.Windows.Forms.TextBox StartThrottleInput;
         private System.Windows.Forms.CheckBox ThrottleEnable;
         private System.Windows.Forms.Button ReverseBtn;
+        private System.Windows.Forms.CheckBox ThrottleRemoveFoot;
     }
 }

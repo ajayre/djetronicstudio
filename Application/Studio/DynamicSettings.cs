@@ -29,6 +29,10 @@ namespace DJetronicStudio
         public uint EndStarter;
         public uint StartThrottle;
         public uint EndThrottle;
+        public bool ThrottleRemoveFoot;
+
+        // time to release the throttle completely in milliseconds
+        private const int THROTTLE_RELEASE_TIME_MS = 500;
 
         /// <summary>
         /// Converts the settings into a lookup table
@@ -82,13 +86,22 @@ namespace DJetronicStudio
 
             if (UseThrottle)
             {
-                if (EndThrottle > StartThrottle)
+                if (ThrottleRemoveFoot)
                 {
-                    ThrottleStep = (int)(((double)EndThrottle - (double)StartThrottle + 1) * 100 / Steps);
+                    uint TSteps = THROTTLE_RELEASE_TIME_MS / Resolution;
+
+                    ThrottleStep = -(int)((double)StartThrottle * 100 / TSteps);
                 }
-                else if (StartThrottle > EndThrottle)
+                else
                 {
-                    ThrottleStep = -(int)(((double)StartThrottle - (double)EndThrottle + 1) * 100 / Steps);
+                    if (EndThrottle > StartThrottle)
+                    {
+                        ThrottleStep = (int)(((double)EndThrottle - (double)StartThrottle + 1) * 100 / Steps);
+                    }
+                    else if (StartThrottle > EndThrottle)
+                    {
+                        ThrottleStep = -(int)(((double)StartThrottle - (double)EndThrottle + 1) * 100 / Steps);
+                    }
                 }
             }
 
