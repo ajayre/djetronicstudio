@@ -95,9 +95,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(92, 54);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(159, 13);
+            this.label3.Size = new System.Drawing.Size(186, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "(C) andy@britishideas.com 2022";
+            this.label3.Text = "(C) andy@britishideas.com 2022-2023";
             // 
             // label4
             // 
