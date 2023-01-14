@@ -377,7 +377,7 @@
             this.Gauge.ValueFont = new System.Drawing.Font("Calibri", 22F);
             this.Gauge.ValueMax = 20F;
             this.Gauge.ValueMin = 12F;
-            this.Gauge.ValueUnit = "ms";
+            this.Gauge.ValueUnit = "Lean Index";
             this.Gauge.ValueUnitFont = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
             this.Gauge.WarningColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(156)))), ((int)(((byte)(71)))));
             // 

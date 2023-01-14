@@ -4,6 +4,14 @@ Attribution-NonCommercial-ShareAlike 4.0 International
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 
+Version 1.2.1.0
+---------------
+
+- For MPS tuning changed "pulse width" to "lean index"
+
+- Changed range of Y axis for MPS profile charts.
+
+
 Version 1.2.0.0
 ---------------
 

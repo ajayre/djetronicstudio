@@ -76,10 +76,10 @@ namespace DJetronicStudio
                 new Axis
                 {
                     TextSize = 12,
-                    MinLimit = 16,
-                    MaxLimit = 18.5,
+                    MinLimit = 15.5,
+                    MaxLimit = 18,
                     NameTextSize = 16,
-                    Name = "Pulse Width (ms)",
+                    Name = "Lean Index",
                     Position = AxisPosition.Start,
                     NamePaint = new SolidColorPaint(new SKColor(0, 0, 0)),
                     LabelsPaint = new SolidColorPaint(new SKColor(0, 0, 0))
@@ -91,7 +91,7 @@ namespace DJetronicStudio
             Chart.EasingFunction = null;
             Chart.Title = new LabelVisual
             {
-                Text = "Pulse Width vs Vacuum for Select MPSs at Sea Level Pressure",
+                Text = "Lean Index vs Vacuum for Select MPSs at Sea Level Pressure",
                 TextSize = 18,
                 Padding = new LiveChartsCore.Drawing.Padding(15),
                 Paint = new SolidColorPaint(SKColors.Black)
