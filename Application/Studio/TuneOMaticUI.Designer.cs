@@ -82,6 +82,13 @@
             this.wizardBanner6 = new DJetronicStudio.WizardBanner();
             this.ChartPage = new System.Windows.Forms.TabPage();
             this.Chart = new DJetronicStudio.MPSChart();
+            this.DataLoggerPage = new System.Windows.Forms.TabPage();
+            this.DataLoggerFileName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.DataLoggerFileBrowseBtn = new System.Windows.Forms.Button();
+            this.DataLoggerStartBtn = new System.Windows.Forms.Button();
+            this.DataLoggerStopBtn = new System.Windows.Forms.Button();
+            this.SaveDataLogDialog = new System.Windows.Forms.SaveFileDialog();
             this.Tabs.SuspendLayout();
             this.TunePage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -96,6 +103,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.AddPage4.SuspendLayout();
             this.ChartPage.SuspendLayout();
+            this.DataLoggerPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExportCSVDialog
@@ -128,6 +136,7 @@
             this.Tabs.Controls.Add(this.AddPage3);
             this.Tabs.Controls.Add(this.AddPage4);
             this.Tabs.Controls.Add(this.ChartPage);
+            this.Tabs.Controls.Add(this.DataLoggerPage);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
@@ -730,6 +739,76 @@
             this.Chart.Size = new System.Drawing.Size(892, 470);
             this.Chart.TabIndex = 1;
             // 
+            // DataLoggerPage
+            // 
+            this.DataLoggerPage.BackColor = System.Drawing.SystemColors.Control;
+            this.DataLoggerPage.Controls.Add(this.DataLoggerStopBtn);
+            this.DataLoggerPage.Controls.Add(this.DataLoggerStartBtn);
+            this.DataLoggerPage.Controls.Add(this.DataLoggerFileBrowseBtn);
+            this.DataLoggerPage.Controls.Add(this.label5);
+            this.DataLoggerPage.Controls.Add(this.DataLoggerFileName);
+            this.DataLoggerPage.Location = new System.Drawing.Point(4, 22);
+            this.DataLoggerPage.Name = "DataLoggerPage";
+            this.DataLoggerPage.Padding = new System.Windows.Forms.Padding(3);
+            this.DataLoggerPage.Size = new System.Drawing.Size(898, 476);
+            this.DataLoggerPage.TabIndex = 10;
+            this.DataLoggerPage.Text = "Data Logger";
+            // 
+            // DataLoggerFileName
+            // 
+            this.DataLoggerFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DataLoggerFileName.Location = new System.Drawing.Point(73, 8);
+            this.DataLoggerFileName.Name = "DataLoggerFileName";
+            this.DataLoggerFileName.Size = new System.Drawing.Size(738, 20);
+            this.DataLoggerFileName.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Output File:";
+            // 
+            // DataLoggerFileBrowseBtn
+            // 
+            this.DataLoggerFileBrowseBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DataLoggerFileBrowseBtn.Location = new System.Drawing.Point(817, 6);
+            this.DataLoggerFileBrowseBtn.Name = "DataLoggerFileBrowseBtn";
+            this.DataLoggerFileBrowseBtn.Size = new System.Drawing.Size(75, 23);
+            this.DataLoggerFileBrowseBtn.TabIndex = 2;
+            this.DataLoggerFileBrowseBtn.Text = "Browse";
+            this.DataLoggerFileBrowseBtn.UseVisualStyleBackColor = true;
+            this.DataLoggerFileBrowseBtn.Click += new System.EventHandler(this.DataLoggerFileBrowseBtn_Click);
+            // 
+            // DataLoggerStartBtn
+            // 
+            this.DataLoggerStartBtn.Image = global::DJetronicStudio.Properties.Resources.run_64;
+            this.DataLoggerStartBtn.Location = new System.Drawing.Point(73, 34);
+            this.DataLoggerStartBtn.Name = "DataLoggerStartBtn";
+            this.DataLoggerStartBtn.Size = new System.Drawing.Size(80, 80);
+            this.DataLoggerStartBtn.TabIndex = 3;
+            this.DataLoggerStartBtn.UseVisualStyleBackColor = true;
+            this.DataLoggerStartBtn.Click += new System.EventHandler(this.DataLoggerStartBtn_Click);
+            // 
+            // DataLoggerStopBtn
+            // 
+            this.DataLoggerStopBtn.Image = global::DJetronicStudio.Properties.Resources.stop_64;
+            this.DataLoggerStopBtn.Location = new System.Drawing.Point(159, 34);
+            this.DataLoggerStopBtn.Name = "DataLoggerStopBtn";
+            this.DataLoggerStopBtn.Size = new System.Drawing.Size(80, 80);
+            this.DataLoggerStopBtn.TabIndex = 4;
+            this.DataLoggerStopBtn.UseVisualStyleBackColor = true;
+            this.DataLoggerStopBtn.Click += new System.EventHandler(this.DataLoggerStopBtn_Click);
+            // 
+            // SaveDataLogDialog
+            // 
+            this.SaveDataLogDialog.DefaultExt = "csv";
+            this.SaveDataLogDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+            this.SaveDataLogDialog.Title = "Data Logger Output File";
+            // 
             // TuneOMaticUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -754,6 +833,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.AddPage4.ResumeLayout(false);
             this.ChartPage.ResumeLayout(false);
+            this.DataLoggerPage.ResumeLayout(false);
+            this.DataLoggerPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -812,5 +893,12 @@
         private ReadPressureButtonGrid AddPressureButtonGrid;
         private System.Windows.Forms.TabPage ChartPage;
         private MPSChart Chart;
+        private System.Windows.Forms.TabPage DataLoggerPage;
+        private System.Windows.Forms.Button DataLoggerFileBrowseBtn;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox DataLoggerFileName;
+        private System.Windows.Forms.Button DataLoggerStopBtn;
+        private System.Windows.Forms.Button DataLoggerStartBtn;
+        private System.Windows.Forms.SaveFileDialog SaveDataLogDialog;
     }
 }

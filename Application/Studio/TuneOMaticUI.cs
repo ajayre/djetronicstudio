@@ -28,15 +28,13 @@ namespace DJetronicStudio
         private List<ToolbarButton> ToolbarButtons = new List<ToolbarButton>();
         private List<StatusLabel> StatusLabels = new List<StatusLabel>();
         private TuneOMatic Tuner;
-        private bool Recording;
-        private DateTime RecordingStartTime;
-        private List<Tuple<double, double, UInt16>> RecordingBuffer = new List<Tuple<double, double, UInt16>>();
         private double LastPressure;
         private ToolbarButton TuneMPSButton;
         private ToolbarButton AddMPSButton;
         private ToolbarButton ImportMPSProfileButton;
         private ToolbarButton ChartButton;
         private ToolbarButton ViewDatabaseButton;
+        private ToolbarButton DataLoggerButton;
         private int CurrentMPSDatabaseLayoutMaxColumns;
         private MPSDatabase Database = null;
         private MPSProfile TuningReference = null;
@@ -44,6 +42,9 @@ namespace DJetronicStudio
         private StatusLabel PulseWidthIndicator;
         private MPSProfile NewMPSProfile;
         private UInt16 LastPulseWidth;
+        private bool DataLoggerRunning;
+        private DateTime DataLoggerStartTime;
+        private StreamWriter DataLoggerOutput;
 
         public TuneOMaticUI
             (
@@ -69,6 +70,9 @@ namespace DJetronicStudio
             ChartButton = new ToolbarButton("Compare charts of MPSs", Properties.Resources.chart_32, ChartProfiles, true);
             ToolbarButtons.Add(ChartButton);
 
+            DataLoggerButton = new ToolbarButton("Data Logger", Properties.Resources.hard_drive_32, DataLogger, true);
+            ToolbarButtons.Add(DataLoggerButton);
+
             AtmosphericPressureIndicator = new StatusLabel("0", Properties.Resources.pressure_24, 127);
             StatusLabels.Add(AtmosphericPressureIndicator);
 
@@ -77,9 +81,11 @@ namespace DJetronicStudio
 
             Tuner.OnReceivedPressure += Tuner_OnReceivedPressure;
             Tuner.OnReceivedPulseWidth += Tuner_OnReceivedPulseWidth;
-            Recording = false;
 
             AddPressureButtonGrid.OnButtonClicked += AddPressureButtonGrid_OnButtonClicked;
+
+            DataLoggerStopBtn.Enabled = false;
+            DataLoggerRunning = false;
 
             Database = new MPSDatabase();
 
@@ -314,6 +320,21 @@ namespace DJetronicStudio
         }
 
         /// <summary>
+        /// Shows the data logger page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataLogger
+            (
+            object sender,
+            EventArgs e
+            )
+        {
+            ShowPage(DataLoggerPage);
+
+        }
+
+        /// <summary>
         /// Configures the tuning gauge for a specified reference
         /// </summary>
         /// <param name="Reference">Reference MPS to use</param>
@@ -351,6 +372,15 @@ namespace DJetronicStudio
             TabPage Page
             )
         {
+            if (Tabs.SelectedTab == DataLoggerPage)
+            {
+                if (DataLoggerRunning)
+                {
+                    StopDataLogger();
+                    MessageBox.Show("The data logger has been stopped", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+
             Tabs.SelectedTab = Page;
 
             if (Page == DbPage)
@@ -502,7 +532,7 @@ namespace DJetronicStudio
         /// Recalculates the layout of the database to fit the current
         /// size of the page
         /// </summary>
-        private void RecalculateDatabaseLyout
+        private void RecalculateDatabaseLayout
             (
             )
         {
@@ -587,9 +617,13 @@ namespace DJetronicStudio
                 return;
             }
 
-            if (Recording)
+            if (DataLoggerRunning && (DataLoggerOutput != null))
             {
-                RecordingBuffer.Add(new Tuple<double, double, UInt16>((DateTime.Now - RecordingStartTime).TotalMilliseconds, LastPressure, PulseWidth));
+                DataLoggerOutput.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"",
+                    (DateTime.Now - DataLoggerStartTime).TotalMilliseconds.ToString(CultureInfo.CreateSpecificCulture("en-US")),
+                    ((double)PulseWidth / 1000.0).ToString(CultureInfo.CreateSpecificCulture("en-US")),
+                    LastPressure.ToString(CultureInfo.CreateSpecificCulture("en-US"))
+                ));
             }
 
             LastPulseWidth = PulseWidth;
@@ -600,7 +634,7 @@ namespace DJetronicStudio
                 Gauge.Value = (float)(PulseWidth / 1000.0);
             }
 
-            if (OnSetStatusLabelText != null) OnSetStatusLabelText(this, PulseWidthIndicator, string.Format("{0:N3} ms", PulseWidth / 1000.0));
+            if (OnSetStatusLabelText != null) OnSetStatusLabelText(this, PulseWidthIndicator, string.Format("{0:N3}", PulseWidth / 1000.0));
         }
 
         /// <summary>
@@ -676,7 +710,109 @@ namespace DJetronicStudio
         /// <param name="e"></param>
         private void DbPage_Resize(object sender, EventArgs e)
         {
-            RecalculateDatabaseLyout();
+            RecalculateDatabaseLayout();
+        }
+
+        /// <summary>
+        /// Called when user clicks on button to browse for a location to save data logger output
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataLoggerFileBrowseBtn_Click(object sender, EventArgs e)
+        {
+            if (SaveDataLogDialog.ShowDialog() == DialogResult.OK)
+            {
+                DataLoggerFileName.Text = SaveDataLogDialog.FileName;
+            }
+        }
+
+        /// <summary>
+        /// Called when user clicks on button to start the data logger
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataLoggerStartBtn_Click(object sender, EventArgs e)
+        {
+            StartDataLogger(DataLoggerFileName.Text);
+        }
+
+        /// <summary>
+        /// Called when user clicks on the button to stop the data logger
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataLoggerStopBtn_Click(object sender, EventArgs e)
+        {
+            StopDataLogger();
+        }
+
+        /// <summary>
+        /// Starts the data logger
+        /// </summary>
+        /// <param name="FileName">Path and name of file to log to</param>
+        private void StartDataLogger
+            (
+            string FileName
+            )
+        {
+            if ((FileName != null) && (FileName.Length > 0))
+            {
+                try
+                {
+                    DataLoggerStartBtn.Enabled = false;
+                    DataLoggerStopBtn.Enabled = true;
+
+                    DataLoggerRunning = true;
+                    DataLoggerStartTime = DateTime.Now;
+
+                    DataLoggerOutput = new StreamWriter(FileName, false, Encoding.ASCII);
+
+                    DataLoggerOutput.WriteLine("Generated by {0} version {1}", Application.ProductName, Application.ProductVersion);
+                    DataLoggerOutput.WriteLine("Generated on {0}", DateTime.Now);
+                    DataLoggerOutput.WriteLine();
+
+                    DataLoggerOutput.WriteLine("\"Time (ms)\",\"Lean Index\",\"Atmospheric Pressure (Pa)\"");
+
+                    Tuner.RequestStartContinuousMeasurement();
+                }
+                catch
+                {
+                    Tuner.RequestStopContinuousMeasurement();
+                    DataLoggerStartBtn.Enabled = true;
+                    DataLoggerStopBtn.Enabled = false;
+                    if (DataLoggerOutput != null)
+                    {
+                        try
+                        {
+                            DataLoggerOutput.Close();
+                        }
+                        catch { }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Stops the data logger
+        /// </summary>
+        private void StopDataLogger
+            (
+            )
+        {
+            try
+            {
+                DataLoggerOutput.Close();
+            }
+            catch {}
+
+            DataLoggerStartBtn.Enabled = true;
+            DataLoggerStopBtn.Enabled = false;
+
+            Tuner.RequestStopContinuousMeasurement();
+
+            DataLoggerRunning = false;
+
+            DataLoggerOutput = null;
         }
     }
 }

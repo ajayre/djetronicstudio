@@ -194,4 +194,7 @@
   <data name="wizardText7.Body" xml:space="preserve">
     <value>Set the vacuum to 0 inHg and click on the ' Vacuum set to 0 inHg' button. Then repeat for vacuum 1 inHg and continue until all vacuum settings have been completed. Then click on Finish. If you make a mistake you can click on a button again or click on Previous to start over.</value>
   </data>
+  <metadata name="SaveDataLogDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>525, 17</value>
+  </metadata>
 </root>

@@ -6,7 +6,7 @@
 
 [Setup]
 AppName={#MyAppName}
-AppVerName={#MyAppName} 1.2.1.0
+AppVerName={#MyAppName} 1.3.0.0
 AppPublisher=djetronic.org
 AppPublisherURL=http://djetronic.org
 AppSupportURL=http://djetronic.org

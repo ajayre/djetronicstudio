@@ -4,6 +4,12 @@ Attribution-NonCommercial-ShareAlike 4.0 International
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 
+Version 1.3.0.0
+---------------
+
+- Added data logger functionality for Tune-o-Matic.
+
+
 Version 1.2.1.0
 ---------------
 

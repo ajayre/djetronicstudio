@@ -347,6 +347,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJetronicStudio.ico" />
+    <None Include="Graphics\hard_drive_72.png" />
+    <None Include="Graphics\hard_drive_64.png" />
+    <None Include="Graphics\hard_drive_48.png" />
+    <None Include="Graphics\hard_drive_32.png" />
+    <None Include="Graphics\hard_drive_24.png" />
     <None Include="Graphics\WiringDiagram.png" />
     <None Include="Graphics\run_72.png" />
     <None Include="Graphics\run_64.png" />
