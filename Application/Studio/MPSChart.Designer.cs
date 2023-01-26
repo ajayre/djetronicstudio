@@ -34,6 +34,7 @@
             this.ExportImageDialog = new System.Windows.Forms.SaveFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.DatabaseTree = new System.Windows.Forms.TreeView();
+            this.CorrectionFactorInput = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -105,10 +106,19 @@
             this.DatabaseTree.TabIndex = 0;
             this.DatabaseTree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.DatabaseTree_AfterCheck);
             // 
+            // CorrectionFactorInput
+            // 
+            this.CorrectionFactorInput.Location = new System.Drawing.Point(113, 8);
+            this.CorrectionFactorInput.Name = "CorrectionFactorInput";
+            this.CorrectionFactorInput.Size = new System.Drawing.Size(100, 20);
+            this.CorrectionFactorInput.TabIndex = 14;
+            this.CorrectionFactorInput.Text = "0";
+            // 
             // MPSChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.CorrectionFactorInput);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MPSChart";
@@ -132,5 +142,6 @@
         private System.Windows.Forms.SaveFileDialog ExportImageDialog;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView DatabaseTree;
+        private System.Windows.Forms.TextBox CorrectionFactorInput;
     }
 }

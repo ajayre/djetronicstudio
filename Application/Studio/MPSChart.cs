@@ -216,7 +216,9 @@ namespace DJetronicStudio
             NewSeries.Tag = Profile;
             Series.Add(NewSeries);
 
-            double[] AdjPulseWidths = Profile.GetAdjustedPulseWidths(SEA_LEVEL_PA);
+            double CorrectionFactor = double.Parse(CorrectionFactorInput.Text);
+
+            double[] AdjPulseWidths = Profile.GetAdjustedPulseWidths(SEA_LEVEL_PA, CorrectionFactor);
 
             for (int p = 0; p <= MPSProfile.MAX_VACUUM; p++)
             {

@@ -345,7 +345,7 @@ namespace DJetronicStudio
             int VacuumSetting
             )
         {
-            double[] AdjPulseWidths = Reference.GetAdjustedPulseWidths(LastPressure);
+            double[] AdjPulseWidths = Reference.GetAdjustedPulseWidths(LastPressure, 0);
             double TargetPulseWidth = AdjPulseWidths[VacuumSetting];
 
             Gauge.ValueMin = (float)((TargetPulseWidth / 1000.0) - ((double)GAUGE_RANGE_MS / 2));

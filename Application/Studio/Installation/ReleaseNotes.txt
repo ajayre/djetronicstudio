@@ -4,6 +4,12 @@ Attribution-NonCommercial-ShareAlike 4.0 International
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 
+Version 1.3.1.0
+---------------
+
+- Improved algorithm for correcting MPS profiles to sea level.
+
+
 Version 1.3.0.0
 ---------------
 

@@ -13,6 +13,8 @@ namespace DJetronicStudio
     public class MPSProfile
     {
         public const int MAX_VACUUM = 15;
+        // determined experimentally
+        public const double CORRECTION_FACTOR = 0.03;
 
         public enum CalibrationTypes { Factory, Inductance, WidebandO2, TuneOMatic, None };
 
@@ -72,7 +74,8 @@ namespace DJetronicStudio
         /// <param name="AtmosphericPressure">Atmospheric pressure to adjust to</param>
         public double[] GetAdjustedPulseWidths
             (
-            double AtmosphericPressure
+            double AtmosphericPressure,
+            double CorrectionFactor
             )
         {
             double[] AdjPulseWidths = new double[MAX_VACUUM + 1];
@@ -82,8 +85,9 @@ namespace DJetronicStudio
                 // see: https://www.benzworld.org/threads/atmospheric-pressure-testing-of-d-jetronic-manifold-pressure-sensor-mps.3109384/#post-18503957
 
                 double LineSlope = (PulseWidths[p] - 19.8823805648711) / -3.43310224625425 / 100000;
+                LineSlope += CORRECTION_FACTOR;
                 double PAchange = AtmosphericPressure - this.AtmosphericPressure;
-                double PWchange = LineSlope * PAchange;
+                double PWchange = (LineSlope + CorrectionFactor) * PAchange;
                 AdjPulseWidths[p] = PulseWidths[p] + PWchange;
             }
 
